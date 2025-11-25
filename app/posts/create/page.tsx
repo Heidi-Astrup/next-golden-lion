@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import FormPost from "@/components/FormPost";
+import FormPost from "../../../components/FormPost";
 import styles from "./page.module.css";
 
 export default function CreatePage() {
@@ -17,8 +17,8 @@ export default function CreatePage() {
         caption,
         image,
         uid: "OPPe5jue2Ghxx3mtnxevB5FwCYe2", // TODO: Replace with actual user ID from auth
-        createdAt: new Date().toISOString() // Add creation timestamp
-      })
+        createdAt: new Date().toISOString(), // Add creation timestamp
+      }),
     });
 
     if (response.ok) {
