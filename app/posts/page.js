@@ -1,18 +1,18 @@
 import PostCard from "@/components/PostCard";
 import Link from "next/link";
 import styles from "./page.module.css";
+import { getDatabaseUrl } from "@/lib/firebase";
 
 // Server Component
 export default async function Home() {
-  const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`;
+  const url = `${getDatabaseUrl()}/posts.json`;
   const response = await fetch(url);
   const dataObject = await response.json();
 
-  const posts = Object.keys(dataObject).map(key => ({
+  const posts = Object.keys(dataObject || {}).map(key => ({
     id: key,
     ...dataObject[key]
   })); // Convert object to array
-  console.log(posts);
 
   return (
     <main className={styles.page}>

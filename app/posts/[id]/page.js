@@ -1,14 +1,20 @@
 import PostCard from "@/components/PostCard";
 import DeletePostButton from "@/components/DeletePostButton";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import styles from "./page.module.css";
+import { getDatabaseUrl } from "@/lib/firebase";
 
 export default async function PostPage({ params }) {
   const { id } = await params;
-  const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts/${id}.json`;
+  const url = `${getDatabaseUrl()}/posts/${id}.json`;
   const response = await fetch(url);
   const post = await response.json();
+
+  // Håndter tilfælde hvor posten ikke findes
+  if (!post) {
+    notFound();
+  }
 
   // Server Action to handle post deletion
   async function deletePost() {

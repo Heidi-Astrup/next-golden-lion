@@ -1,13 +1,17 @@
 // Async Server Component - fetches user data on the server
 import Image from "next/image";
 import styles from "./UserAvatar.module.css";
+import { getDatabaseUrl } from "@/lib/firebase";
 
 export default async function UserAvatar({ uid }) {
-  const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/users/${uid}.json`;
-
   // Fetch user data - runs on server, not sent to client
+  const url = `${getDatabaseUrl()}/users/${uid}.json`;
   const response = await fetch(url);
   const user = await response.json();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className={styles.avatar}>
