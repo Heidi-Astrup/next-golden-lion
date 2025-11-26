@@ -1,5 +1,5 @@
-import "./globals.css";
 import Nav from "@/components/Nav";
+import "./globals.css";
 
 // Metadata for SEO
 export const metadata = {
