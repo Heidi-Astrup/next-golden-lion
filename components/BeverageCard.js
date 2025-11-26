@@ -1,7 +1,7 @@
 import Image from "next/image";
 export default function BeverageCard({ beverages }) {
   return (
-    <div className="text-left text-[#FFF5D6] w-42 h-80 border-2 border-[#E5A702] rounded-xl p-4 flex flex-col justify-between">
+    <div className="text-left text-[#FFF5D6] w-44 h-80 border-2 border-[#E5A702] rounded-xl p-4 flex flex-col justify-between">
       <Image
         className="w-35 h-35 rounded-lg"
         src={beverages.image}
