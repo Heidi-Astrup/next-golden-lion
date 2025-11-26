@@ -1,0 +1,19 @@
+import Image from "next/image";
+export default function BeverageCard({ beverages }) {
+  return (
+    <div className="text-left text-[#FFF5D6] w-42 h-80 border-2 border-[#E5A702] rounded-xl p-4 flex flex-col justify-between">
+      <Image
+        className="w-35 h-35 rounded-lg"
+        src={beverages.image}
+        alt={beverages.description}
+        width={150}
+        height={150}
+      ></Image>
+      <h3 className="text-[28px] font-heading leading-none mt-4">
+        {beverages.name}
+      </h3>
+      <p className="font-body text-[20px]">{beverages.price}</p>
+      <button className="bg-[#E5A702] w-4/4 p-2 rounded-[10px]">ORDER</button>
+    </div>
+  );
+}

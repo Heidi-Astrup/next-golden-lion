@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@theme inline {
+  /* Other theme variables... */
+  --font-heading: var(--font-josefin);
+  --font-body: var(--font-instrument);
+}
