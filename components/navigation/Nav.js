@@ -30,22 +30,19 @@ export default function Nav() {
   return (
     <header className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <button
-            aria-label="Open menu"
-            aria-expanded={open}
-            onClick={() => setOpen(true)}
-            className="flex flex-col gap-1 w-8 h-8 justify-center"
-          >
-            <span className="block h-0.5 bg-black dark:bg-white rounded-full" />
-            <span className="block h-0.5 bg-black dark:bg-white rounded-full" />
-            <span className="block h-0.5 bg-black dark:bg-white rounded-full" />
-          </button>
-
-          <Link href="/" className="text-xl font-bold">
-            Golden Lion
-          </Link>
-        </div>
+        <Link href="/" className="text-xl font-bold">
+          Golden Lion
+        </Link>
+        <button
+          aria-label="Open menu"
+          aria-expanded={open}
+          onClick={() => setOpen(true)}
+          className="flex flex-col gap-1 w-8 h-8 justify-center items-end"
+        >
+          <span className="block h-0.5 bg-black dark:bg-white rounded-full w-6" />
+          <span className="block h-0.5 bg-black dark:bg-white rounded-full w-6" />
+          <span className="block h-0.5 bg-black dark:bg-white rounded-full w-6" />
+        </button>
       </div>
 
       <OverlayClient open={open} onClose={() => setOpen(false)} links={links} />
