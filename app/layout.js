@@ -1,4 +1,5 @@
 import Nav from "@/components/navigation/Nav";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 import { Josefin_Sans, Instrument_Sans } from "next/font/google";
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
       <body className="bg-[#1a1a1a]">
         <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   );
