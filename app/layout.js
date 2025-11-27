@@ -1,6 +1,7 @@
 import Nav from "@/components/navigation/Nav";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import NavClientWrapper from "@/components/navigation/NavClientWrapper";
 
 import { Josefin_Sans, Instrument_Sans } from "next/font/google";
 
@@ -25,9 +26,9 @@ export const metadata = {
 // Root Layout - wraps all pages
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${josefin.variable} ${instrument.variable}`}>
-      <body className="bg-[#1a1a1a]">
-        <Nav />
+    <html lang="en">
+      <body suppressHydrationWarning={true} className="bg-[#1a1a1a]">
+        <NavClientWrapper />
         {children}
         <Footer />
       </body>
