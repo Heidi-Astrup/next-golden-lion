@@ -7,32 +7,31 @@ export default function OverlayClient({ open, onClose, links = [] }) {
   if (!open) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ backgroundColor: "rgba(0,0,0,0.9)" }}
-      onClick={onClose}
-    >
-      <div
-        className="w-full h-full flex flex-col items-center justify-center px-6"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className="fixed inset-0 z-50">
+      {/* backdrop */}
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+
+      {/* centered content */}
+      <div className="relative z-10 flex justify-center px-6">
+        {/* close button top-right */}
         <button
           aria-label="Close menu"
           onClick={onClose}
-          className="absolute top-6 right-6 text-white text-3xl"
+          className="absolute top-2 right-2.5 p-2 flex items-center justify-center text-2xl font-bold shadow-lg text-white"
         >
-          ×
+          ✕
         </button>
 
-        <nav className="space-y-6 text-center">
-          {links.map((link) => (
+        {/* centered vertical nav */}
+        <nav className="flex flex-col items-center justify-center gap-6 text-2xl text-white">
+          {links.map((l) => (
             <Link
-              key={link.href}
-              href={link.href}
-              className="text-white text-3xl font-semibold hover:opacity-80"
+              key={l.href}
+              href={l.href}
               onClick={onClose}
+              className="block text-center"
             >
-              {link.label}
+              {l.label}
             </Link>
           ))}
         </nav>
