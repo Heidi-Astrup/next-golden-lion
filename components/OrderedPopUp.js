@@ -27,7 +27,7 @@ export default function OrderedPopUp({ togglePopUp, beverages }) {
             SHOP VIDERE
           </button>
           <Link
-            href={"basket"}
+            href={"/menu/basket"}
             className="bg-[#E5A702] w-4/4 p-2 rounded-[10px] text-center"
           >
             ORDER NOW

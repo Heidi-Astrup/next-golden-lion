@@ -1,7 +1,8 @@
 import Form from "@/components/Form";
+import { redirect } from "next/navigation";
 
 export default function BasketPage() {
-  const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/guests.json`; // Get Firebase Realtime Database URL
+  const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order.json`; // Get Firebase Realtime Database URL
 
   async function sendOrder(formData) {
     "use server";
@@ -13,7 +14,6 @@ export default function BasketPage() {
       body: JSON.stringify({
         name,
         phone,
-        uid: "OPPe5jue2Ghxx3mtnxevB5FwCYe2", // TODO: Replace with actual user ID from auth
         createdAt: new Date().toISOString(), // Add creation timestamp
       }),
     });
@@ -23,9 +23,13 @@ export default function BasketPage() {
     }
   }
   return (
-    <div>
-      <h1>Shopping Basket</h1>
-      <Form action={sendOrder} />
+    <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
+      <main className="max-w-[600px]">
+        <h1 className="font-heading mt-10 text-[#FFF5D6] text-5xl text-center font-semibold mb-4 tracking-tight ">
+          Shopping Basket
+        </h1>
+        <Form action={sendOrder} />
+      </main>
     </div>
   );
 }
