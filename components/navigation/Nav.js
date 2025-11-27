@@ -46,14 +46,6 @@ export default function Nav() {
             Golden Lion
           </Link>
         </div>
-
-        <nav className="hidden md:flex gap-6">
-          {links.slice(0, 5).map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm font-medium">
-              {l.label}
-            </Link>
-          ))}
-        </nav>
       </div>
 
       <OverlayClient open={open} onClose={() => setOpen(false)} links={links} />
