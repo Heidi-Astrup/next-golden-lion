@@ -1,4 +1,4 @@
-import Nav from "@/components/Nav";
+import Nav from "@/components/navigation/Nav";
 import "./globals.css";
 
 import { Josefin_Sans, Instrument_Sans } from "next/font/google";
