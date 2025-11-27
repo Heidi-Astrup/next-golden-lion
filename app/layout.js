@@ -1,5 +1,5 @@
-import Nav from "@/components/navigation/Nav";
 import "./globals.css";
+import NavClientWrapper from "@/components/navigation/NavClientWrapper";
 
 // Metadata for SEO
 export const metadata = {
@@ -11,8 +11,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-[#1a1a1a]">
-        <Nav />
+      <body suppressHydrationWarning={true} className="bg-[#1a1a1a]">
+        <NavClientWrapper />
         {children}
       </body>
     </html>
