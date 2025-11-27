@@ -21,7 +21,7 @@ export default async function Menu() {
   return (
     <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
       <main className="max-w-[600px]">
-        <h1 className="text-[32px] text-center font-semibold mb-4 tracking-tight text-[#ffffff]">
+        <h1 className="font-heading mt-10 text-[#FFF5D6] text-5xl text-center font-semibold mb-4 tracking-tight ">
           Menu
         </h1>
         <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl">Draught</h3>
