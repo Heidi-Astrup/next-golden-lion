@@ -5,7 +5,7 @@ export default function Football() {
     <div className="min-h-screen bg-[#000000]">
       <section className="w-full bg-[#000000] pt-20 pb-8 px-5">
         <div className="max-w-[260px] mx-auto text-center text-[#FFF5D6]">
-          <h1 className="text-[28px] font-bold text-[#E5A702] mb-3 tracking-[0.18em]">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#E5A702] mb-3 tracking-[0.18em] text-left -ml-4 md:-ml-5">
             FOOTBALL
           </h1>
           <p className="text-[18px] font-semibold text-[#E5A702] mb-4 leading-snug">
