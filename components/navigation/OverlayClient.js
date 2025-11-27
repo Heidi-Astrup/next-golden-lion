@@ -24,7 +24,7 @@ export default function OverlayClient({ open, onClose, links = [] }) {
           ×
         </button>
 
-        <nav className="space-y-6 text-center">
+        <nav className="text-center">
           {links.map((link) => (
             <Link
               key={link.href}
