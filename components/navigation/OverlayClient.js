@@ -9,15 +9,17 @@ export default function OverlayClient({ open, onClose, links = [] }) {
   return (
     <div className="fixed inset-0 z-50">
       {/* backdrop */}
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-
+      <div
+        className="absolute inset-0 bg-black/60 w-screen h-screen"
+        onClick={onClose}
+      />
       {/* centered content */}
-      <div className="relative z-10 flex justify-center px-6">
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
         {/* close button top-right */}
         <button
           aria-label="Close menu"
           onClick={onClose}
-          className="absolute top-2 right-2.5 p-2 flex items-center justify-center text-2xl font-bold shadow-lg text-white"
+          className="absolute top-0 right-2.5 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
         >
           ✕
         </button>

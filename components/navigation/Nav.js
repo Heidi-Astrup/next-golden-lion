@@ -28,7 +28,7 @@ export default function Nav() {
   ];
 
   return (
-    <header className="w-full">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-b from-black/95 to-transparent">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold">
           Golden Lion
