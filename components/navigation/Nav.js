@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import OverlayClient from "./OverlayClient";
 
 export default function Nav() {
@@ -28,10 +29,16 @@ export default function Nav() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-b from-black/95 to-transparent">
+    <header className="sticky top-0 z-50 w-full bg-linear-to-b from-black/95 to-transparent">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold">
-          Golden Lion
+          <Image
+            src="/images/GoldenlionLogo.png"
+            alt="Golden Lion"
+            width={32}
+            height={32}
+            className="h-10 w-10 m-3"
+          />
         </Link>
         <button
           aria-label="Open menu"
