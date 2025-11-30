@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "./Logo";
 import OverlayClient from "./OverlayClient";
 
 export default function Nav() {
@@ -18,28 +18,24 @@ export default function Nav() {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/posts", label: "Posts" },
-    { href: "/create", label: "Create" },
-    { href: "/menu", label: "Menu" },
-    { href: "/karaoke", label: "Karaoke" },
     { href: "/football", label: "Football" },
+    { href: "/karaoke", label: "Karaoke" },
     { href: "/pubQuiz", label: "Pub Quiz" },
+    { href: "/menu", label: "Menu" },
+    { href: "/about", label: "About us" },
     { href: "/staff", label: "Staff" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-linear-to-b from-black/95 to-transparent">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
-          <Image
-            src="/images/GoldenlionLogo.png"
-            alt="Golden Lion"
-            width={32}
-            height={32}
-            className="h-10 w-10 m-3"
+        <div className="text-xl font-bold">
+          <Logo
+            imgClassName="h-10 w-10 m-3"
+            size={32}
+            linkClassName="inline-block"
           />
-        </Link>
+        </div>
         <button
           aria-label="Open menu"
           aria-expanded={open}
