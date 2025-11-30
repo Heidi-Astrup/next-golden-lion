@@ -22,37 +22,166 @@ export default function Home() {
           />
         </div>
 
-        <div className="min-h-screen pb-10 px-5 flex justify-center relative z-0">
-          <main className="text-center max-w-max">
-            <Logo
-              imgClassName="h-30 w-30 m-3 -top-32"
-              size={32}
-              linkClassName="inline-block"
-            />
+        <div className="min-h-screen pb-10 flex justify-center relative z-0">
+          <main className="text-center w-full max-w-md">
+            <div className="pt-2">
+              <Logo
+                imgClassName="h-20 w-20 mx-auto"
+                size={40}
+                linkClassName="inline-block"
+              />
+            </div>
+
             {/* decorative circle behind content */}
             <div
-              className="absolute left-1/2 -top-32 -translate-x-1/2
-                       w-110 h-110 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
-                       rounded-full bg-black pointer-events-none -z-10"
+              className="absolute left-1/2 -top-24 -translate-x-1/2
+                       w-80 h-80 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
+                       rounded-full bg-black/60 pointer-events-none -z-10"
             />
 
-            <div className="relative z-10">
-              <h1 className="text-[32px] font-semibold tracking-tight text-[#ffffff]">
+            <div className="relative z-10 mt-4 px-4">
+              <h1 className="text-[28px] font-semibold tracking-tight text-[#ffffff]">
                 More than just a bar
               </h1>
-              <p className="text-base text-gray-400 mb-8 leading-relaxed">
-                A modern post app built with Next.js 16, featuring Server
-                Components, Server Actions, and Firebase integration.
+              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+                A cosy local pub with events every week — scroll the schedule
+                below.
               </p>
-              <div className="flex gap-4 justify-center">
-                <Link
-                  href="/about"
-                  className="px-6 py-3 rounded-lg font-medium bg-[#ededed] text-black transition-all hover:opacity-85 hover:-translate-y-0.5"
-                >
-                  About Us
-                </Link>
-              </div>
             </div>
+
+            {/* Weekly schedule carousel */}
+            <section className="mt-4">
+              <h2 className="text-yellow-400 font-bold text-xl mb-3">
+                WEEKLY SCHEDULE
+              </h2>
+
+              <div
+                role="region"
+                aria-label="Weekly schedule carousel"
+                className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-2 pb-4"
+              >
+                {[
+                  {
+                    day: "Monday",
+                    title: "Live Music",
+                    time: "18:00",
+                    img: "/images/sched1.jpg",
+                  },
+                  {
+                    day: "Tuesday",
+                    title: "Open Mic",
+                    time: "19:00",
+                    img: "/images/sched2.jpg",
+                  },
+                  {
+                    day: "Wednesday",
+                    title: "Quiz Night",
+                    time: "20:00",
+                    img: "/images/sched3.jpg",
+                  },
+                  {
+                    day: "Thursday",
+                    title: "Karaoke",
+                    time: "21:00",
+                    img: "/images/sched4.jpg",
+                  },
+                  {
+                    day: "Friday",
+                    title: "DJ Night",
+                    time: "22:00",
+                    img: "/images/sched5.jpg",
+                  },
+                  {
+                    day: "Saturday",
+                    title: "Football",
+                    time: "18:00",
+                    img: "/images/sched6.jpg",
+                  },
+                  {
+                    day: "Sunday",
+                    title: "Chillout",
+                    time: "17:00",
+                    img: "/images/sched7.jpg",
+                  },
+                ].map((slot) => (
+                  <article
+                    key={slot.day}
+                    className="min-w-[220px] snap-start bg-black/80 rounded-lg overflow-hidden border border-yellow-600"
+                  >
+                    <div className="h-28 relative">
+                      <Image
+                        src={slot.img}
+                        alt={slot.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-3 text-left">
+                      <div className="text-sm text-yellow-400 font-semibold">
+                        {slot.day}
+                      </div>
+                      <div className="font-medium text-white">{slot.title}</div>
+                      <div className="text-xs text-gray-400 mt-2">
+                        Time: {slot.time}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* Links / sections below schedule */}
+            <section>
+              {[
+                {
+                  href: "/karaoke",
+                  title: "KARAOKE",
+                  desc: "Sing your heart out at our karaoke nights.",
+                  img: "/images/karaoke.jpg",
+                },
+                {
+                  href: "/football",
+                  title: "FOOTBALL",
+                  desc: "Catch live matches on our big screens.",
+                  img: "/images/football.jpg",
+                },
+                {
+                  href: "/pubQuiz",
+                  title: "PUB QUIZ",
+                  desc: "Test your knowledge in our weekly quiz.",
+                  img: "/images/pubquiz.jpg",
+                },
+                {
+                  href: "/menu",
+                  title: "DART",
+                  desc: "Darts in bar — bring your friends.",
+                  img: "/images/dart.jpg",
+                },
+              ].map((card) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className="block bg-yellow-400 w-screen overflow-hidden"
+                >
+                  <div className="p-4 text-left text-black">
+                    <div className="font-bold text-lg mb-2">{card.title}</div>
+                    <div className="text-sm mb-4">{card.desc}</div>
+                    <div className="inline-block px-3 py-2 bg-black text-yellow-400 rounded">
+                      READ MORE
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </section>
+
+            {/* About us */}
+            <section className="mt-6 px-4 text-left">
+              <h3 className="text-yellow-400 font-bold mb-2">ABOUT US</h3>
+              <p className="text-sm text-gray-300 mb-4">
+                The Golden Lion is probably the cosiest and most authentic
+                British pub in town.
+              </p>
+            </section>
           </main>
         </div>
       </div>
