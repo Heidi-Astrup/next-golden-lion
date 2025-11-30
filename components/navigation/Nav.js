@@ -27,7 +27,7 @@ export default function Nav() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-linear-to-b from-black/95 to-transparent">
+    <header className="fixed inset-x-0 top-0 h-40 z-40 pointer-events-none bg-linear-to-b from-black/90 via-black/60 to-transparent">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="text-xl font-bold">
           <Logo
