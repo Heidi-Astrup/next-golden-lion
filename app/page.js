@@ -24,9 +24,9 @@ export default function Home() {
 
         <div className="pb-10 flex justify-center relative z-0">
           <main className="text-center w-full max-w-md">
-            <div className="pt-2">
+            <div className="-mt-10">
               <Logo
-                imgClassName="h-20 w-20 mx-auto"
+                imgClassName="h-38 w-38 mx-auto"
                 size={40}
                 linkClassName="inline-block"
               />
@@ -58,7 +58,7 @@ export default function Home() {
               <div
                 role="region"
                 aria-label="Weekly schedule carousel"
-                className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-10"
+                className="flex gap-3 overflow-x-auto pl-4 pb-10"
               >
                 {[
                   {
@@ -106,7 +106,7 @@ export default function Home() {
                 ].map((slot) => (
                   <article
                     key={slot.day}
-                    className="min-w-[170px] snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
+                    className="min-w-[160px] snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
                   >
                     <div className="h-28 relative">
                       <Image
