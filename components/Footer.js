@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1a1a1a] py-12 px-5">
+    <footer className="bg-[#000000] py-12 px-5">
       <div className="max-w-md mx-auto text-center">
         {/* Top divider line */}
         <div className="h-px w-full bg-[#E5A702] mb-8" />
