@@ -1,11 +1,11 @@
 import Image from "next/image";
 import quizbillede from "@/public/images/PubQuizCopi.png";
-import barbillede from "@/public/images/bartender.svg";
+import barbillede from "@/public/images/fyldtbarbillede.svg";
 
 export default function PubQuiz() {
   return (
     <div>
-      <section className="bg-linear-to-b from-transparent to-black/55">
+      <section className="bg-linear-to-b from-transparent to-black/85">
         <Image
           width={400}
           height={400}
