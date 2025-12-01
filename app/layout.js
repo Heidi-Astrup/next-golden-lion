@@ -26,8 +26,8 @@ export const metadata = {
 // Root Layout - wraps all pages
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true} className="bg-[#1a1a1a]">
+    <html lang="en" className={`${josefin.variable} ${instrument.variable}`}>
+      <body suppressHydrationWarning={true} className="bg-black">
         <NavClientWrapper />
         {children}
         <Footer />
