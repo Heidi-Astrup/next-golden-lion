@@ -1,6 +1,6 @@
 import Image from "next/image";
 import quizbillede from "@/public/images/PubQuizCopi.png";
-import barbillede from "@/public/images/fyldtbarbillede.svg";
+import billede from "@/public/images/fyldtbarbillede.svg";
 
 export default function PubQuiz() {
   return (
@@ -9,7 +9,7 @@ export default function PubQuiz() {
         <Image
           width={400}
           height={400}
-          src={barbillede}
+          src={billede}
           alt="bartender in bar"
           className="w-dvh h-auto -mt-24 -z-10 relative"
         ></Image>
