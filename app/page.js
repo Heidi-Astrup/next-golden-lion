@@ -6,7 +6,7 @@ import Logo from "@/components/navigation/Logo";
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-hidden overscroll-none">
+    <div className="w-screen h-screen overflow-hidden overscroll-none">
       <div
         className="h-full overflow-y-auto overscroll-contain"
         style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
@@ -15,14 +15,14 @@ export default function Home() {
         <div className="w-full relative h-[50vh] sm:h-[90vh] -mt-20 z-0">
           <Image
             src="/images/facade.jpg"
-            alt="Golden Lion"
+            alt="Golden Lion Pub Front"
             fill
             className="object-cover"
             priority
           />
         </div>
 
-        <div className="min-h-screen pb-10 flex justify-center relative z-0">
+        <div className="pb-10 flex justify-center relative z-0">
           <main className="text-center w-full max-w-md">
             <div className="pt-2">
               <Logo
@@ -34,9 +34,9 @@ export default function Home() {
 
             {/* decorative circle behind content */}
             <div
-              className="absolute left-1/2 -top-24 -translate-x-1/2
-                       w-80 h-80 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
-                       rounded-full bg-black/60 pointer-events-none -z-10"
+              className="absolute left-1/2 -top-30 -translate-x-1/2
+                       w-110 h-110 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
+                       rounded-full bg-black pointer-events-none -z-10"
             />
 
             <div className="relative z-10 mt-4 px-4">
@@ -161,9 +161,9 @@ export default function Home() {
                 <Link
                   key={card.href}
                   href={card.href}
-                  className="block bg-yellow-400 w-screen overflow-hidden"
+                  className="block w-screen overflow-hidden"
                 >
-                  <div className="p-4 text-left text-black">
+                  <div className="p-4 text-center text-black">
                     <div className="font-bold text-lg mb-2">{card.title}</div>
                     <div className="text-sm mb-4">{card.desc}</div>
                     <div className="inline-block px-3 py-2 bg-black text-yellow-400 rounded">
