@@ -1,4 +1,5 @@
 import Image from "next/image";
+import KaraokeInfoButton from "@/components/KaraokeInfoButton";
 
 const demoQueue = [
   { id: 1, name: "Mia", song: "Girl On Fire - Alicia Keys", time: "23:00" },
@@ -11,8 +12,8 @@ const demoQueue = [
 
 export default function KaraokePage() {
   return (
-    <main className="bg-[#1a1a1a] text-[#FFF5D6] min-h-screen pt-24 pb-20">
-      {/* Fuld-bredde hero billede under navigationen */}
+    <main className="bg-[#000000] text-[#FFF5D6] min-h-screen pt-24 pb-20">
+      {/* Fuld-bredde hero billede under navigationen – kun let gradient i bunden */}
       <section className="relative w-full h-[320px]">
         <Image
           src="/images/karaoke.png"
@@ -22,8 +23,8 @@ export default function KaraokePage() {
           sizes="100vw"
           className="object-cover"
         />
-        {/* Let mørk gradient i bunden, så overgangen til baggrunden ser pæn ud */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-[#1a1a1a]" />
+        {/* Kun en lille gradient nederst så overgangen til baggrunden bliver blød */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/60 to-transparent" />
       </section>
 
       {/* Indhold i smal kolonne ligesom på screenshot */}
@@ -47,11 +48,9 @@ export default function KaraokePage() {
           <div className="h-px w-full bg-[#FFF5D6] mb-10" />
 
           {/* Sign-up button */}
-          <button className="w-full flex items-center justify-center gap-3 bg-[#E5A702] text-black font-semibold py-4 rounded-full text-sm tracking-[0.2em] uppercase">
+          <button className="w-full flex items-center justify-center gap-5 bg-[#E5A702] text-black font-semibold py-6 rounded-full text-lg tracking-[0.28em] uppercase">
             Sign Up
-            <span className="ml-1 flex items-center justify-center w-7 h-7 rounded-full border border-black text-xs">
-              ?
-            </span>
+            <KaraokeInfoButton />
           </button>
 
           <div className="h-px w-full bg-[#FFF5D6] mt-10" />
@@ -59,7 +58,7 @@ export default function KaraokePage() {
 
         {/* Karaoke queue */}
         <section className="mb-10">
-          <h2 className="text-3xl font-bold text-[#E5A702] mb-6 tracking-[0.12em]">
+          <h2 className="text-4xl font-bold text-[#E5A702] mb-6 tracking-[0.12em]">
             Karaoke Queue
           </h2>
 
