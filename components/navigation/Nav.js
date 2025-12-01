@@ -27,24 +27,22 @@ export default function Nav() {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-linear-to-b from-black/95 to-transparent">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="text-xl font-bold">
-          <Logo
-            imgClassName="h-10 w-10 m-3"
-            size={32}
-            linkClassName="inline-block"
-          />
-        </div>
+    <header className="fixed top-0 z-50 w-full bg-linear-to-b from-black to-transparent">
+      <div className="max-w-7xl mx-auto px-7 py-4 flex items-center justify-between">
+        <Logo
+          imgClassName="h-15 w-15 m-2"
+          size={32}
+          linkClassName="inline-block"
+        />
         <button
           aria-label="Open menu"
           aria-expanded={open}
           onClick={() => setOpen(true)}
-          className="flex flex-col gap-1 w-8 h-8 justify-center items-end"
+          className="flex flex-col gap-1.5 w-12 h-12 justify-center items-end"
         >
-          <span className="block h-0.5 bg-black dark:bg-white rounded-full w-6" />
-          <span className="block h-0.5 bg-black dark:bg-white rounded-full w-6" />
-          <span className="block h-0.5 bg-black dark:bg-white rounded-full w-6" />
+          <span className="block h-1 bg-[#e5a702] rounded-full w-7" />
+          <span className="block h-1 bg-[#e5a702] rounded-full w-7" />
+          <span className="block h-1 bg-[#e5a702] rounded-full w-7" />
         </button>
       </div>
 
