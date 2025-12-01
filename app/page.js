@@ -58,7 +58,7 @@ export default function Home() {
               <div
                 role="region"
                 aria-label="Weekly schedule carousel"
-                className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-2 pb-4"
+                className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-10"
               >
                 {[
                   {
@@ -106,7 +106,7 @@ export default function Home() {
                 ].map((slot) => (
                   <article
                     key={slot.day}
-                    className="min-w-[220px] snap-start bg-black/80 rounded-lg overflow-hidden border border-yellow-600"
+                    className="min-w-[170px] snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
                   >
                     <div className="h-28 relative">
                       <Image
@@ -137,13 +137,13 @@ export default function Home() {
                   href: "/karaoke",
                   title: "KARAOKE",
                   desc: "Sing your heart out at our karaoke nights.",
-                  img: "/images/karaoke.jpg",
+                  img: "/images/karaoke1.webp",
                 },
                 {
                   href: "/football",
                   title: "FOOTBALL",
                   desc: "Catch live matches on our big screens.",
-                  img: "/images/football.jpg",
+                  img: "/images/fodbold1.webp",
                 },
                 {
                   href: "/pubQuiz",
@@ -155,27 +155,52 @@ export default function Home() {
                   href: "/menu",
                   title: "DART",
                   desc: "Darts in bar — bring your friends.",
-                  img: "/images/dart.jpg",
+                  img: "/images/dart1.webp",
                 },
-              ].map((card) => (
-                <Link
-                  key={card.href}
-                  href={card.href}
-                  className="block w-screen overflow-hidden"
-                >
-                  <div className="p-4 text-center text-black">
-                    <div className="font-bold text-lg mb-2">{card.title}</div>
-                    <div className="text-sm mb-4">{card.desc}</div>
-                    <div className="inline-block px-3 py-2 bg-black text-yellow-400 rounded">
-                      READ MORE
+              ].map((card, idx) => {
+                const isBlack = idx % 2 === 0;
+
+                return (
+                  <Link
+                    key={card.href}
+                    href={card.href}
+                    className="block w-screen overflow-hidden"
+                  >
+                    <div
+                      className={`py-6 text-center ${
+                        isBlack
+                          ? "bg-[#e5a702] text-black"
+                          : "bg-black text-white"
+                      }`}
+                    >
+                      <div className="w-16 h-16 relative sm:h-[90vh] z-0 mx-auto">
+                        <Image
+                          src={card.img}
+                          alt={card.title}
+                          fill
+                          className="mx-auto"
+                          priority
+                        />
+                      </div>
+                      <div className="font-bold text-lg mt-4">{card.title}</div>
+                      <div className="text-sm mb-4">{card.desc}</div>
+                      <div
+                        className={
+                          isBlack
+                            ? "inline-block px-3 py-2 bg-black text-white rounded"
+                            : "inline-block px-3 py-2 bg-[#e5a702] text-black rounded"
+                        }
+                      >
+                        READ MORE
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </section>
 
             {/* About us */}
-            <section className="mt-6 px-4 text-left">
+            <section className="m-6 text-center">
               <h3 className="text-yellow-400 font-bold mb-2">ABOUT US</h3>
               <p className="text-sm text-gray-300 mb-4">
                 The Golden Lion is probably the cosiest and most authentic
