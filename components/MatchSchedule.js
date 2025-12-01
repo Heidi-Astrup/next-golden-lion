@@ -17,7 +17,7 @@ export default async function MatchSchedule() {
     );
   }
 
-  // Fjern eventuelle whitespace og tjek at det er en gyldig URL
+  // Fjern eventuelle whitespace og tjekker at det er en gyldig URL
   const cleanUrl = baseUrl.trim();
   // Valider at URL'en starter med http/https
   if (!cleanUrl.startsWith("http")) {
