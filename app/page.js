@@ -1,34 +1,215 @@
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "@/components/navigation/Logo";
+
 //import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className="min-h-screen pt-20 pb-10 px-5 flex items-center justify-center">
-      <main className="text-center max-w-[600px]">
-        <h1 className="text-[32px] font-semibold mb-4 tracking-tight text-[#ffffff]">
-          Next.js Post App
-        </h1>
-        <p className="text-base text-gray-400 mb-8 leading-relaxed">
-          A modern post app built with Next.js 16, featuring Server Components,
-          Server Actions, and Firebase integration.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Link
-            href="/posts"
-            className="px-6 py-3 rounded-lg font-medium bg-[#ededed] text-black transition-all hover:opacity-85 hover:-translate-y-0.5"
-          >
-            View Posts
-          </Link>
-          <a
-            href="https://nextjs.org/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-lg font-medium border border-gray-700 transition-all hover:bg-[#1a1a1a]"
-          >
-            Documentation
-          </a>
+    <div className="w-screen h-screen overflow-hidden overscroll-none">
+      <div
+        className="h-full overflow-y-auto overscroll-contain"
+        style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
+      >
+        {/* full-bleed hero image (pulled up underneath the sticky nav) */}
+        <div className="w-full relative h-[50vh] sm:h-[90vh] -mt-20 z-0">
+          <Image
+            src="/images/facade.jpg"
+            alt="Golden Lion Pub Front"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
-      </main>
+
+        <div className="pb-10 flex justify-center relative z-0">
+          <main className="text-center w-full max-w-md">
+            <div className="-mt-10">
+              <Logo
+                imgClassName="h-38 w-38 mx-auto"
+                size={40}
+                linkClassName="inline-block"
+              />
+            </div>
+
+            {/* decorative circle behind content */}
+            <div
+              className="absolute left-1/2 -top-30 -translate-x-1/2
+                       w-110 h-110 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
+                       rounded-full bg-black pointer-events-none -z-10"
+            />
+
+            <div className="relative z-10 mt-4 px-4">
+              <h1 className="text-[28px] font-semibold tracking-tight text-[#ffffff]">
+                More than just a bar
+              </h1>
+              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+                A cosy local pub with events every week — scroll the schedule
+                below.
+              </p>
+            </div>
+
+            {/* Weekly schedule carousel */}
+            <section className="mt-4">
+              <h2 className="text-yellow-400 font-bold text-xl mb-3">
+                WEEKLY SCHEDULE
+              </h2>
+
+              <div
+                role="region"
+                aria-label="Weekly schedule carousel"
+                className="flex gap-3 overflow-x-auto pl-4 pb-10"
+              >
+                {[
+                  {
+                    day: "Monday",
+                    title: "Live Music",
+                    time: "18:00",
+                    img: "/images/sched1.jpg",
+                  },
+                  {
+                    day: "Tuesday",
+                    title: "Open Mic",
+                    time: "19:00",
+                    img: "/images/sched2.jpg",
+                  },
+                  {
+                    day: "Wednesday",
+                    title: "Quiz Night",
+                    time: "20:00",
+                    img: "/images/sched3.jpg",
+                  },
+                  {
+                    day: "Thursday",
+                    title: "Karaoke",
+                    time: "21:00",
+                    img: "/images/sched4.jpg",
+                  },
+                  {
+                    day: "Friday",
+                    title: "DJ Night",
+                    time: "22:00",
+                    img: "/images/sched5.jpg",
+                  },
+                  {
+                    day: "Saturday",
+                    title: "Football",
+                    time: "18:00",
+                    img: "/images/sched6.jpg",
+                  },
+                  {
+                    day: "Sunday",
+                    title: "Chillout",
+                    time: "17:00",
+                    img: "/images/sched7.jpg",
+                  },
+                ].map((slot) => (
+                  <article
+                    key={slot.day}
+                    className="min-w-40 snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
+                  >
+                    <div className="h-28 relative">
+                      <Image
+                        src={slot.img}
+                        alt={slot.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-3 text-left">
+                      <div className="text-sm text-yellow-400 font-semibold">
+                        {slot.day}
+                      </div>
+                      <div className="font-medium text-white">{slot.title}</div>
+                      <div className="text-xs text-gray-400 mt-2">
+                        Time: {slot.time}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* Links / sections below schedule */}
+            <section>
+              {[
+                {
+                  href: "/karaoke",
+                  title: "KARAOKE",
+                  desc: "Sing your heart out at our karaoke nights.",
+                  img: "/images/karaoke1.webp",
+                },
+                {
+                  href: "/football",
+                  title: "FOOTBALL",
+                  desc: "Catch live matches on our big screens.",
+                  img: "/images/fodbold1.webp",
+                },
+                {
+                  href: "/pubQuiz",
+                  title: "PUB QUIZ",
+                  desc: "Test your knowledge in our weekly quiz.",
+                  img: "/images/pubquiz.jpg",
+                },
+                {
+                  href: "/menu",
+                  title: "DART",
+                  desc: "Darts in bar — bring your friends.",
+                  img: "/images/dart1.webp",
+                },
+              ].map((card, idx) => {
+                const isBlack = idx % 2 === 0;
+
+                return (
+                  <Link
+                    key={card.href}
+                    href={card.href}
+                    className="block w-screen overflow-hidden"
+                  >
+                    <div
+                      className={`py-6 text-center ${
+                        isBlack
+                          ? "bg-[#e5a702] text-black"
+                          : "bg-black text-white"
+                      }`}
+                    >
+                      <div className="w-16 h-16 relative sm:h-[90vh] z-0 mx-auto">
+                        <Image
+                          src={card.img}
+                          alt={card.title}
+                          fill
+                          className="mx-auto"
+                          priority
+                        />
+                      </div>
+                      <div className="font-bold text-lg mt-4">{card.title}</div>
+                      <div className="text-sm mb-4">{card.desc}</div>
+                      <div
+                        className={
+                          isBlack
+                            ? "inline-block px-3 py-2 bg-black text-white rounded"
+                            : "inline-block px-3 py-2 bg-[#e5a702] text-black rounded"
+                        }
+                      >
+                        READ MORE
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </section>
+
+            {/* About us */}
+            <section className="m-6 text-center">
+              <h3 className="text-yellow-400 font-bold mb-2">ABOUT US</h3>
+              <p className="text-sm text-gray-300 mb-4">
+                The Golden Lion is probably the cosiest and most authentic
+                British pub in town.
+              </p>
+            </section>
+          </main>
+        </div>
+      </div>
     </div>
   );
 }
