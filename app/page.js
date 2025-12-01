@@ -106,7 +106,7 @@ export default function Home() {
                 ].map((slot) => (
                   <article
                     key={slot.day}
-                    className="min-w-[160px] snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
+                    className="min-w-40 snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
                   >
                     <div className="h-28 relative">
                       <Image
