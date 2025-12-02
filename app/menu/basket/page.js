@@ -1,7 +1,7 @@
 import Form from "@/components/Form";
 import { redirect } from "next/navigation";
 
-export default function BasketPage() {
+export default function BasketPage({ name }) {
   const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order.json`; // Get Firebase Realtime Database URL
 
   async function sendOrder(formData) {
@@ -22,6 +22,8 @@ export default function BasketPage() {
       redirect("/menu/basket/order");
     }
   }
+
+  console.log(localStorage.getItem("beverageName"));
   return (
     <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
       <main className="max-w-[600px]">
