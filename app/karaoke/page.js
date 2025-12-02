@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import KaraokeInfoButton from "@/components/KaraokeInfoButton";
 
 const demoQueue = [
@@ -13,8 +14,8 @@ const demoQueue = [
 export default function KaraokePage() {
   return (
     <div className="bg-[#000000] text-[#FFF5D6]">
-      {/* Karaoke-billede i headeren – går op under navigationen */}
-      <section className="relative w-full h-[300px] -mt-30">
+      {/* Karaoke-billede i headeren – længere nede under navigationen */}
+      <section className="relative w-full h-[300px] mt-0">
         <Image
           src="/images/karaoke-new.png"
           alt="Karaoke at The Golden Lion"
@@ -32,11 +33,13 @@ export default function KaraokePage() {
         <div className="max-w-sm mx-auto px-6">
           {/* Overskrift og tekst */}
           <section className="text-center mt-0 mb-8">
-            <h1 className="text-5xl font-bold text-[#E5A702] tracking-[0.18em] mb-3">
+            <h1 className="text-5xl font-heading font-bold text-[#E5A702] tracking-[0.18em] mb-3">
               KARAOKE
             </h1>
-            <p className="text-xl mb-5">Karaoke Nights at The Golden Lion!</p>
-            <p className="text-lg leading-relaxed">
+            <p className="text-xl font-body mb-5">
+              Karaoke Nights at The Golden Lion!
+            </p>
+            <p className="text-lg font-body leading-relaxed">
               Grab the mic and shine! Join us for fun-filled karaoke nights
               where everyone can sing along, laugh, and enjoy the vibe. Whether
               you&apos;re a superstar or a first-timer, The Golden Lion is the
@@ -48,10 +51,13 @@ export default function KaraokePage() {
           <section className="text-center mb-12">
             <div className="h-px w-full bg-[#FFF5D6] mb-8" />
 
-            <button className="w-full flex items-center justify-center gap-5 bg-[#E5A702] text-black font-semibold py-6 rounded-full text-lg tracking-[0.28em] uppercase">
+            <Link
+              href="/karaoke/signup"
+              className="w-full flex items-center justify-center gap-5 bg-[#E5A702] text-black font-light py-7 rounded-full text-3xl tracking-[0.1em] uppercase"
+            >
               Sign Up
               <KaraokeInfoButton />
-            </button>
+            </Link>
 
             <div className="h-px w-full bg-[#FFF5D6] mt-10" />
           </section>
