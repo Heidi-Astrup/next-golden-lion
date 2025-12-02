@@ -187,8 +187,8 @@ export default function Home() {
                     <div
                       className={
                         isBlack
-                          ? "inline-block px-8 py-2 bg-black text-white rounded font-heading text-2xl"
-                          : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-heading text-2xl"
+                          ? "inline-block px-8 py-2 bg-black text-white rounded font-body text-2xl "
+                          : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl"
                       }
                     >
                       {isDarts ? "DARTS IN BAR" : "READ MORE"}
@@ -234,7 +234,7 @@ export default function Home() {
                 The Golden Lion is probably the cosiest and most authentic
                 British pub in town. Located in the heart of the city!
               </p>
-              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-heading text-2xl">
+              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
                 READ MORE
               </div>
             </section>
