@@ -39,17 +39,13 @@ export default function Home() {
                        rounded-full bg-black pointer-events-none -z-10"
             />
 
-            <div className="relative z-10 mt-4 px-4">
+            <div className="relative z-10 mt-4 px-20">
               <h1 className="text-[28px] font-semibold tracking-tight text-[#ffffff]">
-                More than just a bar
+                MORE THAN JUST A BAR
               </h1>
-              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-                A cosy local pub with events every week — scroll the schedule
-                below.
-              </p>
             </div>
             <div className="px-6">
-              <div className="h-px w-full bg-[#E5A702] mb-8" />
+              <div className="h-px w-full bg-[#E5A702] my-8" />
             </div>
 
             {/* Weekly schedule carousel */}

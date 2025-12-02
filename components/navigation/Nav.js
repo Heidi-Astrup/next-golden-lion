@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Logo from "./Logo";
 import OverlayClient from "./OverlayClient";
+import { usePathname } from "next/navigation";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     function onKey(e) {
@@ -15,6 +16,13 @@ export default function Nav() {
     if (open) document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
+
+  // Close the nav overlay when the route changes
+  useEffect(() => {
+    // Defer closing to avoid synchronous setState inside the effect
+    const t = setTimeout(() => setOpen(false), 0);
+    return () => clearTimeout(t);
+  }, [pathname]);
 
   const links = [
     { href: "/", label: "Home" },
@@ -30,6 +38,7 @@ export default function Nav() {
     <header className="fixed top-0 z-50 w-full bg-linear-to-b from-black to-transparent">
       <div className="max-w-7xl mx-auto px-7 py-4 flex items-center justify-between">
         <Logo
+          href="/"
           imgClassName="h-15 w-15 m-2"
           size={32}
           linkClassName="inline-block"
