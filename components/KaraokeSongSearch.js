@@ -7,6 +7,7 @@ export default function KaraokeSongSearch() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     async function loadSongs() {
@@ -25,7 +26,8 @@ export default function KaraokeSongSearch() {
       const cleanedBase = cleanUrl.endsWith("/")
         ? cleanUrl.slice(0, -1)
         : cleanUrl;
-      const url = `${cleanedBase}/karaokesongs.json`;
+      // Hent karaoke-sange fra "songs" i Firebase Realtime Database
+      const url = `${cleanedBase}/songs.json`;
 
       try {
         setLoading(true);
@@ -39,7 +41,8 @@ export default function KaraokeSongSearch() {
             id,
             artist: value.artist || "",
             title: value.title || "",
-            album: value.album || "",
+            // længde-felt som i din database
+            length: value.length || "",
           }));
           setSongs(list);
         } else {
@@ -75,7 +78,18 @@ export default function KaraokeSongSearch() {
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setIsOpen(true); // når man skriver, åbner vi listen
+            }}
+            // klik i feltet åbner listen og nulstiller søgeteksten,
+            // så hele listen vises igen
+            onClick={() => {
+              setIsOpen(true);
+              setQuery("");
+            }}
+            // fokus (fx ved tab) åbner også listen, men nulstiller ikke automatisk teksten
+            onFocus={() => setIsOpen(true)}
             placeholder="Search for a song"
             className="w-full bg-transparent outline-none text-xl font-body text-black placeholder:text-black/50"
           />
@@ -89,13 +103,18 @@ export default function KaraokeSongSearch() {
           <p className="text-sm font-body text-red-700 py-2">{error}</p>
         )}
 
-        {/* Liste med resultater */}
-        {!loading && filteredSongs.length > 0 && (
-          <div className="mt-3 space-y-4">
+        {/* Liste med resultater – begrænset højde så man kan rulle inde i boksen */}
+        {!loading && filteredSongs.length > 0 && isOpen && (
+          <div className="mt-3 max-h-80 overflow-y-auto pr-2 space-y-4">
             {filteredSongs.map((song, index) => (
               <div
                 key={song.id}
-                className="flex items-center justify-between border-t border-black/15 pt-4 first:border-t-0 first:pt-0"
+                className="flex items-center justify-between border-t border-black/15 pt-4 first:border-t-0 first:pt-0 cursor-pointer"
+                onClick={() => {
+                  // Når man vælger en sang, sætter vi den ind i søgefeltet og lukker listen
+                  setQuery(`${song.artist} - ${song.title}`);
+                  setIsOpen(false);
+                }}
               >
                 <div className="flex items-center gap-4 min-w-0">
                   {/* Placeholder cirkel til billede */}
@@ -109,9 +128,9 @@ export default function KaraokeSongSearch() {
                     </span>
                   </div>
                 </div>
-                {/* Lille højre kolonne som i designet – her blot rækkenummer */}
+                {/* Højre kolonne: vis sangens varighed fra Firebase */}
                 <div className="text-right text-base font-body text-black">
-                  <div>{index + 1}</div>
+                  <div>{song.length || ""}</div>
                 </div>
               </div>
             ))}
@@ -121,5 +140,3 @@ export default function KaraokeSongSearch() {
     </section>
   );
 }
-
-
