@@ -52,10 +52,10 @@ export default function KaraokePage() {
             <div className="h-px w-full bg-[#FFF5D6] mb-8" />
 
             <Link
-              href="/karaoke/signup"
+              href="/karaoke/findsong"
               className="w-full flex items-center justify-center gap-5 bg-[#E5A702] text-black font-light py-7 rounded-full text-3xl tracking-[0.1em] uppercase"
             >
-              Sign Up
+              SIGN UP
               <KaraokeInfoButton />
             </Link>
 
