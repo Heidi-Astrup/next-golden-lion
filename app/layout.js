@@ -1,4 +1,3 @@
-import Nav from "@/components/navigation/Nav";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import NavClientWrapper from "@/components/navigation/NavClientWrapper";
