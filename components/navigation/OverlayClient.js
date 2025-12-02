@@ -18,38 +18,31 @@ export default function OverlayClient({ open, onClose, links = [] }) {
       {/* centered content */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
         {/* logo in top-left (reuse shared Logo component) */}
-        <div className="absolute inset-x-0 top-0">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex items-center">
-            <Logo
-              href="/"
-              onClick={onClose}
-              imgClassName="h-10 w-10 m-3"
-              size={32}
-              linkClassName="inline-block"
-            />
-          </div>
+        <div className="absolute inset-x-0 top-0 mx-auto px-7 py-4 flex items-center justify-between">
+          <Logo
+            href="/"
+            imgClassName="h-15 w-15 m-2"
+            size={32}
+            linkClassName="inline-block"
+          />
+          <button
+            aria-label="Close menu"
+            onClick={onClose}
+            className="absolute top-5 right-2.5 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
+          >
+            ✕
+          </button>
         </div>
-        <button
-          aria-label="Close menu"
-          onClick={onClose}
-          className="absolute top-5 right-2.5 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
-        >
-          ✕
-        </button>
 
         {/* centered vertical nav */}
-        <nav className="flex flex-col items-center justify-center gap-6 text-2xl text-white">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={onClose}
-              className="block text-center"
-            >
-              {l.label}
-            </Link>
-          ))}
-
+        <nav>
+          <ul className="flex flex-col items-center justify-center gap-6 text-2xl text-white list-none p-0 m-0">
+            {links.map((l) => (
+              <li key={l.href} className="list-none">
+                <Link href={l.href}>{l.label}</Link>
+              </li>
+            ))}
+          </ul>
           {/* social icons placed after links */}
           <div className="mt-8 flex items-center gap-6">
             <a
