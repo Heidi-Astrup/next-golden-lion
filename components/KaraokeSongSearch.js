@@ -13,7 +13,10 @@ import Image from "next/image";
 // Søge-komponent til karaoke-sange
 // forwardRef gør det muligt for forælder-komponenten
 // (findsong/page.js) at kalde funktioner inde i denne komponent
-const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
+const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(
+  { onSelectSong },
+  ref
+) {
   // Alle sange hentet fra Firebase
   const [songs, setSongs] = useState([]);
   // Det brugeren skriver i søgefeltet
@@ -186,6 +189,10 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
                   // Når man vælger en sang, sætter vi den ind i søgefeltet og lukker listen
                   setQuery(`${song.artist} - ${song.title}`);
                   setIsOpen(false);
+                  // Giv sangen tilbage til forælder-komponenten hvis callback findes
+                  if (onSelectSong) {
+                    onSelectSong(song);
+                  }
                 }}
               >
                 <div className="flex items-center gap-4 min-w-0">

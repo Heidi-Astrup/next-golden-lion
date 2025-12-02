@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
 import KaraokeSongSearch from "@/components/KaraokeSongSearch";
 
 // Denne side viser karaoke "find song" siden
@@ -9,6 +10,8 @@ export default function KaraokeFindSongPage() {
   // Vi laver en reference til søge-komponenten,
   // så vi kan kalde dens shuffle()-funktion fra SHUFFLE-knappen
   const searchRef = useRef(null);
+  // Gem aktuell valgt sang så vi kan sende den videre til signup-siden
+  const [selectedSong, setSelectedSong] = useState(null);
 
   return (
     <div className="bg-[#000000] text-[#FFF5D6]">
@@ -35,7 +38,10 @@ export default function KaraokeFindSongPage() {
           </section>
 
           {/* Søgefelt + resultatliste fra Firebase */}
-          <KaraokeSongSearch ref={searchRef} />
+          <KaraokeSongSearch
+            ref={searchRef}
+            onSelectSong={(song) => setSelectedSong(song)}
+          />
 
           {/* Shuffle-tekst og knapper */}
           <section className="text-center space-y-6 mt-24">
@@ -52,9 +58,25 @@ export default function KaraokeFindSongPage() {
               SHUFFLE
             </button>
 
-            <button className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]">
-              PICK SONG
-            </button>
+            <Link
+              href={{
+                pathname: "/karaoke/signup",
+                query: selectedSong
+                  ? {
+                      artist: selectedSong.artist,
+                      title: selectedSong.title,
+                      length: selectedSong.length,
+                    }
+                  : {},
+              }}
+            >
+              <button
+                className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]"
+                disabled={!selectedSong}
+              >
+                PICK SONG
+              </button>
+            </Link>
           </section>
         </div>
       </main>
