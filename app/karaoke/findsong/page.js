@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
 import KaraokeSongSearch from "@/components/KaraokeSongSearch";
 
 export default function KaraokeFindSongPage() {
+  const searchRef = useRef(null);
+
   return (
     <div className="bg-[#000000] text-[#FFF5D6]">
       {/* Samme header-billede som på karaoke-siden */}
@@ -27,7 +32,7 @@ export default function KaraokeFindSongPage() {
           </section>
 
           {/* Søgefelt + resultatliste fra Firebase */}
-          <KaraokeSongSearch />
+          <KaraokeSongSearch ref={searchRef} />
 
           {/* Shuffle-tekst og knapper */}
           <section className="text-center space-y-6 mt-10">
@@ -37,7 +42,10 @@ export default function KaraokeFindSongPage() {
               Try the shuffle button!
             </p>
 
-            <button className="w-full bg-[#E5A702] text-black font-heading font-semibold py-3 rounded-full text-xl tracking-[0.1em]">
+            <button
+              className="w-full bg-[#E5A702] text-black font-heading font-semibold py-3 rounded-full text-xl tracking-[0.1em]"
+              onClick={() => searchRef.current?.shuffle()}
+            >
               SHUFFLE
             </button>
 

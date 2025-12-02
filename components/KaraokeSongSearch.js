@@ -1,8 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Image from "next/image";
 
-export default function KaraokeSongSearch() {
+const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
   const [songs, setSongs] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -43,6 +50,8 @@ export default function KaraokeSongSearch() {
             title: value.title || "",
             // længde-felt som i din database
             length: value.length || "",
+            // albumfeltet indeholder URL til albumbillede
+            album: value.album || "",
           }));
           setSongs(list);
         } else {
@@ -58,6 +67,17 @@ export default function KaraokeSongSearch() {
 
     loadSongs();
   }, []);
+
+  // Gør det muligt for forælder-komponenten at trigge "shuffle"
+  useImperativeHandle(ref, () => ({
+    shuffle() {
+      if (!songs || songs.length === 0) return;
+      const randomIndex = Math.floor(Math.random() * songs.length);
+      const song = songs[randomIndex];
+      setQuery(`${song.artist} - ${song.title}`);
+      setIsOpen(false);
+    },
+  }));
 
   const filteredSongs = useMemo(() => {
     // Hvis der ikke er skrevet noget, vis hele listen
@@ -117,8 +137,18 @@ export default function KaraokeSongSearch() {
                 }}
               >
                 <div className="flex items-center gap-4 min-w-0">
-                  {/* Placeholder cirkel til billede */}
-                  <div className="w-12 h-12 rounded-full bg-black/10" />
+                  {/* Albumbillede fra Firebase (album-feltet) */}
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-black/10 flex-shrink-0">
+                    {song.album ? (
+                      <Image
+                        src={song.album}
+                        alt={`${song.title} album cover`}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : null}
+                  </div>
                   <div className="flex flex-col text-left min-w-0">
                     <span className="font-body text-base text-black truncate">
                       {song.artist || "Artist"}
@@ -139,4 +169,6 @@ export default function KaraokeSongSearch() {
       </div>
     </section>
   );
-}
+});
+
+export default KaraokeSongSearch;
