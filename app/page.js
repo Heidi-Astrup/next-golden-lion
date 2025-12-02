@@ -48,6 +48,9 @@ export default function Home() {
                 below.
               </p>
             </div>
+            <div className="px-6">
+              <div className="h-px w-full bg-[#E5A702] mb-8" />
+            </div>
 
             {/* Weekly schedule carousel */}
             <section className="mt-4">
@@ -149,7 +152,7 @@ export default function Home() {
                   href: "/pubQuiz",
                   title: "PUB QUIZ",
                   desc: "Test your knowledge in our weekly quiz.",
-                  img: "/images/pubquiz.jpg",
+                  img: "/images/question-solid-full.svg",
                 },
                 {
                   href: "/menu",
@@ -160,52 +163,79 @@ export default function Home() {
               ].map((card, idx) => {
                 const isBlack = idx % 2 === 0;
 
-                return (
+                // The DART section doesn't have a link; render as a non-linked block
+                const isDarts = card.title === "DART" || card.href === "/menu";
+
+                const content = (
+                  <div
+                    className={`py-6 text-center ${
+                      isBlack
+                        ? "bg-[#e5a702] text-black"
+                        : "bg-black text-white"
+                    }`}
+                  >
+                    <div className="w-16 h-16 relative sm:h-[90vh] z-0 mx-auto">
+                      <Image
+                        src={card.img}
+                        alt={card.title}
+                        fill
+                        className="mx-auto"
+                        priority
+                      />
+                    </div>
+                    <div className="font-bold text-lg mt-4">{card.title}</div>
+                    <div className="text-sm mb-4">{card.desc}</div>
+                    <div
+                      className={
+                        isBlack
+                          ? "inline-block px-8 py-2 bg-black text-white rounded"
+                          : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded"
+                      }
+                    >
+                      {isDarts ? "DARTS IN BAR" : "READ MORE"}
+                    </div>
+                  </div>
+                );
+
+                return isDarts ? (
+                  <div
+                    key={card.title}
+                    className="block w-screen overflow-hidden"
+                  >
+                    {content}
+                  </div>
+                ) : (
                   <Link
                     key={card.href}
                     href={card.href}
                     className="block w-screen overflow-hidden"
                   >
-                    <div
-                      className={`py-6 text-center ${
-                        isBlack
-                          ? "bg-[#e5a702] text-black"
-                          : "bg-black text-white"
-                      }`}
-                    >
-                      <div className="w-16 h-16 relative sm:h-[90vh] z-0 mx-auto">
-                        <Image
-                          src={card.img}
-                          alt={card.title}
-                          fill
-                          className="mx-auto"
-                          priority
-                        />
-                      </div>
-                      <div className="font-bold text-lg mt-4">{card.title}</div>
-                      <div className="text-sm mb-4">{card.desc}</div>
-                      <div
-                        className={
-                          isBlack
-                            ? "inline-block px-3 py-2 bg-black text-white rounded"
-                            : "inline-block px-3 py-2 bg-[#e5a702] text-black rounded"
-                        }
-                      >
-                        READ MORE
-                      </div>
-                    </div>
+                    {content}
                   </Link>
                 );
               })}
             </section>
 
             {/* About us */}
-            <section className="m-6 text-center">
+            <section className="text-center">
+              <div>
+                <Image
+                  src="/images/pyntIBar.png"
+                  alt="Golden Lion Pub Front"
+                  width={120}
+                  height={80}
+                  className="w-screen object-cover mx-auto my-6"
+                  priority
+                />
+              </div>
               <h3 className="text-yellow-400 font-bold mb-2">ABOUT US</h3>
               <p className="text-sm text-gray-300 mb-4">
                 The Golden Lion is probably the cosiest and most authentic
-                British pub in town.
+                British pub in town. Located in the heart of the city!
               </p>
+              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded">
+                READ MORE
+              </div>
             </section>
           </main>
         </div>
