@@ -12,8 +12,15 @@ export default function BeverageCard({ beverages }) {
   };
 
   function storeIt() {
-    const beveragesArray = [beverages.name]; // lav til array
-    localStorage.setItem("beverageName", JSON.stringify(beveragesArray));
+    // 1. Hent eksisterende array fra localStorage
+    const stored = localStorage.getItem("beverageName");
+    const prevArray = stored ? JSON.parse(stored) : [];
+
+    // 2. Læg den nye drink i arrayet
+    const updatedArray = [...prevArray, beverages];
+
+    // 3. Gem arrayet igen
+    localStorage.setItem("beverageName", JSON.stringify(updatedArray));
   }
 
   return (
