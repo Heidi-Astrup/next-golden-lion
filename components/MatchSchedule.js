@@ -1,6 +1,10 @@
 // MatchSchedule komponent - henter og viser fodboldkampe fra Firebase Realtime Database
 import Image from "next/image";
 
+// Denne komponent bruger live data fra Firebase (cache: "no-store"),
+// så vi markerer den som dynamisk for at undgå statisk prerender-fejl.
+export const dynamic = "force-dynamic";
+
 // Async Server Component – henter kampene fra Firebase Realtime Database
 export default async function MatchSchedule() {
   // Hent Firebase database URL fra environment variabler
