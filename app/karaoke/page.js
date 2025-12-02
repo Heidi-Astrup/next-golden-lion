@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import KaraokeInfoButton from "@/components/KaraokeInfoButton";
 
+// Demo-data til "Karaoke Queue" nederst på siden.
 const demoQueue = [
   { id: 1, name: "Mia", song: "Girl On Fire - Alicia Keys", time: "23:00" },
   { id: 2, name: "Mia", song: "Girl On Fire - Alicia Keys", time: "23:00" },
@@ -11,6 +12,7 @@ const demoQueue = [
   { id: 6, name: "Mia", song: "Girl On Fire - Alicia Keys", time: "23:00" },
 ];
 
+// Hovedkomponenten for karaoke-siden
 export default function KaraokePage() {
   return (
     <div className="bg-[#000000] text-[#FFF5D6]">
@@ -53,7 +55,7 @@ export default function KaraokePage() {
 
             <Link
               href="/karaoke/findsong"
-              className="w-full flex items-center justify-center gap-5 bg-[#E5A702] text-black font-light py-7 rounded-full text-3xl tracking-[0.1em] uppercase"
+              className="w-full flex items-center justify-center gap-5 bg-[#E5A702] text-black font-light py-7 rounded-lg text-3xl tracking-[0.1em] uppercase"
             >
               SIGN UP
               <KaraokeInfoButton />

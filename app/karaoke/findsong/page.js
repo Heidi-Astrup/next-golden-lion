@@ -4,7 +4,10 @@ import Image from "next/image";
 import { useRef } from "react";
 import KaraokeSongSearch from "@/components/KaraokeSongSearch";
 
+// Denne side viser karaoke "find song" siden
 export default function KaraokeFindSongPage() {
+  // Vi laver en reference til søge-komponenten,
+  // så vi kan kalde dens shuffle()-funktion fra SHUFFLE-knappen
   const searchRef = useRef(null);
 
   return (
@@ -35,21 +38,21 @@ export default function KaraokeFindSongPage() {
           <KaraokeSongSearch ref={searchRef} />
 
           {/* Shuffle-tekst og knapper */}
-          <section className="text-center space-y-6 mt-10">
-            <p className="text-base font-body">
+          <section className="text-center space-y-6 mt-24">
+            <p className="text-xl font-body">
               Don&apos;t know what to sing?
               <br />
               Try the shuffle button!
             </p>
 
             <button
-              className="w-full bg-[#E5A702] text-black font-heading font-semibold py-3 rounded-full text-xl tracking-[0.1em]"
+              className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]"
               onClick={() => searchRef.current?.shuffle()}
             >
               SHUFFLE
             </button>
 
-            <button className="w-full bg-[#E5A702] text-black font-heading font-semibold py-3 rounded-full text-xl tracking-[0.1em]">
+            <button className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]">
               PICK SONG
             </button>
           </section>

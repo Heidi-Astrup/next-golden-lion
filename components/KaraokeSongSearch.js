@@ -7,15 +7,27 @@ import {
   forwardRef,
   useImperativeHandle,
 } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 
+// Søge-komponent til karaoke-sange
+// forwardRef gør det muligt for forælder-komponenten
+// (findsong/page.js) at kalde funktioner inde i denne komponent
 const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
+  // Alle sange hentet fra Firebase
   const [songs, setSongs] = useState([]);
+  // Det brugeren skriver i søgefeltet
   const [query, setQuery] = useState("");
+  // Viser om vi er i gang med at hente data
   const [loading, setLoading] = useState(false);
+  // Gemmer evt. fejlbesked hvis noget går galt
   const [error, setError] = useState(null);
+  // Styrer om listen med sange er åben/lukket
   const [isOpen, setIsOpen] = useState(false);
+  // Ref til selve kortet, så vi kan se om der klikkes udenfor
+  const containerRef = useRef(null);
 
+  // Hent karaoke-sange fra Firebase når komponenten loader første gang
   useEffect(() => {
     async function loadSongs() {
       const baseUrl = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL;
@@ -24,28 +36,32 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
         return;
       }
 
-      const cleanUrl = baseUrl.trim();
-      if (!cleanUrl.startsWith("http")) {
-        setError("Ugyldig Firebase URL");
-        return;
-      }
-
-      const cleanedBase = cleanUrl.endsWith("/")
-        ? cleanUrl.slice(0, -1)
-        : cleanUrl;
-      // Hent karaoke-sange fra "songs" i Firebase Realtime Database
+      // fjerner kun evt. sidste "/" og bygger stien til /songs.json
+      const cleanedBase = baseUrl.replace(/\/$/, "");
       const url = `${cleanedBase}/songs.json`;
 
       try {
+        // Fortæl UI'et at vi er i gang med at hente data
         setLoading(true);
+
+        // Hent data fra Firebase (ingen cache, så vi altid får friske data)
         const res = await fetch(url, { cache: "no-store" });
+
+        // Hvis svaret ikke er OK (fx 404 eller 500), laver vi en fejl
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
+
+        // Lav svaret om til JavaScript-objekt
         const data = await res.json();
+
         if (data && typeof data === "object") {
+          // data ligner fx: { "31": {...}, "32": {...} }
+          // Vi laver det om til en liste/array vi kan mappe over
           const list = Object.entries(data).map(([id, value]) => ({
+            // id'et fra Firebase (31, 32, 33, ...)
             id,
+            // Brug feltet fra databasen eller en tom streng hvis det mangler
             artist: value.artist || "",
             title: value.title || "",
             // længde-felt som i din database
@@ -53,14 +69,19 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
             // albumfeltet indeholder URL til albumbillede
             album: value.album || "",
           }));
+          // Gem den færdige liste i state
           setSongs(list);
         } else {
+          // Hvis vi ikke fik et objekt tilbage, sætter vi en tom liste
           setSongs([]);
         }
       } catch (err) {
+        // Hvis noget går galt (netværk, forkert URL osv.), log fejlen
         console.error("Error loading karaoke songs", err);
+        // Gem fejlbeskeden så vi kan vise den i UI'et
         setError(err.message);
       } finally {
+        // Uanset om det gik godt eller skidt, er vi færdige med at loade
         setLoading(false);
       }
     }
@@ -68,17 +89,39 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
     loadSongs();
   }, []);
 
+  // Luk og nulstil, når man klikker uden for kortet
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!containerRef.current) return;
+      if (!containerRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setQuery("");
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // Gør det muligt for forælder-komponenten at trigge "shuffle"
   useImperativeHandle(ref, () => ({
+    // Metoder som forælderen må kalde udefra
     shuffle() {
+      // Beskyt mod at kalde shuffle før der er sange
       if (!songs || songs.length === 0) return;
+      // Vælg en tilfældig sang i listen
       const randomIndex = Math.floor(Math.random() * songs.length);
       const song = songs[randomIndex];
+      // Sæt sangen ind i søgefeltet
       setQuery(`${song.artist} - ${song.title}`);
+      // Luk listen, så man kun ser den valgte
       setIsOpen(false);
     },
   }));
 
+  // Beregn en filtreret liste af sange ud fra det brugeren skriver
   const filteredSongs = useMemo(() => {
     // Hvis der ikke er skrevet noget, vis hele listen
     if (!query) return songs;
@@ -91,10 +134,19 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(_, ref) {
   return (
     <section className="mb-8">
       {/* Søgefelt + liste i et kort som på designet */}
-      <div className="w-full bg-[#FFF5D6] rounded-[32px] px-6 pt-5 pb-4">
+      <div
+        ref={containerRef}
+        className="w-full bg-[#FFF5D6] rounded-[32px] px-6 pt-5 pb-4"
+      >
         {/* Søgefelt */}
         <div className="flex items-center mb-4 gap-3">
-          <span className="text-2xl text-black/60">🔍</span>
+          <Image
+            src="/images/sooge.png"
+            alt="Search"
+            width={24}
+            height={24}
+            className="opacity-70"
+          />
           <input
             type="text"
             value={query}

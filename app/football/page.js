@@ -1,4 +1,4 @@
-// Football page - viser fodbold information og match schedule
+// Football-siden – viser information om fodbold og en liste med kommende kampe
 import Image from "next/image";
 import MatchSchedule from "@/components/MatchSchedule";
 
@@ -6,6 +6,7 @@ import MatchSchedule from "@/components/MatchSchedule";
 // fordi vi henter live data fra Firebase med no-store.
 export const dynamic = "force-dynamic";
 
+// Selve React-komponenten for football-siden
 export default function Football() {
   return (
     <div className="bg-[#000000] text-[#FFF5D6]">
