@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import "./globals.css";
-import Nav from "@/components/navigation/Nav.js";
+import Nav from "@/components/navigation/Nav";
 
 import { Josefin_Sans, Instrument_Sans } from "next/font/google";
 
