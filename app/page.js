@@ -39,9 +39,9 @@ export default function Home() {
                        rounded-full bg-black pointer-events-none -z-10"
             />
 
-            <div className="relative z-10 mt-4 px-20">
-              <h1 className="text-[28px] font-semibold tracking-tight text-[#ffffff]">
-                MORE THAN JUST A BAR
+            <div className="relative z-10 my-8">
+              <h1 className="text-2xl font-heading tracking-tight text-[#ffffff]">
+                MORE THAN <br /> JUST A BAR
               </h1>
             </div>
             <div className="px-6">
@@ -50,7 +50,7 @@ export default function Home() {
 
             {/* Weekly schedule carousel */}
             <section className="mt-4">
-              <h2 className="text-yellow-400 font-bold text-xl mb-3">
+              <h2 className="text-yellow-400 font-heading text-4xl mb-6 mx-10">
                 WEEKLY SCHEDULE
               </h2>
 
@@ -103,25 +103,26 @@ export default function Home() {
                     img: "/images/dart.svg",
                   },
                 ].map((slot) => (
-                  <article
-                    key={slot.day}
-                    className="min-w-40 snap-start bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600"
-                  >
-                    <div className="h-28 relative">
-                      <Image
-                        src={slot.img}
-                        alt={slot.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-3 text-left">
-                      <div className="text-sm text-yellow-400 font-semibold">
+                  <article key={slot.day} className="min-w-40 snap-start">
+                    <div>
+                      <div className="text-2xl text-yellow-400 font-heading">
                         {slot.day}
                       </div>
-                      <div className="font-medium text-white">{slot.title}</div>
-                      <div className="text-xs text-gray-400 mt-2">
-                        Time: {slot.time}
+                      <div className="p-3 text-left bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600">
+                        <div className="h-28 relative">
+                          <Image
+                            src={slot.img}
+                            alt={slot.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="font-medium mt-3 text-white">
+                          {slot.title}
+                        </div>
+                        <div className="text-xs text-gray-400 mt-2">
+                          Time: {slot.time}
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -179,13 +180,15 @@ export default function Home() {
                         priority
                       />
                     </div>
-                    <div className="font-bold text-lg mt-4">{card.title}</div>
-                    <div className="text-sm mb-4">{card.desc}</div>
+                    <div className="font-heading text-4xl mt-4">
+                      {card.title}
+                    </div>
+                    <div className="mb-4 font-body text-2xl">{card.desc}</div>
                     <div
                       className={
                         isBlack
-                          ? "inline-block px-8 py-2 bg-black text-white rounded"
-                          : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded"
+                          ? "inline-block px-8 py-2 bg-black text-white rounded font-body text-2xl "
+                          : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl"
                       }
                     >
                       {isDarts ? "DARTS IN BAR" : "READ MORE"}
@@ -196,7 +199,7 @@ export default function Home() {
                 return isDarts ? (
                   <div
                     key={card.title}
-                    className="block w-screen overflow-hidden"
+                    className="block w-screen overflow-hidden "
                   >
                     {content}
                   </div>
@@ -224,12 +227,14 @@ export default function Home() {
                   priority
                 />
               </div>
-              <h3 className="text-yellow-400 font-bold mb-2">ABOUT US</h3>
-              <p className="text-sm text-gray-300 mb-4">
+              <h3 className="text-yellow-400 font-heading text-4xl mb-2">
+                ABOUT US
+              </h3>
+              <p className=" text-gray-300 mb-4 font-body text-2xl">
                 The Golden Lion is probably the cosiest and most authentic
                 British pub in town. Located in the heart of the city!
               </p>
-              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded">
+              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
                 READ MORE
               </div>
             </section>

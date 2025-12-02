@@ -28,7 +28,7 @@ export default function OverlayClient({ open, onClose, links = [] }) {
           <button
             aria-label="Close menu"
             onClick={onClose}
-            className="absolute top-5 right-2.5 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
+            className="absolute top-7 right-6 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
           >
             ✕
           </button>
@@ -38,13 +38,13 @@ export default function OverlayClient({ open, onClose, links = [] }) {
         <nav>
           <ul className="flex flex-col items-center justify-center gap-6 text-2xl text-white list-none p-0 m-0">
             {links.map((l) => (
-              <li key={l.href} className="list-none">
+              <li key={l.href} className="list-none font-heading text-4xl">
                 <Link href={l.href}>{l.label}</Link>
               </li>
             ))}
           </ul>
           {/* social icons placed after links */}
-          <div className="mt-8 flex items-center gap-6">
+          <div className="flex justify-center mt-6 gap-6">
             <a
               href="https://www.facebook.com"
               target="_blank"
