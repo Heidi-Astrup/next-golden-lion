@@ -3,17 +3,15 @@ const OrderMessage = ({ status, orderNumber }) => {
     return (
       <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
         <main className="max-w-[600px] text-center">
-          <h1 className="text-[#E5A702] font-heading text-5xl mb-8">DONE</h1>
+          <h1 className="text-[#E5A702] font-heading font-semibold text-7xl mb-8">
+            READY!
+          </h1>
           <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
-            Your order is ready!
+            Pay and pick up your order in the bar
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl mb-4">
-            Your number is {orderNumber}
+            Your number: <strong>{orderNumber}</strong>
           </p>
-          <p className="text-[#FFF5D6] font-body text-2xl mb-12">
-            You can now go to the bar to pay and pick it up
-          </p>
-          <h1 className="text-[#FED85F] font-heading text-7xl">Ready</h1>
         </main>
       </div>
     );
@@ -25,10 +23,14 @@ const OrderMessage = ({ status, orderNumber }) => {
             Canceled
           </h1>
           <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
-            The order is canceled, because it can not be made today{" "}
+            The order was canceled because one or more drinks cannot be made at
+            the moment
           </p>
-          <p className="text-[#FFF5D6] font-body text-2xl mb-4">
-            Your number is {orderNumber}
+          <p className="text-[#FFF5D6] font-body text-2xl mb-8">
+            Please contact the bar for more information or to place a new order
+          </p>
+          <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
+            We apologize
           </p>
         </main>
       </div>
@@ -44,7 +46,7 @@ const OrderMessage = ({ status, orderNumber }) => {
             The bartender will make til for you ASAP
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl mb-4">
-            Your number is {orderNumber}
+            Your number: <strong>{orderNumber}</strong>
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl mb-12">
             When its done tou can pay and pick it up in the bar
