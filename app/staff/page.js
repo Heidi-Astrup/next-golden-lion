@@ -27,8 +27,6 @@ export default function Staff() {
     fetchOrders();
   }, []);
 
-  console.log(orders);
-
   async function orderDone(orderId) {
     const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order/${orderId}.json`; // Get Firebase Realtime Database URL
 
