@@ -8,13 +8,13 @@ export default function About() {
       <section className="bg-linear-to-b from-transparent to-black/95">
         <Image
           width={400}
-          height={400}
+          height={300}
           src={barbillede}
           alt="bartender in bar"
-          className="w-dvh h-auto -mt-24 -z-10 relative"
+          className="w-dvh h-auto -z-10 relative border-b-4"
         ></Image>
       </section>
-      <div className="min-h-screen pt-20 pb-10 px-5 flex items-center justify-center ">
+      <div className="min-h-screen pt-8 pb-10 px-5 flex items-center justify-center ">
         <main className="text-center max-w-[600px]">
           <h1 className="text-5xl font-heading text-center font-semibold mb-4 tracking-tight text-[#E5A702]">
             ABOUT US

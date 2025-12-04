@@ -11,10 +11,10 @@ export default function PubQuiz() {
           height={400}
           src={billede}
           alt="bartender in bar"
-          className="w-dvh h-auto -mt-24 -z-10 relative"
+          className="w-dvh h-auto  -z-10 relative"
         ></Image>
       </section>
-      <div className="min-h-screen pt-20 pb-10 px-5 flex items-center justify-center ">
+      <div className="min-h-screen pb-10 px-5 flex items-center justify-center ">
         <main className="text-center max-w-[600px]">
           <h1 className="text-5xl font-heading text-center font-semibold mb-4 tracking-tight text-[#E5A702]">
             PUB QUIZ - vercel installed
