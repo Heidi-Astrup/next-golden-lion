@@ -1,7 +1,7 @@
 const OrderMessage = ({ status, orderNumber }) => {
   if (status === "done") {
     return (
-      <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
+      <div className="min-h-screen pt-16 pb-10 px-5 flex justify-between">
         <main className="max-w-[600px] text-center">
           <h1 className="text-[#E5A702] font-heading font-semibold text-7xl mb-8">
             READY!
@@ -17,7 +17,7 @@ const OrderMessage = ({ status, orderNumber }) => {
     );
   } else if (status === "canceled") {
     return (
-      <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
+      <div className="min-h-screen pt-8 pb-10 px-5 flex justify-between">
         <main className="max-w-[600px] text-center">
           <h1 className="text-[#E5A702] font-heading text-5xl mb-8">
             Canceled
@@ -37,7 +37,7 @@ const OrderMessage = ({ status, orderNumber }) => {
     );
   } else {
     return (
-      <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
+      <div className="min-h-screen pt-8 pb-10 px-5 flex justify-between">
         <main className="max-w-[600px] text-center">
           <h1 className="text-[#E5A702] font-heading text-5xl mb-8">
             Yay! your order have been sent to the bar
