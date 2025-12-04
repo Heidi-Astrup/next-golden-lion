@@ -2,12 +2,12 @@
 
 import BeverageCard from "@/components/BeverageCard";
 import Form from "@/components/Form";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BasketPage() {
   const [beverageArray, setBeverageArray] = useState([]);
-  let orderNumber = 1;
+  const router = useRouter();
 
   useEffect(() => {
     const stored = localStorage.getItem("beverageName");
@@ -21,12 +21,14 @@ export default function BasketPage() {
     const name = formData.get("name");
     const phone = formData.get("phone");
 
+    let orderNumber = Math.floor(Math.random() * 10000);
+
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
         name,
         phone,
-        orderNumber: orderNumber++,
+        orderNumber: orderNumber,
         isDone: false,
         isCanceled: false,
         beverages: beverageArray,
@@ -35,8 +37,10 @@ export default function BasketPage() {
     });
 
     if (response.ok) {
+      const data = await response.json(); // <-- Firebase returnerer { name: 'unik-id' }
+      const id = data.name; // <-- det unikke id
       localStorage.removeItem("beverageName");
-      redirect(`/menu/basket/order/${id}`);
+      router.push(`/menu/basket/${id}`);
     }
   }
 

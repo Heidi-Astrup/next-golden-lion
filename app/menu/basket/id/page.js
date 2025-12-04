@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import OrderMessage from "@/components/OrderMessage";
 
-export default function Order({ orderId }) {
+export default function Order({ params }) {
+  const { id } = params;
+
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
     async function fetchOrder() {
-      const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order/${orderId}.json`;
+      const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order/${id}.json`;
       const res = await fetch(url);
       const data = await res.json();
 
@@ -22,7 +24,7 @@ export default function Order({ orderId }) {
     }
 
     fetchOrder();
-  }, [orderId]);
+  }, [id]);
 
   if (!order) return <p>Loading order...</p>;
 
