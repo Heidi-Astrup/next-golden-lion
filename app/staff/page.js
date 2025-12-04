@@ -1,4 +1,5 @@
 "use client";
+
 import OrderCard from "@/components/OrderCard";
 import { useEffect, useState } from "react";
 
@@ -15,7 +16,12 @@ export default function Staff() {
         id: key,
         ...dataObject[key],
       }));
-      setOrders(orderList);
+
+      const filteredOrders = orderList.filter(
+        (order) => order.isDone !== true && order.isCanceled !== true
+      );
+
+      setOrders(filteredOrders);
     }
 
     fetchOrders();
@@ -23,12 +29,30 @@ export default function Staff() {
 
   console.log(orders);
 
-  function done() {
-    alert("drink done");
+  async function orderDone(orderId) {
+    const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order/${orderId}.json`; // Get Firebase Realtime Database URL
+
+    await fetch(url, {
+      method: "PATCH",
+      body: JSON.stringify({
+        isDone: true,
+      }),
+    });
+
+    setOrders((prev) => prev.filter((order) => order.id !== orderId));
   }
 
-  function cancel() {
-    alert("order canceled");
+  async function orderCanceled(orderId) {
+    const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order/${orderId}.json`; // Get Firebase Realtime Database URL
+
+    await fetch(url, {
+      method: "PATCH",
+      body: JSON.stringify({
+        isCanceled: true,
+      }),
+    });
+
+    setOrders((prev) => prev.filter((order) => order.id !== orderId));
   }
 
   return (
@@ -37,10 +61,7 @@ export default function Staff() {
         <h1 className="text-[32px] font-heading font-semibold mb-4 tracking-tight text-[#ffffff]">
           Staff page
         </h1>
-        <p className="text-base text-gray-400 mb-8 leading-relaxed">
-          A modern post app built with Next.js 16, featuring Server Components,
-          Server Actions, and Firebase integration.
-        </p>
+
         {orders.length === 0 ? (
           <p className="text-gray-400">Ingen ordrer endnu.</p>
         ) : (
@@ -50,7 +71,9 @@ export default function Staff() {
                 key={order.id}
                 className="text-left border-4 border-[#E5A702] p-4 rounded-2xl"
               >
-                <p className="text-[#E5A702] text-2xl p-4">{order.id}</p>
+                <p className="text-[#E5A702] text-2xl p-4">
+                  Order ID: {order.id}
+                </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {order.beverages && order.beverages.length > 0 ? (
                     order.beverages.map((beverages) => (
@@ -62,18 +85,18 @@ export default function Staff() {
                       />
                     ))
                   ) : (
-                    <p className="text-white">Ingen drinks valgt.</p>
+                    <p className="text-white">Ingen ordrer endnu.</p>
                   )}
                 </div>
                 <div className="flex flex-col gap-4 mt-8">
                   <button
-                    onClick={done}
+                    onClick={() => orderDone(order.id)}
                     className="bg-[#E5A702] w-4/4 font-bold p-2 rounded-[10px] text-black text-3xl"
                   >
                     DONE
                   </button>
                   <button
-                    onClick={cancel}
+                    onClick={() => orderCanceled(order.id)}
                     className="bg-black w-4/4 font-bold p-2 border-2 border-[#E5A702] rounded-[10px] text-[#E5A702] text-3xl"
                   >
                     CANCEL
