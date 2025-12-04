@@ -31,6 +31,7 @@ export default function BasketPage() {
     });
 
     if (response.ok) {
+      localStorage.removeItem("beverageName");
       redirect("/menu/basket/order");
     }
   }

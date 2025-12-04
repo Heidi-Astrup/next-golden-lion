@@ -1,5 +1,5 @@
 "use client";
-import BeverageCard from "@/components/BeverageCard";
+import OrderCard from "@/components/OrderCard";
 import { useEffect, useState } from "react";
 
 export default function Staff() {
@@ -23,6 +23,14 @@ export default function Staff() {
 
   console.log(orders);
 
+  function done() {
+    alert("drink done");
+  }
+
+  function cancel() {
+    alert("order canceled");
+  }
+
   return (
     <div className="min-h-screen pt-20 pb-10 px-5 flex items-center justify-center">
       <main className="text-center max-w-[600px]">
@@ -36,24 +44,40 @@ export default function Staff() {
         {orders.length === 0 ? (
           <p className="text-gray-400">Ingen ordrer endnu.</p>
         ) : (
-          <div className="flex flex-col gap-10 border-4 border-[#E5A702] p-4">
+          <div className="flex flex-col gap-10">
             {orders.map((order) => (
-              <div key={order.id} className="text-left">
-                <h2 className="text-xl font-semibold text-white mb-2">
-                  Kunde: {order.name} | Telefon: {order.phone}
-                </h2>
-                <p className="text-gray-400 mb-4">
-                  Tidspunkt: {new Date(order.createdAt).toLocaleString()}
-                </p>
-
+              <div
+                key={order.id}
+                className="text-left border-4 border-[#E5A702] p-4 rounded-2xl"
+              >
+                <p className="text-[#E5A702] text-2xl p-4">{order.id}</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {order.beverages && order.beverages.length > 0 ? (
-                    order.beverages.map((bev) => (
-                      <BeverageCard key={bev.id} beverages={bev} />
+                    order.beverages.map((beverages) => (
+                      <OrderCard
+                        key={beverages.id}
+                        beverages={beverages}
+                        phone={order.phone}
+                        name={order.name}
+                      />
                     ))
                   ) : (
                     <p className="text-white">Ingen drinks valgt.</p>
                   )}
+                </div>
+                <div className="flex flex-col gap-4 mt-8">
+                  <button
+                    onClick={done}
+                    className="bg-[#E5A702] w-4/4 font-bold p-2 rounded-[10px] text-black text-3xl"
+                  >
+                    DONE
+                  </button>
+                  <button
+                    onClick={cancel}
+                    className="bg-black w-4/4 font-bold p-2 border-2 border-[#E5A702] rounded-[10px] text-[#E5A702] text-3xl"
+                  >
+                    CANCEL
+                  </button>
                 </div>
               </div>
             ))}
