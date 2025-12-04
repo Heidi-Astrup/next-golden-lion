@@ -8,7 +8,7 @@ export default function Form({ action }) {
 
   return (
     // Form uses Server Action passed as prop
-    <form action={action} className="flex flex-col gap-1">
+    <form action={action} className="flex flex-col gap-1 mt-8">
       <label className="font-heading text-[#E5A702] text-2xl" htmlFor="name">
         Name
       </label>

@@ -11,8 +11,23 @@ export default function BeverageCard({ beverages }) {
     setShowPopUp((prev) => !prev);
   };
 
+  function storeIt() {
+    // 1. Hent eksisterende array fra localStorage
+    const stored = localStorage.getItem("beverageName");
+    const prevArray = stored ? JSON.parse(stored) : [];
+
+    // 2. Læg den nye drink i arrayet
+    const updatedArray = [...prevArray, beverages];
+
+    // 3. Gem arrayet igen
+    localStorage.setItem("beverageName", JSON.stringify(updatedArray));
+  }
+
   return (
-    <div className="text-left text-[#FFF5D6] w-44 h-80 border-2 border-[#E5A702] rounded-xl p-4 flex flex-col justify-between">
+    <div
+      onClick={storeIt}
+      className="text-left text-[#FFF5D6] w-44 h-80 border-2 border-[#E5A702] rounded-xl p-4 flex flex-col justify-between"
+    >
       <Image
         className="w-35 h-35 rounded-lg"
         src={beverages.image}
