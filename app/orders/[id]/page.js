@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import OrderMessage from "@/components/OrderMessage";
+import { useParams } from "next/navigation";
 
-export default function Order({ params }) {
+export default function Order() {
+  const params = useParams();
   const { id } = params;
 
   const [order, setOrder] = useState(null);

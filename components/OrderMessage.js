@@ -25,7 +25,7 @@ const OrderMessage = ({ status, orderNumber }) => {
             Canceled
           </h1>
           <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
-            The order is canceled, becarse it can not be made today{" "}
+            The order is canceled, because it can not be made today{" "}
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl mb-4">
             Your number is {orderNumber}

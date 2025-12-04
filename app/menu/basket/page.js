@@ -40,7 +40,7 @@ export default function BasketPage() {
       const data = await response.json(); // <-- Firebase returnerer { name: 'unik-id' }
       const id = data.name; // <-- det unikke id
       localStorage.removeItem("beverageName");
-      router.push(`/menu/basket/${id}`);
+      router.push(`/orders/${id}`);
     }
   }
 
