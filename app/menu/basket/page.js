@@ -8,12 +8,14 @@ export default function BasketPage() {
     "use server";
     const name = formData.get("name");
     const phone = formData.get("phone");
+    const comment = formData.get("comment");
 
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
         name,
         phone,
+        comment,
         createdAt: new Date().toISOString(), // Add creation timestamp
       }),
     });

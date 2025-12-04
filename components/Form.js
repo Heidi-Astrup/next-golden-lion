@@ -1,13 +1,18 @@
+// Denne komponent er en genbrugelig formular til navn + telefon
+// Den er client-side pga. brug af react-phone-input-2 (kontrolleret input)
 "use client";
 import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-export default function Form({ action }) {
+// 'action' er en Server Action som siden sender ind (fx sendOrder, sendKaraokeSignup)
+// 'submitLabel' gør at samme form kan vise forskellige knap-tekster (ORDER BEVERAGES / SIGN UP)
+export default function Form({ action, submitLabel = "ORDER BEVERAGES" }) {
+  // Lokalt state til telefonnummeret, som vi giver til PhoneInput
   const [phone, setPhone] = useState("");
 
   return (
-    // Form uses Server Action passed as prop
+    // 'action' peger på en server-funktion – når man submitter, kaldes den på serveren
     <form action={action} className="flex flex-col gap-1">
       <label className="font-heading text-[#E5A702] text-2xl" htmlFor="name">
         Name
@@ -18,7 +23,7 @@ export default function Form({ action }) {
         type="text"
         aria-label="name"
         placeholder="Write your name..."
-        className="bg-[#FFF5D6] p-4 text-lg rounded-md mb-6"
+        className="bg-[#FFF5D6] text-black p-4 text-lg rounded-md mb-6"
       />
       <label className="font-heading text-[#E5A702] text-2xl" htmlFor="phone">
         Phone number
@@ -34,13 +39,13 @@ export default function Form({ action }) {
           "aria-label": "phone",
           required: true,
           className:
-            "bg-[#FFF5D6] text-gray-950 text-lg mt-2 block rounded-md p-4 pl-[45px] pr-[12px] justify-between",
+            "bg-[#FFF5D6] text-black text-lg mt-2 block rounded-md p-4 pl-[45px] pr-[12px] justify-between",
         }}
         className="mb-6 bg-[#FFF5D6] rounded-md"
       />
 
       <div className="bg-[#E5A702] p-4 rounded-lg w-1/2 m-auto text-center">
-        <button>ORDER BEVERAGES</button>
+        <button>{submitLabel}</button>
       </div>
     </form>
   );

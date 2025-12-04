@@ -1,19 +1,48 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
+import Form from "@/components/Form";
 
-// "Sign Up" side til karaoke som matcher mockup
-export default function KaraokeSignUpPage() {
-  const [phone, setPhone] = useState("");
-  const searchParams = useSearchParams();
+// "Sign Up" side til karaoke som matcher dit mockup
+// searchParams indeholder de query-params vi sender fra findsong-siden (artist, title, length)
+export default async function KaraokeSignUpPage({ searchParams }) {
+  // I nyere Next kan searchParams være et Promise – derfor "await"
+  const params = await searchParams;
 
-  const artist = searchParams.get("artist");
-  const title = searchParams.get("title");
-  const length = searchParams.get("length");
+  // Læs valgt sang ud fra URL'en (?artist=...&title=...&length=...)
+  const artist = params.artist;
+  const title = params.title;
+  const length = params.length;
 
+  // Bruges til at afgøre om vi har en sang eller skal vise "No song selected"
   const hasSong = artist || title || length;
+
+  // Endpoint i Firebase, hvor karaoke-tilmeldinger gemmes
+  const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/karaokeSignups.json`;
+
+  // Server Action som bliver kaldt når brugeren trykker SIGN UP
+  async function sendKaraokeSignup(formData) {
+    "use server";
+
+    // Hent navn og telefon fra formen
+    const name = formData.get("name");
+    const phone = formData.get("phone");
+
+    // Gem tilmeldingen i Firebase sammen med den valgte sang
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        phone,
+        artist: artist ?? null,
+        title: title ?? null,
+        length: length ?? null,
+        createdAt: new Date().toISOString(),
+      }),
+    });
+
+    // Efter succesfuld signup sender vi brugeren til bekræftelsessiden
+    redirect("/karaoke/confirmed");
+  }
 
   return (
     <div className="bg-[#000000] text-[#FFF5D6] min-h-screen">
@@ -40,7 +69,7 @@ export default function KaraokeSignUpPage() {
             </h1>
           </section>
 
-          {/* Valgt sang */}
+          {/* Valgt sang – viser enten den valgte sang fra findsong eller "No song selected" */}
           <section className="mb-8">
             <p className="font-heading text-[#E5A702] text-2xl mb-2">
               Chosen song
@@ -59,56 +88,8 @@ export default function KaraokeSignUpPage() {
             </div>
           </section>
 
-          {/* Formular til navn og telefonnummer */}
-          <form className="flex flex-col gap-4">
-            <div>
-              <label
-                className="font-heading text-[#E5A702] text-2xl block mb-2"
-                htmlFor="name"
-              >
-                Name:
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                aria-label="name"
-                placeholder="Write here..."
-                className="bg-[#FFF5D6] w-full p-4 text-lg rounded-md"
-              />
-            </div>
-
-            <div>
-              <label
-                className="font-heading text-[#E5A702] text-2xl block mb-2"
-                htmlFor="phone"
-              >
-                Phone Number:
-              </label>
-              <div className="flex w-full">
-                <div className="bg-[#FFF5D6] text-black rounded-l-md px-4 flex items-center text-lg border-r border-black/10">
-                  +45
-                </div>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  aria-label="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder=""
-                  className="bg-[#FFF5D6] text-gray-950 text-lg mt-0 block rounded-r-md p-4 w-full"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="mt-6 w-full bg-[#E5A702] text-black font-heading text-xl tracking-[0.16em] py-4 rounded-xl"
-            >
-              SIGN UP
-            </button>
-          </form>
+          {/* Formular til navn og telefonnummer – genbruger Form men med SIGN UP-knap */}
+          <Form action={sendKaraokeSignup} submitLabel="SIGN UP" />
         </div>
       </main>
     </div>

@@ -5,12 +5,13 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import KaraokeSongSearch from "@/components/KaraokeSongSearch";
 
-// Denne side viser karaoke "find song" siden
+// Denne side viser karaoke "find song" flowet
+// Her vælger brugeren en sang, som vi sender videre til signup-siden
 export default function KaraokeFindSongPage() {
-  // Vi laver en reference til søge-komponenten,
-  // så vi kan kalde dens shuffle()-funktion fra SHUFFLE-knappen
+  // Ref til søge-komponenten, så vi kan kalde dens shuffle()-funktion udefra
   const searchRef = useRef(null);
-  // Gem aktuell valgt sang så vi kan sende den videre til signup-siden
+  // Gemmer aktuelt valgt sang-objekt (artist, title, length, album ...)
+  // Når denne er sat, aktiveres PICK SONG-knappen og vi kan sende sangen videre
   const [selectedSong, setSelectedSong] = useState(null);
 
   return (
@@ -37,13 +38,14 @@ export default function KaraokeFindSongPage() {
             </h1>
           </section>
 
-          {/* Søgefelt + resultatliste fra Firebase */}
+          {/* Søgefelt + resultatliste fra Firebase
+              onSelectSong kaldes fra KaraokeSongSearch, når brugeren klikker på en sang */}
           <KaraokeSongSearch
             ref={searchRef}
             onSelectSong={(song) => setSelectedSong(song)}
           />
 
-          {/* Shuffle-tekst og knapper */}
+          {/* Shuffle-tekst og knapper – SHUFFLE vælger en tilfældig sang i søge-komponenten */}
           <section className="text-center space-y-6 mt-24">
             <p className="text-xl font-body">
               Don&apos;t know what to sing?
@@ -58,25 +60,35 @@ export default function KaraokeFindSongPage() {
               SHUFFLE
             </button>
 
-            <Link
-              href={{
-                pathname: "/karaoke/signup",
-                query: selectedSong
-                  ? {
-                      artist: selectedSong.artist,
-                      title: selectedSong.title,
-                      length: selectedSong.length,
-                    }
-                  : {},
-              }}
-            >
+            {/* Hvis der ER valgt en sang, pakker vi knappen ind i et Link med sangen i query-params
+                Så signup-siden kan læse den og vise den under "Chosen song" */}
+            {selectedSong ? (
+              <Link
+                href={{
+                  pathname: "/karaoke/signup",
+                  query: {
+                    artist: selectedSong.artist,
+                    title: selectedSong.title,
+                    length: selectedSong.length,
+                  },
+                }}
+              >
+                <button
+                  className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]"
+                >
+                  PICK SONG
+                </button>
+              </Link>
+            ) : (
+              // Hvis INGEN sang er valgt endnu, viser vi en deaktiveret knap
+              // (så brugeren tydeligt skal vælge en sang først)
               <button
-                className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]"
-                disabled={!selectedSong}
+                className="w-full bg-[#E5A702] text-black/50 font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em] cursor-not-allowed"
+                disabled
               >
                 PICK SONG
               </button>
-            </Link>
+            )}
           </section>
         </div>
       </main>
