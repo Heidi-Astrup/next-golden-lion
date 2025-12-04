@@ -27,6 +27,8 @@ export default function BasketPage() {
         name,
         phone,
         orderNumber: orderNumber++,
+        isDone: false,
+        isCanceled: false,
         beverages: beverageArray,
         createdAt: new Date().toISOString(), // Add creation timestamp
       }),
@@ -34,7 +36,7 @@ export default function BasketPage() {
 
     if (response.ok) {
       localStorage.removeItem("beverageName");
-      redirect("/menu/basket/order");
+      redirect(`/menu/basket/order/${id}`);
     }
   }
 
