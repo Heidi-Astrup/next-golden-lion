@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function BasketPage() {
   const [beverageArray, setBeverageArray] = useState([]);
+  let orderNumber = 1;
 
   useEffect(() => {
     const stored = localStorage.getItem("beverageName");
@@ -25,6 +26,7 @@ export default function BasketPage() {
       body: JSON.stringify({
         name,
         phone,
+        orderNumber: orderNumber++,
         beverages: beverageArray,
         createdAt: new Date().toISOString(), // Add creation timestamp
       }),
