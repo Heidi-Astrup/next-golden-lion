@@ -3,7 +3,7 @@ import KaraokeSignUpPage from "@/components/KaraokeSignUpPage";
 
 export default function SignUpPage() {
   return (
-    <Suspense fallback={<p className="text-white">Loading...</p>}>
+    <Suspense fallback={<p className="text-white">Loading....</p>}>
       <KaraokeSignUpPage />
     </Suspense>
   );
