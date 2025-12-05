@@ -16,35 +16,55 @@ export default async function KaraokeSignUpPage({ searchParams }) {
   const hasSong = artist || title || length;
 
   // Endpoint i Firebase, hvor karaoke-tilmeldinger gemmes
+  // Alle tilmeldinger gemmes under /karaokeSignups.json i Firebase Realtime Database
+  // Firebase genererer automatisk et unikt ID for hver tilmelding (fx "abc123")
   const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/karaokeSignups.json`;
 
   // Server Action som bliver kaldt når brugeren trykker SIGN UP
+  // Denne funktion kører på serveren (ikke i browseren) og gemmer tilmeldingen i Firebase
   async function sendKaraokeSignup(formData) {
-    "use server";
+    "use server"; // Marker funktionen som Server Action (kører kun på serveren)
 
-    // Hent navn og telefon fra formen
+    // Hent navn og telefon fra formen (disse er synlige input-felter)
     const name = formData.get("name");
     const phone = formData.get("phone");
 
-    // Hent sang-data fra hidden inputs (sikrer at det virker i production/Vercel)
+    // Hent sang-data fra hidden inputs (disse er skjulte felter sendt med formularen)
+    // Vi bruger hidden fields i stedet for closure-variabler, fordi det virker i production/Vercel
+    // Hidden fields sikrer at sang-dataen sendes med formularen til serveren
     const artist = formData.get("artist");
     const title = formData.get("title");
     const length = formData.get("length");
 
     // Gem tilmeldingen i Firebase sammen med den valgte sang
+    // Firebase POST opretter automatisk et nyt unikt ID for hver tilmelding
+    // Strukturen i Firebase bliver:
+    // {
+    //   "abc123": {
+    //     "name": "Mia",
+    //     "phone": "+4512345678",
+    //     "artist": "Adele",
+    //     "title": "Hello",
+    //     "length": "3:45",
+    //     "createdAt": "2024-01-15T23:30:00.000Z"
+    //   },
+    //   "def456": { ... }
+    // }
     await fetch(url, {
-      method: "POST",
+      method: "POST", // POST opretter en ny tilmelding i Firebase
       body: JSON.stringify({
-        name,
-        phone,
-        artist: artist || null,
-        title: title || null,
-        length: length || null,
-        createdAt: new Date().toISOString(),
+        name, // Brugerens navn
+        phone, // Brugerens telefonnummer
+        artist: artist || null, // Sangens kunstner (eller null hvis ikke valgt)
+        title: title || null, // Sangens titel (eller null hvis ikke valgt)
+        length: length || null, // Sangens længde (eller null hvis ikke valgt)
+        createdAt: new Date().toISOString(), // Tidspunkt for tilmelding (ISO format)
+        // createdAt bruges til at sortere kø-listen (ældste først)
       }),
     });
 
     // Efter succesfuld signup sender vi brugeren til bekræftelsessiden
+    // Tilmeldingen er nu gemt i Firebase og vil blive vist i kø-listen på /karaoke siden
     redirect("/karaoke/confirmed");
   }
 
