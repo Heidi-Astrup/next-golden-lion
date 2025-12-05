@@ -2,16 +2,16 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import Form from "@/components/Form";
 
-// "Sign Up" side til karaoke som matcher dit mockup
 // searchParams indeholder de query-params vi sender fra findsong-siden (artist, title, length)
 export default async function KaraokeSignUpPage({ searchParams }) {
-  // I nyere Next kan searchParams være et Promise – derfor "await"
-  const params = await searchParams;
+
+  const params =
+    searchParams instanceof Promise ? await searchParams : searchParams;
 
   // Læs valgt sang ud fra URL'en (?artist=...&title=...&length=...)
-  const artist = params.artist;
-  const title = params.title;
-  const length = params.length;
+  const artist = params?.artist;
+  const title = params?.title;
+  const length = params?.length;
 
   // Bruges til at afgøre om vi har en sang eller skal vise "No song selected"
   const hasSong = artist || title || length;
@@ -27,15 +27,20 @@ export default async function KaraokeSignUpPage({ searchParams }) {
     const name = formData.get("name");
     const phone = formData.get("phone");
 
+    // Hent sang-data fra hidden inputs (sikrer at det virker i production/Vercel)
+    const artist = formData.get("artist");
+    const title = formData.get("title");
+    const length = formData.get("length");
+
     // Gem tilmeldingen i Firebase sammen med den valgte sang
     await fetch(url, {
       method: "POST",
       body: JSON.stringify({
         name,
         phone,
-        artist: artist ?? null,
-        title: title ?? null,
-        length: length ?? null,
+        artist: artist || null,
+        title: title || null,
+        length: length || null,
         createdAt: new Date().toISOString(),
       }),
     });
@@ -88,8 +93,17 @@ export default async function KaraokeSignUpPage({ searchParams }) {
             </div>
           </section>
 
-          {/* Formular til navn og telefonnummer – genbruger Form men med SIGN UP-knap */}
-          <Form action={sendKaraokeSignup} submitLabel="SIGN UP" />
+          {/* Formular til navn og telefonnummer – genbruger Form men med SIGN UP-knap
+              Hidden fields sender sang-dataen med til server action'en, så den virker i production */}
+          <Form
+            action={sendKaraokeSignup}
+            submitLabel="SIGN UP"
+            hiddenFields={{
+              artist: artist || "",
+              title: title || "",
+              length: length || "",
+            }}
+          />
         </div>
       </main>
     </div>

@@ -7,13 +7,22 @@ import "react-phone-input-2/lib/style.css";
 
 // 'action' er en Server Action som siden sender ind (fx sendOrder, sendKaraokeSignup)
 // 'submitLabel' gør at samme form kan vise forskellige knap-tekster (ORDER BEVERAGES / SIGN UP)
-export default function Form({ action, submitLabel = "ORDER BEVERAGES" }) {
+// 'hiddenFields' bruges til at sende ekstra data med (fx artist, title, length for karaoke)
+export default function Form({
+  action,
+  submitLabel = "ORDER BEVERAGES",
+  hiddenFields = {},
+}) {
   // Lokalt state til telefonnummeret, som vi giver til PhoneInput
   const [phone, setPhone] = useState("");
 
   return (
     // 'action' peger på en server-funktion – når man submitter, kaldes den på serveren
     <form action={action} className="flex flex-col gap-1">
+      {/* Hidden inputs til at sende ekstra data med til server action (fx sang-info til karaoke) */}
+      {Object.entries(hiddenFields).map(([key, value]) => (
+        <input key={key} type="hidden" name={key} value={value || ""} />
+      ))}
       <label className="font-heading text-[#E5A702] text-2xl" htmlFor="name">
         Name
       </label>
