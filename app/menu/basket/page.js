@@ -6,13 +6,14 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BasketPage() {
-  const [beverageArray, setBeverageArray] = useState([]);
+  const [basketItems, setBasketItems] = useState([]);
   const router = useRouter();
 
+  //get items in basket from local storage
   useEffect(() => {
     const stored = localStorage.getItem("beverageName");
     const arr = stored ? JSON.parse(stored) : [];
-    setBeverageArray(arr);
+    setBasketItems(arr);
   }, []);
 
   async function sendOrder(formData) {
@@ -30,10 +31,10 @@ export default function BasketPage() {
         name,
         phone,
         comment,
-        orderNumber: orderNumber,
+        orderNumber,
         isDone: false,
         isCanceled: false,
-        beverages: beverageArray,
+        beverages: basketItems,
         createdAt: new Date().toISOString(), // Add creation timestamp
       }),
     });
@@ -46,6 +47,14 @@ export default function BasketPage() {
     }
   }
 
+  // Count duplicates: { id: { ...bev, quantity: X } }
+  const countedItems = basketItems.reduce((acc, bev) => {
+    if (acc[bev.id]) acc[bev.id].quantity += 1;
+    else acc[bev.id] = { ...bev, quantity: 1 };
+    return acc;
+  }, {});
+  const uniqueItems = Object.values(countedItems);
+
   return (
     <div className="min-h-screen pt-20 pb-10 px-5 flex justify-between">
       <main className="max-w-[600px]">
@@ -55,12 +64,18 @@ export default function BasketPage() {
         <h2 className="text-2xl mb-2 font-body text-[#FFF5D6]">
           Valgte drinks:
         </h2>
-        {beverageArray.length === 0 ? (
+        {uniqueItems.length === 0 ? (
           <p>Ingen drinks valgt endnu.</p>
         ) : (
           <div className="grid grid-cols-2 gap-4">
-            {beverageArray.map((bev) => (
-              <BeverageCard key={bev.id} beverages={bev} />
+            {uniqueItems.map((bev) => (
+              <BeverageCard
+                key={bev.id}
+                beverages={bev}
+                basket="inBasket"
+                basketItems={basketItems}
+                setBasketItems={setBasketItems}
+              />
             ))}
           </div>
         )}
