@@ -49,10 +49,15 @@ export default function BasketPage() {
 
   // Count duplicates: { id: { ...bev, quantity: X } }
   const countedItems = basketItems.reduce((acc, bev) => {
+    // Skip hvis bev er ugyldig
+    if (!bev || typeof bev !== "object" || !bev.id) return acc;
+
     if (acc[bev.id]) acc[bev.id].quantity += 1;
     else acc[bev.id] = { ...bev, quantity: 1 };
+
     return acc;
   }, {});
+
   const uniqueItems = Object.values(countedItems);
 
   return (

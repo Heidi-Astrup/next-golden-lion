@@ -34,15 +34,15 @@ const BeverageCard = ({ beverages, basket, basketItems, setBasketItems }) => {
   function minus() {
     const updatedArray = [...basketItems];
     const index = updatedArray.findIndex((item) => item.id === beverages.id);
-    if (index !== -1) updatedArray.splice(index, 1);
+    if (index !== -1) {
+      updatedArray.splice(index, 1);
+    }
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
     setBasketItems(updatedArray);
   }
 
   function plus() {
-    const updatedArray = [...basketItems];
-    const index = updatedArray.findIndex((item) => item.id === beverages.id);
-    if (index !== -1) updatedArray.splice(index, 1);
+    const updatedArray = [...basketItems, beverages];
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
     setBasketItems(updatedArray);
   }
