@@ -4,7 +4,6 @@ import Form from "@/components/Form";
 
 // searchParams indeholder de query-params vi sender fra findsong-siden (artist, title, length)
 export default async function KaraokeSignUpPage({ searchParams }) {
-
   const params =
     searchParams instanceof Promise ? await searchParams : searchParams;
 

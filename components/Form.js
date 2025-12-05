@@ -18,7 +18,7 @@ export default function Form({
 
   return (
     // 'action' peger på en server-funktion – når man submitter, kaldes den på serveren
-    <form action={action} className="flex flex-col gap-1">
+    <form action={action} className="flex flex-col gap-1 mt-8">
       {/* Hidden inputs til at sende ekstra data med til server action (fx sang-info til karaoke) */}
       {Object.entries(hiddenFields).map(([key, value]) => (
         <input key={key} type="hidden" name={key} value={value || ""} />
