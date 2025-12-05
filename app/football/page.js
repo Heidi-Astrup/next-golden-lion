@@ -4,7 +4,7 @@ import MatchSchedule from "@/components/MatchSchedule";
 
 // Fortæl Next.js at denne route skal være dynamisk (server-rendered),
 // fordi vi henter live data fra Firebase med no-store.
-//export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 // Selve React-komponenten for football-siden
 export default function Football() {
