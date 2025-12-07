@@ -1,6 +1,5 @@
-import Footer from "@/components/Footer";
 import "./globals.css";
-import Nav from "@/components/navigation/Nav";
+import LayoutShell from "@/components/LayoutShell";
 
 import { Josefin_Sans, Instrument_Sans } from "next/font/google";
 
@@ -27,9 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${josefin.variable} ${instrument.variable}`}>
       <body suppressHydrationWarning={true} className="bg-black">
-        <Nav />
-        {children}
-        <Footer />
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
