@@ -42,7 +42,7 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
         const data = await response.json();
         if (data && typeof data === "object") {
           const twelveHoursMs = 12 * 60 * 60 * 1000;
-          const cutoff = Date.now() - twelveHoursMs;
+          const cutoff = new Date().getTime() - twelveHoursMs;
 
           // Lav liste og sorter efter createdAt (ældste først)
           const queue = Object.entries(data)
@@ -84,8 +84,14 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
     }
   }
 
-  const estimateLabel =
-    estimatedSeconds !== null ? formatSeconds(estimatedSeconds) : "--:--";
+  // Hvis vi har et estimat i sekunder, vis det som klokkeslæt (lokal tid) for hvornår det er din tur
+  let estimateLabel = "--:--";
+  if (estimatedSeconds !== null) {
+    const readyAt = new Date(new Date().getTime() + estimatedSeconds * 1000);
+    const hh = String(readyAt.getHours()).padStart(2, "0");
+    const mm = String(readyAt.getMinutes()).padStart(2, "0");
+    estimateLabel = `${hh}:${mm}`;
+  }
 
   return (
     <div className="bg-[#000000] text-[#FFF5D6] min-h-screen">
