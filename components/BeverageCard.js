@@ -31,19 +31,19 @@ const BeverageCard = ({ beverages, basket, basketItems, setBasketItems }) => {
   }
 
   function minus() {
-    const updatedArray = localStorage.getItem("beverageName");
+    const updatedArray = [...basketItems];
     const index = updatedArray.findIndex((item) => item.id === beverages.id);
     if (index !== -1) {
       updatedArray.splice(index, 1);
     }
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
-    //setBasketItems(updatedArray);
+    setBasketItems(updatedArray);
   }
 
   function plus() {
     const updatedArray = [...basketItems, beverages];
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
-    //setBasketItems(updatedArray);
+    setBasketItems(updatedArray);
   }
 
   if (basket === "inBasket") {
