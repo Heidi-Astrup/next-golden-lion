@@ -16,7 +16,7 @@ export default function SignInPage() {
           <button
             aria-label="Close menu"
             onClick={onClose}
-            className="absolute top-7 right-6 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white m-2"
+            className="absolute top-7 left-6 p-2 flex items-center justify-center text-4xl font-bold shadow-lg text-white m-2"
           >
             &larr;
           </button>

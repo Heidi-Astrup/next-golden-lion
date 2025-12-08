@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebaseClient";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -41,42 +42,6 @@ export default function LogIn() {
         }
       }
 
-      let currentUser;
-      if (profile) {
-        currentUser = {
-          uid: user.uid,
-          mail: user.email,
-          profile: {
-            ...profile,
-            hid: profile.hid?.value || profile.hid,
-            kid: profile.kid?.value || profile.kid,
-          },
-        };
-
-        // Update Firebase DB to ensure hid and kid are stored as primitives
-        if (firebaseDbUrlBase && user?.uid) {
-          const url = `${firebaseDbUrlBase}/users/${user.uid}.json`;
-          try {
-            await fetch(url, {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                hid: currentUser.profile.hid,
-                kid: currentUser.profile.kid,
-              }),
-            });
-          } catch (err) {
-            console.warn(
-              "Failed to update Firebase database during login:",
-              err
-            );
-          }
-        }
-      } else {
-        // fallback: store minimal info so UI still reacts
-        currentUser = { uid: user.uid, mail: user.email };
-      }
-
       // store in localStorage so other parts of app can read it
       try {
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
@@ -84,8 +49,8 @@ export default function LogIn() {
         console.warn("Could not write currentUser to localStorage", err);
       }
 
-      // navigate to home on success
-      router.push("/");
+      // navigate to staff page with user ID
+      router.push(`/staff/${user.uid}`);
     } catch (err) {
       let code = err.code || err.message || "Login failed";
       if (typeof code === "string") {
