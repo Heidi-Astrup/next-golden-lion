@@ -46,7 +46,7 @@ export default function KaraokeFindSongPage() {
           />
 
           {/* Shuffle-tekst og knapper – SHUFFLE vælger en tilfældig sang i søge-komponenten */}
-          <section className="text-center space-y-6 mt-8">
+          <section className="text-center space-y-6 mt-8 mb-0">
             <p className="text-xl font-body">
               Don&apos;t know what to sing?
               <br />

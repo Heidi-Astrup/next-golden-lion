@@ -188,15 +188,11 @@ export default async function KaraokePage() {
                     key={item.id}
                     className="flex items-center justify-between px-4 py-4 rounded-full border border-[#3A3A3A] bg-[#0C0C0C]"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      {/* Vis brugerens navn i en guld cirkel (kun første bogstav eller forkortelse) */}
-                      <div className="w-10 h-10 rounded-full border border-[#E5A702] flex items-center justify-center text-xs font-semibold text-[#E5A702]">
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-xl text-[#E5A702] font-semibold">
                         {item.name}
-                      </div>
-                      {/* Sang-navnet (fx "Adele — Hello") – truncate hvis det er for langt */}
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-sm truncate">{item.song}</span>
-                      </div>
+                      </span>
+                      <span className="text-sm truncate">{item.song}</span>
                     </div>
                     {/* Tidspunkt for tilmelding (fx "23:30") – vises til højre */}
                     <span className="text-sm text-right text-[#FFF5D6]/80">
