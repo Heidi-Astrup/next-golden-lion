@@ -88,17 +88,13 @@ export default function Staff() {
     };
   }, []);
 
-  console.log(orders);
-
   return (
     <div className="min-h-screen pt-20 pb-10 px-5 flex items-center justify-center">
       <main className="text-center max-w-[600px]">
         <h1 className="text-[32px] font-heading font-semibold mb-4 tracking-tight text-[#ffffff]">
           Staff page
         </h1>
-        {orders.map((ord) => (
-          <OrderBox key={ord.id} orders={orders} />
-        ))}
+        <OrderBox key={orders.id} orders={orders} />
       </main>
     </div>
   );
