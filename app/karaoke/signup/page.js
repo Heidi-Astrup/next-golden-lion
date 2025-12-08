@@ -50,7 +50,7 @@ export default async function KaraokeSignUpPage({ searchParams }) {
     //   },
     //   "def456": { ... }
     // }
-    await fetch(url, {
+    const response = await fetch(url, {
       method: "POST", // POST opretter en ny tilmelding i Firebase
       body: JSON.stringify({
         name, // Brugerens navn
@@ -63,9 +63,19 @@ export default async function KaraokeSignUpPage({ searchParams }) {
       }),
     });
 
+    // Hent det nye Firebase-ID fra svaret (name-feltet)
+    let newId = "";
+    try {
+      const result = await response.json();
+      newId = result?.name || "";
+    } catch (_) {
+      newId = "";
+    }
+
     // Efter succesfuld signup sender vi brugeren til bekræftelsessiden
     // Tilmeldingen er nu gemt i Firebase og vil blive vist i kø-listen på /karaoke siden
-    redirect("/karaoke/confirmed");
+    const target = newId ? `/karaoke/confirmed?id=${newId}` : "/karaoke/confirmed";
+    redirect(target);
   }
 
   return (

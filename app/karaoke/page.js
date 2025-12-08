@@ -6,13 +6,16 @@ import KaraokeInfoButton from "@/components/KaraokeInfoButton";
 // Dette sikrer at kø-listen altid viser de nyeste tilmeldinger
 export const dynamic = "force-dynamic";
 
-// Hovedkomponenten for karaoke-siden – henter og viser alle karaoke-tilmeldinger
 // Tilmeldinger gemmes i Firebase under /karaokeSignups.json når brugeren trykker SIGN UP
 export default async function KaraokePage() {
   // Hent Firebase database URL fra environment variabler
   const baseUrl = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL;
   // Start med tom kø-liste – fyldes op hvis vi kan hente data fra Firebase
   let queue = [];
+
+  // Cutoff på 12 timer (i millisekunder) – gamle tilmeldinger fjernes
+  const twelveHoursMs = 12 * 60 * 60 * 1000;
+  const staleIds = [];
 
   // Hvis vi har en Firebase URL, henter vi alle tilmeldinger
   if (baseUrl) {
@@ -33,8 +36,24 @@ export default async function KaraokePage() {
 
         // Konverter Firebase-objekt til array og formater dataen til kø-format
         if (data && typeof data === "object") {
+          // Beregn cutoff inde i async-blokken for at undgå impure kald i render
+          const cutoff = new Date().getTime() - twelveHoursMs;
+
           queue = Object.entries(data)
             .map(([id, signup]) => {
+              // Hvis createdAt mangler eller er ældre end 12 timer, marker til sletning
+              const createdAtDate = signup.createdAt
+                ? new Date(signup.createdAt)
+                : null;
+              const isStale =
+                !createdAtDate ||
+                Number.isNaN(createdAtDate.getTime()) ||
+                createdAtDate.getTime() < cutoff;
+              if (isStale) {
+                staleIds.push(id);
+                return null;
+              }
+
               // Formater sang-navn til at vise "Artist — Title" hvis begge findes
               // Eller bare "Title" eller "Artist" hvis kun en findes
               // Eller "No song selected" hvis ingen sang er valgt
@@ -44,13 +63,20 @@ export default async function KaraokePage() {
                   : signup.title || signup.artist || "No song selected";
 
               // Formater tidspunkt fra createdAt (ISO string) til "HH:MM" format
-              // Fx "2024-01-15T23:30:00.000Z" bliver til "23:30"
+              // og en mere præcis timestamp (dato + klokkeslæt)
               let time = "";
+              let createdAtLabel = "";
               if (signup.createdAt) {
                 const date = new Date(signup.createdAt);
                 const hours = String(date.getHours()).padStart(2, "0");
                 const minutes = String(date.getMinutes()).padStart(2, "0");
                 time = `${hours}:${minutes}`;
+                createdAtLabel = date.toLocaleString("da-DK", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
               }
 
               // Returner formateret tilmelding klar til at blive vist i kø-listen
@@ -60,8 +86,10 @@ export default async function KaraokePage() {
                 song: songName, // Formateret sang-navn
                 time, // Formateret tidspunkt (fx "23:30")
                 createdAt: signup.createdAt || "", // Behold original createdAt til sortering
+                createdAtLabel, // Læsevenlig timestamp (dd/mm kl. hh:mm)
               };
             })
+            .filter(Boolean) // fjern stale/null entries
             // Sorter efter createdAt (ældste først, så de kommer i kø-rækkefølge)
             // Den første der tilmeldte sig skal være først i køen
             .sort((a, b) => {
@@ -69,6 +97,17 @@ export default async function KaraokePage() {
               // Sorter kronologisk: ældste dato først (mindste timestamp først)
               return new Date(a.createdAt) - new Date(b.createdAt);
             });
+
+          // Slet stale tilmeldinger fra Firebase (ældre end 12 timer)
+          if (staleIds.length > 0) {
+            await Promise.all(
+              staleIds.map((id) =>
+                fetch(`${cleanedBase}/karaokeSignups/${id}.json`, {
+                  method: "DELETE",
+                }).catch(() => null)
+              )
+            );
+          }
         }
       }
     } catch (error) {
@@ -155,7 +194,14 @@ export default async function KaraokePage() {
                         {item.name}
                       </div>
                       {/* Sang-navnet (fx "Adele — Hello") – truncate hvis det er for langt */}
-                      <span className="text-sm truncate">{item.song}</span>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-sm truncate">{item.song}</span>
+                        {item.createdAtLabel ? (
+                          <span className="text-[11px] text-[#FFF5D6]/60 truncate">
+                            Signed up: {item.createdAtLabel}
+                          </span>
+                        ) : null}
+                      </div>
                     </div>
                     {/* Tidspunkt for tilmelding (fx "23:30") – vises til højre */}
                     <span className="text-sm text-right text-[#FFF5D6]/80">
