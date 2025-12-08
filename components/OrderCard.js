@@ -12,7 +12,8 @@ export default function BeverageCard({ beverages, name }) {
   return (
     <div className="text-left text-[#FFF5D6] w-40 h-auto border-2 border-[#E5A702] rounded-xl p-4 flex flex-col gap-4 justify-between">
       <h3 className="text-[28px] font-heading leading-none mt-4">
-        {beverages.name}
+        {beverages.name}{" "}
+        {beverages.quantity > 1 ? `x${beverages.quantity}` : ""}
       </h3>
       <p className="font-body text-[20px]">For {name}</p>
       <div className="flex flex-col gap-4">
