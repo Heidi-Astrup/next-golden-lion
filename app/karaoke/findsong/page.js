@@ -29,7 +29,8 @@ export default function KaraokeFindSongPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </section>
 
-      <main className="min-h-screen pt-4 pb-0">
+      {/* Lidt ekstra luft nederst så footeren ikke klistrer helt op ad knapperne */}
+      <main className="pt-4 pb-25">
         <div className="max-w-sm mx-auto px-6">
           {/* Overskrift */}
           <section className="mt-4 mb-6">
@@ -46,7 +47,7 @@ export default function KaraokeFindSongPage() {
           />
 
           {/* Shuffle-tekst og knapper – SHUFFLE vælger en tilfældig sang i søge-komponenten */}
-          <section className="text-center space-y-6 mt-8 mb-0">
+          <section className="text-center space-y-4 mt-4 mb-0">
             <p className="text-xl font-body">
               Don&apos;t know what to sing?
               <br />
