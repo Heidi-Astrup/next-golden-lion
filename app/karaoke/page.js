@@ -196,11 +196,6 @@ export default async function KaraokePage() {
                       {/* Sang-navnet (fx "Adele — Hello") – truncate hvis det er for langt */}
                       <div className="flex flex-col min-w-0">
                         <span className="text-sm truncate">{item.song}</span>
-                        {item.createdAtLabel ? (
-                          <span className="text-[11px] text-[#FFF5D6]/60 truncate">
-                            Signed up: {item.createdAtLabel}
-                          </span>
-                        ) : null}
                       </div>
                     </div>
                     {/* Tidspunkt for tilmelding (fx "23:30") – vises til højre */}
