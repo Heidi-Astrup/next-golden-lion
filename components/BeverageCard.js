@@ -20,7 +20,7 @@ const BeverageCard = ({ beverages, basket, basketItems, setBasketItems }) => {
     const updatedArray = [...prevArray, beverages];
     // 3. Gem arrayet igen
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
-    setBasketItems(updatedArray);
+    //setBasketItems(updatedArray);
   }
 
   function trashIt() {
@@ -32,19 +32,19 @@ const BeverageCard = ({ beverages, basket, basketItems, setBasketItems }) => {
   }
 
   function minus() {
-    const updatedArray = [...basketItems];
+    const updatedArray = localStorage.getItem("beverageName");
     const index = updatedArray.findIndex((item) => item.id === beverages.id);
     if (index !== -1) {
       updatedArray.splice(index, 1);
     }
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
-    setBasketItems(updatedArray);
+    //setBasketItems(updatedArray);
   }
 
   function plus() {
     const updatedArray = [...basketItems, beverages];
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
-    setBasketItems(updatedArray);
+    //setBasketItems(updatedArray);
   }
 
   if (basket === "inBasket") {
