@@ -2,7 +2,6 @@
 
 import BeverageCard from "@/components/BeverageCard";
 import Image from "next/image";
-import Link from "next/link";
 import beerKeg from "@/public/images/Beer.svg";
 import { useEffect, useState } from "react";
 
