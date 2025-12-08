@@ -6,11 +6,8 @@ import Logo from "@/components/navigation/Logo";
 
 export default function Home() {
   return (
-    <div className="w-screen h-screen overflow-hidden overscroll-none">
-      <div
-        className="h-full overflow-y-auto overscroll-contain"
-        style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
-      >
+    <div className="w-screen min-h-screen">
+      <div>
         {/* full-bleed hero image (pulled up underneath the sticky nav) */}
         <div className="w-full relative h-[50vh] sm:h-[90vh] -mt-20 z-0">
           <Image
