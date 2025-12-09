@@ -32,7 +32,7 @@ export default function BeverageCard({ beverages, name }) {
           active ? "bg-[#E5A702]" : "bg-[#6f6f6f]"
         }`}
       >
-        DONE
+        READY
       </button>
     </div>
   );
