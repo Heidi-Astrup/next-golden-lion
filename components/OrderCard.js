@@ -26,22 +26,14 @@ export default function BeverageCard({ beverages, name }) {
         {beverages.quantity > 1 ? `x${beverages.quantity}` : ""}
       </h3>
       <p className="font-body text-[20px]">For {name}</p>
-      <div className="flex flex-col gap-4">
-        <button
-          onClick={done}
-          className={`w-4/4 p-2 rounded-[10px] text-black text-1xl ${
-            active ? "bg-[#E5A702]" : "bg-[#6f6f6f]"
-          }`}
-        >
-          DONE
-        </button>
-        <button
-          onClick={cancel}
-          className="bg-black w-4/4 p-2 border-2 border-[#E5A702] rounded-[10px] text-[#E5A702] text-1xl"
-        >
-          CANCEL
-        </button>
-      </div>
+      <button
+        onClick={done}
+        className={`w-4/4 p-2 rounded-[10px] text-black text-1xl ${
+          active ? "bg-[#E5A702]" : "bg-[#6f6f6f]"
+        }`}
+      >
+        DONE
+      </button>
     </div>
   );
 }
