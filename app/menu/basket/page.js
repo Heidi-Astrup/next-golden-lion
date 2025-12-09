@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BasketPage() {
-  const [basketItems, setBasketItems] = useState([]);
   const router = useRouter();
+  const [basketItems, setBasketItems] = useState([]);
 
   //get items in basket from local storage
   useEffect(() => {
@@ -46,6 +46,8 @@ export default function BasketPage() {
       router.push(`/orders/${id}`);
     }
   }
+
+  console.log("hej");
 
   // Count duplicates: { id: { ...bev, quantity: X } }
   const countedItems = basketItems.reduce((acc, bev) => {

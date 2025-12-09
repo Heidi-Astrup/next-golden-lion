@@ -20,13 +20,12 @@ const BeverageCard = ({ beverages, basket, basketItems, setBasketItems }) => {
     const updatedArray = [...prevArray, beverages];
     // 3. Gem arrayet igen
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
-    setBasketItems(updatedArray);
+    //setBasketItems(updatedArray);
   }
 
   function trashIt() {
-    const updatedArray = [...basketItems];
-    const index = updatedArray.findIndex((item) => item.id === beverages.id);
-    if (index !== -1) updatedArray.splice(index, 1);
+    // Fjern alle med samme id som `beverages.id`
+    const updatedArray = basketItems.filter((item) => item.id !== beverages.id);
     localStorage.setItem("beverageName", JSON.stringify(updatedArray));
     setBasketItems(updatedArray);
   }
