@@ -29,7 +29,9 @@ export default function BeverageCard({ beverages, name }) {
       <div className="flex flex-col gap-4">
         <button
           onClick={done}
-          className="bg-[#E5A702] w-4/4 p-2 rounded-[10px] text-black text-1xl"
+          className={`w-4/4 p-2 rounded-[10px] text-black text-1xl ${
+            active ? "bg-[#E5A702]" : "bg-[#6f6f6f]"
+          }`}
         >
           DONE
         </button>
