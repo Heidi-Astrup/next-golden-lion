@@ -14,12 +14,17 @@ export default function KaraokeInfoButton() {
       <span
         role="button"
         tabIndex={0}
-        // Klik med mus åbner popup
-        onClick={() => setOpen(true)}
+        // Klik med mus åbner popup uden at trigge linket under
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen(true);
+        }}
         onKeyDown={(e) => {
           // Tastatur: Enter eller mellemrum åbner også popup
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
+            e.stopPropagation();
             setOpen(true);
           }
         }}
@@ -49,10 +54,15 @@ export default function KaraokeInfoButton() {
             <div
               role="button"
               tabIndex={0}
-              onClick={() => setOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Bliv på siden og kun luk popup
+                setOpen(false);
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
+                  e.stopPropagation(); // Bliv på siden
                   setOpen(false);
                 }
               }}
