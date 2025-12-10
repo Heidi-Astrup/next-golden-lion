@@ -69,21 +69,23 @@ export default function LogIn() {
 
   return (
     <div className="flex items-start justify-center py-20 w-screen bg-black text-[#FFF5D6]">
-      <div className="mb-6 mx-auto">
-        {/* Example logo - reuse public image */}
-        <Logo
-          src="/images/GoldenlionLogo.png"
-          alt="Logo"
-          width={300}
-          height={300}
-          className="w-90 h-auto"
-          priority
-        />
-      </div>
       <form
         onSubmit={onSubmit}
         className="w-full max-w-sm bg-transparent text-center"
       >
+        <div className="mb-6">
+          {/* Example logo - reuse public image */}
+          <Logo
+            src="/images/GoldenlionLogo.png"
+            alt="Logo"
+            width={96}
+            height={96}
+            className="mx-auto"
+            imgClassName="h-46 w-46 m-auto"
+            priority
+          />
+        </div>
+
         <h1 className="text-2xl font-bold text-yellow-400 mb-6">STAFF LOGIN</h1>
 
         <label className="block mb-4 bg-[#212529] rounded-full">
