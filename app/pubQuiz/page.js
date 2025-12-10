@@ -39,7 +39,7 @@ export default function PubQuiz() {
             className="mb-8 w-dvh h-auto"
           ></Image>
           <p className="text-2xl font-body text-center text-[#FFF5D6] mb-8">
-            Every <strong>Friday</strong> at 20:00 - to start your weekend in
+            Every <strong>Wednesday</strong> at 19:00 - to spice your week up in
             the perfect way!
           </p>
           <p className="text-2xl font-body text-center text-[#FFF5D6] mb-8">
