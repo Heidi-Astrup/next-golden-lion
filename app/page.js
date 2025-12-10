@@ -61,13 +61,13 @@ export default function Home() {
                     day: "Monday",
                     title: "Darts",
                     time: "all day",
-                    img: "/images/dart.svg",
+                    img: "/images/Dart.svg",
                   },
                   {
                     day: "Tuesday",
                     title: "Darts",
                     time: "all day",
-                    img: "/images/dart.svg",
+                    img: "/images/Dart.svg",
                   },
                   {
                     day: "Wednesday",
