@@ -11,10 +11,7 @@ export default function OverlayClient({ open, onClose, links = [] }) {
   return (
     <div className="fixed inset-0 z-50">
       {/* backdrop */}
-      <div
-        className="absolute inset-0 bg-black/90 w-screen h-screen"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/90" onClick={onClose} />
       {/* centered content */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
         {/* logo in top-left (reuse shared Logo component) */}
