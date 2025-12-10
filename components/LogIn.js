@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Logo from "@/components/navigation/Logo";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
@@ -75,7 +75,7 @@ export default function LogIn() {
       >
         <div className="mb-6">
           {/* Example logo - reuse public image */}
-          <Image
+          <Logo
             src="/images/GoldenlionLogo.png"
             alt="Logo"
             width={96}
