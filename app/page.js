@@ -9,7 +9,7 @@ export default function Home() {
     <div className="max-w-screen min-h-screen">
       <div>
         {/* full-bleed hero image (pulled up underneath the sticky nav) */}
-        <div className="w-full relative h-[50vh] sm:h-[90vh] -mt-20 z-0">
+        <div className="w-full relative h-[50vh] -mt-20 z-0">
           <Image
             src="/images/facade.jpg"
             alt="Golden Lion Pub Front"
@@ -31,9 +31,9 @@ export default function Home() {
 
             {/* decorative circle behind content */}
             <div
-              className="absolute left-1/2 -top-30 -translate-x-1/2
+              className="absolute left-1/2 -top-35 -translate-x-1/2
                        w-110 h-110 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
-                       rounded-full bg-black pointer-events-none -z-10"
+                       rounded-full bg-black pointer-events-none -z-10 w-screen"
             />
 
             <div className="relative z-10 my-8">
