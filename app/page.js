@@ -32,7 +32,7 @@ export default function Home() {
             {/* decorative circle behind content */}
             <div
               className="absolute left-1/2 -top-35 -translate-x-1/2
-                       w-110 h-110 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
+                        h-110 sm:w-96 sm:h-96 md:w-[520px] md:h-[520px]
                        rounded-full bg-black pointer-events-none -z-10 w-screen"
             />
 
@@ -54,7 +54,7 @@ export default function Home() {
               <div
                 role="region"
                 aria-label="Weekly schedule carousel"
-                className="flex gap-3 overflow-x-auto pl-4 pb-10"
+                className="max-w-screen flex gap-3 overflow-x-auto px-4 pb-10"
               >
                 {[
                   {

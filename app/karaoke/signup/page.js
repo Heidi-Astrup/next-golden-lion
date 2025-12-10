@@ -7,10 +7,11 @@ export default async function KaraokeSignUpPage({ searchParams }) {
   const params =
     searchParams instanceof Promise ? await searchParams : searchParams;
 
-  // Læs valgt sang ud fra URL'en (?artist=...&title=...&length=...)
+  // Læs valgt sang ud fra URL'en (?artist=...&title=...&length=...&album=...)
   const artist = params?.artist;
   const title = params?.title;
   const length = params?.length;
+  const album = params?.album;
 
   // Bruges til at afgøre om vi har en sang eller skal vise "No song selected"
   const hasSong = artist || title || length;
@@ -35,6 +36,7 @@ export default async function KaraokeSignUpPage({ searchParams }) {
     const artist = formData.get("artist");
     const title = formData.get("title");
     const length = formData.get("length");
+    const album = formData.get("album");
 
     // Gem tilmeldingen i Firebase sammen med den valgte sang
     // Firebase POST opretter automatisk et nyt unikt ID for hver tilmelding
@@ -58,6 +60,7 @@ export default async function KaraokeSignUpPage({ searchParams }) {
         artist: artist || null, // Sangens kunstner (eller null hvis ikke valgt)
         title: title || null, // Sangens titel (eller null hvis ikke valgt)
         length: length || null, // Sangens længde (eller null hvis ikke valgt)
+        album: album || null, // Album-billede URL (eller null hvis ikke valgt)
         createdAt: new Date().toISOString(), // Tidspunkt for tilmelding (ISO format)
         // createdAt bruges til at sortere kø-listen (ældste først)
       }),
@@ -108,15 +111,33 @@ export default async function KaraokeSignUpPage({ searchParams }) {
             <p className="font-heading text-[#E5A702] text-2xl mb-2">
               Chosen song
             </p>
-            <div className="bg-[#FFF5D6] text-black rounded-lg px-4 py-3 flex items-center justify-between text-sm">
-              <span className="font-body">
-                {hasSong
-                  ? `${artist ?? ""}${artist && title ? " — " : ""}${
-                      title ?? ""
-                    }`
-                  : "No song selected"}
-              </span>
-              <span className="ml-4 shrink-0 font-body">
+            <div className="bg-[#FFF5D6] text-black rounded-[32px] px-4 py-3 flex items-center justify-between text-sm min-h-[64px]">
+              {hasSong ? (
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-black/10 flex-shrink-0">
+                    {album ? (
+                      <Image
+                        src={album}
+                        alt={`${title || "Album cover"}`}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : null}
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-body text-base truncate">
+                      {artist ?? ""}
+                    </span>
+                    <span className="font-body text-base truncate">
+                      {title ?? ""}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <span className="font-body">No song selected</span>
+              )}
+              <span className="ml-4 shrink-0 font-body text-sm">
                 {hasSong ? length : ""}
               </span>
             </div>
@@ -131,6 +152,7 @@ export default async function KaraokeSignUpPage({ searchParams }) {
               artist: artist || "",
               title: title || "",
               length: length || "",
+              album: album || "",
             }}
           />
         </div>

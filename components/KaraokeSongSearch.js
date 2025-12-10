@@ -14,7 +14,7 @@ import Image from "next/image";
 // forwardRef gør det muligt for forælder-komponenten
 // (findsong/page.js) at kalde funktioner inde i denne komponent
 const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(
-  { onSelectSong },
+  { onSelectSong, selectedSong },
   ref
 ) {
   // Alle sange hentet fra Firebase
@@ -143,13 +143,25 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(
       >
         {/* Søgefelt */}
         <div className="flex items-center mb-4 gap-3">
-          <Image
-            src="/images/sooge.png"
-            alt="Search"
-            width={24}
-            height={24}
-            className="opacity-70"
-          />
+          {selectedSong?.album ? (
+            <div className="w-12 h-12 rounded-full overflow-hidden bg-black/10 flex-shrink-0">
+              <Image
+                src={selectedSong.album}
+                alt={`${selectedSong.title} album cover`}
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <Image
+              src="/images/sooge.png"
+              alt="Search"
+              width={24}
+              height={24}
+              className="opacity-70"
+            />
+          )}
           <input
             type="text"
             value={query}
