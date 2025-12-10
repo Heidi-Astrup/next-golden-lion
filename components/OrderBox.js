@@ -1,6 +1,11 @@
-import OrderCard from "@/components/OrderCard";
+//"use client";
 
-export default function OrderBox({ orders }) {
+import OrderCard from "@/components/OrderCard";
+//import { useState } from "react";
+
+export default function OrderBox({ orders, setOrders }) {
+  //const [orders, setOrders] = useState();
+
   async function orderDone(orderId) {
     const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order/${orderId}.json`; // Get Firebase Realtime Database URL
 

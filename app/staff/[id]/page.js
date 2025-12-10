@@ -111,7 +111,7 @@ export default function Staff() {
         <h1 className="text-[32px] font-heading font-semibold mb-4 tracking-tight text-[#ffffff]">
           Staff page
         </h1>
-        <OrderBox key={orders.id} orders={orders} />
+        <OrderBox key={orders.id} orders={orders} setOrders={setOrders} />
       </main>
     </div>
   );
