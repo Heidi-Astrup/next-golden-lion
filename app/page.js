@@ -227,13 +227,17 @@ export default function Home() {
               <h3 className="text-yellow-400 font-heading text-4xl mb-2">
                 ABOUT US
               </h3>
-              <p className=" text-gray-300 mb-4 font-body text-2xl">
+              <p className=" text-[#FFF5D6] mb-4 font-body text-2xl">
                 The Golden Lion is probably the cosiest and most authentic
                 British pub in town. Located in the heart of the city!
               </p>
-              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
+              <Link
+                key="about"
+                href="/about"
+                className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl"
+              >
                 READ MORE
-              </div>
+              </Link>
             </section>
           </main>
         </div>
