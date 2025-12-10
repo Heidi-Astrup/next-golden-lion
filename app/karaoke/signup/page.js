@@ -111,7 +111,7 @@ export default async function KaraokeSignUpPage({ searchParams }) {
             <p className="font-heading text-[#E5A702] text-2xl mb-2">
               Chosen song
             </p>
-            <div className="bg-[#FFF5D6] text-black rounded-[32px] px-4 py-3 flex items-center justify-between text-sm min-h-[64px]">
+            <div className="bg-[#FFF5D6] text-black rounded-lg px-4 py-3 flex items-center justify-between text-sm min-h-[64px]">
               {hasSong ? (
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-black/10 flex-shrink-0">

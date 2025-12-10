@@ -53,8 +53,10 @@ export default function Form({
         className="mb-6 bg-[#FFF5D6] rounded-md"
       />
 
-      <div className="bg-[#E5A702] p-4 rounded-lg w-1/2 m-auto text-center">
-        <button>{submitLabel}</button>
+      <div className="bg-[#E5A702] p-5 rounded-xl w-4/5 max-w-sm mx-auto text-center text-black">
+        <button className="w-full text-2xl font-heading font-bold tracking-[0.14em] py-3">
+          {submitLabel}
+        </button>
       </div>
     </form>
   );
