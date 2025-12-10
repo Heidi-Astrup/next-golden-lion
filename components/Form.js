@@ -54,7 +54,7 @@ export default function Form({
       />
 
       <div className="bg-[#E5A702] p-5 rounded-xl w-4/5 max-w-sm mx-auto text-center text-black">
-        <button className="w-full text-2xl font-heading font-bold tracking-[0.14em] py-3">
+        <button className="w-full text-2xl font-heading tracking-[0.14em] py-3">
           {submitLabel}
         </button>
       </div>

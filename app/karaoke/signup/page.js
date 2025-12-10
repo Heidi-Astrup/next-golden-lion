@@ -100,7 +100,7 @@ export default async function KaraokeSignUpPage({ searchParams }) {
         <div className="max-w-sm mx-auto px-6">
           {/* Overskrift */}
           <section className="mt-2 mb-8 text-center">
-            <h1 className="font-heading text-[#E5A702] text-4xl leading-tight">
+            <h1 className="font-heading text-[#E5A702] text-4xl font-bold leading-tight">
               <span className="block tracking-[0.16em]">Sign Up for</span>
               <span className="block tracking-[0.16em]">karaoke</span>
             </h1>
