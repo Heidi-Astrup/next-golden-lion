@@ -9,7 +9,8 @@ export default function Staff() {
   useEffect(() => {
     // Protect this page with Firebase Auth. We initialize the app locally here
     // (avoids importing a shared client) and attach an auth state listener.
-    let unsubscribe = null;
+    let unsubscribeAuth = null;
+    let unsubscribeOrders = null;
 
     async function initAndFetch() {
       try {
@@ -20,10 +21,14 @@ export default function Staff() {
           setPersistence,
           browserLocalPersistence,
         } = await import("firebase/auth");
+        const { getDatabase, ref, onValue, off } = await import(
+          "firebase/database"
+        );
 
         const firebaseConfig = {
           apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
           authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+          databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
           projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
           storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
           messagingSenderId:
@@ -43,33 +48,44 @@ export default function Staff() {
         // Ensure persistence so staff stays signed in across reloads
         await setPersistence(auth, browserLocalPersistence);
 
-        unsubscribe = onAuthStateChanged(auth, async (user) => {
+        unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
           if (!user) {
             // Not signed in — redirect to login
             const { default: router } = await import("next/router");
             // In app router we can use location fallback
+            if (typeof unsubscribeOrders === "function") unsubscribeOrders();
             window.location.href = "/staff";
             return;
           }
 
-          // Signed in — fetch orders
+          // Signed in — subscribe to orders so staff view updates live
           try {
-            const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/order.json`;
-            const response = await fetch(url);
-            const dataObject = await response.json();
+            const db = getDatabase(app);
+            const orderRef = ref(db, "order");
 
-            const orderList = Object.keys(dataObject || {}).map((key) => ({
-              id: key,
-              ...dataObject[key],
-            }));
+            const handleSnapshot = (snapshot) => {
+              const dataObject = snapshot.val();
+              const orderList = Object.keys(dataObject || {}).map((key) => ({
+                id: key,
+                ...dataObject[key],
+              }));
 
-            const filteredOrders = orderList.filter(
-              (order) => order.isDone !== true && order.isCanceled !== true
-            );
+              const filteredOrders = orderList.filter(
+                (order) => order.isDone !== true && order.isCanceled !== true
+              );
 
-            setOrders(filteredOrders);
+              setOrders(filteredOrders);
+            };
+
+            const unsubscribe = onValue(orderRef, handleSnapshot, (err) => {
+              console.error("Failed to subscribe to orders:", err);
+            });
+            unsubscribeOrders = () => {
+              off(orderRef, "value", handleSnapshot);
+              if (typeof unsubscribe === "function") unsubscribe();
+            };
           } catch (err) {
-            console.error("Failed to fetch orders:", err);
+            console.error("Failed to subscribe to orders:", err);
           }
         });
 
@@ -84,7 +100,8 @@ export default function Staff() {
     initAndFetch();
 
     return () => {
-      if (typeof unsubscribe === "function") unsubscribe();
+      if (typeof unsubscribeOrders === "function") unsubscribeOrders();
+      if (typeof unsubscribeAuth === "function") unsubscribeAuth();
     };
   }, []);
 
@@ -94,7 +111,7 @@ export default function Staff() {
         <h1 className="text-[32px] font-heading font-semibold mb-4 tracking-tight text-[#ffffff]">
           Staff page
         </h1>
-        <OrderBox key={orders.id} orders={orders} />
+        <OrderBox key={orders.id} orders={orders} setOrders={setOrders} />
       </main>
     </div>
   );

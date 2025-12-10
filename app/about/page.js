@@ -1,6 +1,7 @@
 import Image from "next/image";
 import staff from "@/public/images/Staffinbar.svg";
 import barbillede from "@/public/images/bartender.svg";
+import kontrolrapport from "@/public/images/kontrolrapport.png";
 
 export default function About() {
   return (
@@ -46,6 +47,16 @@ export default function About() {
             A place where your character and ethos are more important than the
             brand of shirt you are wearing or the car you drive.
           </p>
+          <h1 className="text-2xl font-heading text-center font-semibold mb-4 mt-22 tracking-tight text-[#FFF5D6]">
+            Smiley Report
+          </h1>
+          <Image
+            width={200}
+            height={200}
+            src={kontrolrapport}
+            alt="kontrolrapport"
+            className="mb-8 w-6/12 h-auto mx-auto"
+          ></Image>
         </main>
       </div>
     </div>

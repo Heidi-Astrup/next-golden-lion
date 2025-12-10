@@ -35,7 +35,7 @@ export default function Nav() {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-linear-to-b from-black to-transparent">
+    <header className="fixed top-0 z-50 w-screen bg-linear-to-b from-black to-transparent">
       <div className="max-w-7xl mx-auto px-7 py-4 flex items-center justify-between">
         <Logo
           href="/"

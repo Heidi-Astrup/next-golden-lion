@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Logo({
   href = "/",
-  size = 32,
+  size = 200,
   linkClassName = "",
   imgClassName = "",
   onClick,

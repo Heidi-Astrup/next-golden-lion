@@ -6,7 +6,7 @@ import Logo from "@/components/navigation/Logo";
 
 export default function Home() {
   return (
-    <div className="w-screen min-h-screen">
+    <div className="max-w-screen min-h-screen">
       <div>
         {/* full-bleed hero image (pulled up underneath the sticky nav) */}
         <div className="w-full relative h-[50vh] sm:h-[90vh] -mt-20 z-0">
@@ -54,32 +54,32 @@ export default function Home() {
               <div
                 role="region"
                 aria-label="Weekly schedule carousel"
-                className="flex gap-3 overflow-x-auto pl-4 pb-10"
+                className="max-w-screen flex gap-3 overflow-x-auto pl-4 pb-10"
               >
                 {[
                   {
                     day: "Monday",
                     title: "Darts",
                     time: "all day",
-                    img: "/images/dart.svg",
+                    img: "/images/Dart.svg",
                   },
                   {
                     day: "Tuesday",
                     title: "Darts",
                     time: "all day",
-                    img: "/images/dart.svg",
+                    img: "/images/Dart.svg",
                   },
                   {
                     day: "Wednesday",
-                    title: "Darts",
-                    time: "all day",
-                    img: "/images/dart.svg",
+                    title: "Pub Quiz",
+                    time: "19:00-21:00",
+                    img: "/images/PubQuizCopi.png",
                   },
                   {
                     day: "Thursday",
                     title: "Karaoke",
                     time: "23:00-03:00",
-                    img: "/images/dart.svg",
+                    img: "/images/karaokeGirls.png",
                   },
                   {
                     day: "Friday",
@@ -96,8 +96,8 @@ export default function Home() {
                   {
                     day: "Sunday",
                     title: "Darts",
-                    time: "all day",
-                    img: "/images/dart.svg",
+                    time: "19:45-21:45",
+                    img: "/images/PubQuizCopi.png",
                   },
                 ].map((slot) => (
                   <article key={slot.day} className="min-w-40 snap-start">
@@ -227,13 +227,17 @@ export default function Home() {
               <h3 className="text-yellow-400 font-heading text-4xl mb-2">
                 ABOUT US
               </h3>
-              <p className=" text-gray-300 mb-4 font-body text-2xl">
+              <p className=" text-[#FFF5D6] mb-4 font-body text-2xl">
                 The Golden Lion is probably the cosiest and most authentic
                 British pub in town. Located in the heart of the city!
               </p>
-              <div className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
+              <Link
+                key="about"
+                href="/about"
+                className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl"
+              >
                 READ MORE
-              </div>
+              </Link>
             </section>
           </main>
         </div>

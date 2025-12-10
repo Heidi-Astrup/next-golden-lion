@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Logo from "@/components/navigation/Logo";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
@@ -68,37 +68,38 @@ export default function LogIn() {
   }
 
   return (
-    <div className="flex items-start justify-center py-20 w-screen bg-black text-white">
+    <div className="flex items-start justify-center py-20 w-screen bg-black text-[#FFF5D6]">
       <form
         onSubmit={onSubmit}
         className="w-full max-w-sm bg-transparent text-center"
       >
         <div className="mb-6">
           {/* Example logo - reuse public image */}
-          <Image
+          <Logo
             src="/images/GoldenlionLogo.png"
             alt="Logo"
             width={96}
             height={96}
             className="mx-auto"
+            imgClassName="h-46 w-46 m-auto"
             priority
           />
         </div>
 
         <h1 className="text-2xl font-bold text-yellow-400 mb-6">STAFF LOGIN</h1>
 
-        <label className="block mb-4">
+        <label className="block mb-4 bg-[#212529] rounded-full">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-full px-4 py-3 text-white"
+            className="w-full rounded-full px-4 py-3"
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-4 bg-[#212529] rounded-full">
           <input
             type="password"
             placeholder="Password"
