@@ -54,7 +54,7 @@ export default function Home() {
               <div
                 role="region"
                 aria-label="Weekly schedule carousel"
-                className="flex gap-3 overflow-x-auto pl-4 pb-10"
+                className="max-w-screen flex gap-3 overflow-x-auto pl-4 pb-10"
               >
                 {[
                   {
