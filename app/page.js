@@ -71,15 +71,15 @@ export default function Home() {
                   },
                   {
                     day: "Wednesday",
-                    title: "Darts",
-                    time: "all day",
-                    img: "/images/dart.svg",
+                    title: "Pub Quiz",
+                    time: "19:00-21:00",
+                    img: "/images/PubQuizCopi.png",
                   },
                   {
                     day: "Thursday",
                     title: "Karaoke",
                     time: "23:00-03:00",
-                    img: "/images/dart.svg",
+                    img: "/images/karaokeGirls.png",
                   },
                   {
                     day: "Friday",
@@ -96,8 +96,8 @@ export default function Home() {
                   {
                     day: "Sunday",
                     title: "Darts",
-                    time: "all day",
-                    img: "/images/dart.svg",
+                    time: "19:45-21:45",
+                    img: "/images/PubQuizCopi.png",
                   },
                 ].map((slot) => (
                   <article key={slot.day} className="min-w-40 snap-start">
