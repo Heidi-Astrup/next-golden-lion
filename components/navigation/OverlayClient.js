@@ -25,7 +25,7 @@ export default function OverlayClient({ open, onClose, links = [] }) {
           <button
             aria-label="Close menu"
             onClick={onClose}
-            className="absolute top-7 right-6 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
+            className="absolute top-7 right-9 p-2 flex items-center justify-center text-3xl font-bold shadow-lg text-white"
           >
             ✕
           </button>
