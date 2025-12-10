@@ -6,7 +6,7 @@ import Logo from "@/components/navigation/Logo";
 
 export default function Home() {
   return (
-    <div className="w-screen min-h-screen">
+    <div className="max-w-screen min-h-screen">
       <div>
         {/* full-bleed hero image (pulled up underneath the sticky nav) */}
         <div className="w-full relative h-[50vh] sm:h-[90vh] -mt-20 z-0">
