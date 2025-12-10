@@ -25,7 +25,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${josefin.variable} ${instrument.variable}`}>
-      <body suppressHydrationWarning={true} className="bg-black">
+      <body
+        suppressHydrationWarning={true}
+        className="bg-black w-screen h-screen"
+      >
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
