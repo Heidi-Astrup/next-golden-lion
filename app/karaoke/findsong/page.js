@@ -43,6 +43,7 @@ export default function KaraokeFindSongPage() {
               onSelectSong kaldes fra KaraokeSongSearch, når brugeren klikker på en sang */}
           <KaraokeSongSearch
             ref={searchRef}
+            selectedSong={selectedSong}
             onSelectSong={(song) => setSelectedSong(song)}
           />
 
@@ -71,6 +72,7 @@ export default function KaraokeFindSongPage() {
                     artist: selectedSong.artist,
                     title: selectedSong.title,
                     length: selectedSong.length,
+                    album: selectedSong.album,
                   },
                 }}
               >
