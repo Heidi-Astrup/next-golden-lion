@@ -81,6 +81,7 @@ export default function LogIn() {
             width={96}
             height={96}
             className="mx-auto"
+            imgClassName="h-46 w-46 m-auto"
             priority
           />
         </div>
