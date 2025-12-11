@@ -50,6 +50,15 @@ export default function Menu() {
           <h1 className="font-heading mt-10 -mb-10 relative z-30 text-[#FFF5D6] text-5xl text-center font-semibold tracking-tight m-auto">
             Menu
           </h1>
+          <Link href="/menu/basket">
+            <Image
+              src={kurvv}
+              alt="basket icon"
+              width={50}
+              height={50}
+              className="sticky z-50 float-right w-12 h-12 top-25 mt-23"
+            />
+          </Link>
           <section className="mb-20">
             <h3
               className="sticky top-0 pt-25 bg-black/40 backdrop-blur-sm pb-2 z-20 
@@ -57,15 +66,6 @@ export default function Menu() {
             >
               Draught
             </h3>
-            <Link href="/menu/basket">
-              <Image
-                src={kurvv}
-                alt="basket icon"
-                width={50}
-                height={50}
-                className="absolute right-5 w-12 h-12"
-              />
-            </Link>
             <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
               {draughtBeverages.map((beverages) => (
                 <BeverageCard
