@@ -16,6 +16,7 @@ export default function Home() {
             fill
             className="object-cover"
             priority
+            sizes="100vw"
           />
         </div>
 
@@ -112,6 +113,7 @@ export default function Home() {
                             alt={slot.title}
                             fill
                             className="object-cover"
+                            sizes="200px"
                           />
                         </div>
                         <div className="font-medium mt-3 text-white">
@@ -175,6 +177,7 @@ export default function Home() {
                         fill
                         className="mx-auto"
                         priority
+                        sizes="(max-width: 640px) 96px, 320px"
                       />
                     </div>
                     <div className="font-heading text-4xl mt-4">

@@ -6,13 +6,16 @@ import Footer from "@/components/Footer";
 
 export default function LayoutShell({ children }) {
   const pathname = usePathname();
-  const hideChrome = pathname?.startsWith("/staff");
+  // gem nav/footer for staff area; gem footer på kontrolrapport/404 side
+  const hideNav = pathname?.startsWith("/staff");
+  const hideFooter =
+    pathname?.startsWith("/staff") || pathname === "/kontrolrapport";
 
   return (
     <>
-      {!hideChrome && <Nav />}
+      {!hideNav && <Nav />}
       {children}
-      {!hideChrome && <Footer />}
+      {!hideFooter && <Footer />}
     </>
   );
 }

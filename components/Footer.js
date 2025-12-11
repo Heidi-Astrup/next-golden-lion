@@ -44,7 +44,8 @@ export default function Footer() {
               alt="Facebook"
               width={48}
               height={48}
-              className="object-contain"
+              sizes="48px"
+              className="object-contain w-12 h-12"
             />
           </Link>
           <Link
@@ -59,7 +60,8 @@ export default function Footer() {
               alt="Instagram"
               width={48}
               height={48}
-              className="object-contain"
+              sizes="48px"
+              className="object-contain w-12 h-12"
             />
           </Link>
         </div>
