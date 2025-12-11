@@ -6,13 +6,16 @@ import Footer from "@/components/Footer";
 
 export default function LayoutShell({ children }) {
   const pathname = usePathname();
-  const hideChrome = pathname?.startsWith("/staff");
+  // Hide nav/footer for staff area; hide footer on kontrolrapport/404 view
+  const hideNav = pathname?.startsWith("/staff");
+  const hideFooter =
+    pathname?.startsWith("/staff") || pathname === "/kontrolrapport";
 
   return (
     <>
-      {!hideChrome && <Nav />}
+      {!hideNav && <Nav />}
       {children}
-      {!hideChrome && <Footer />}
+      {!hideFooter && <Footer />}
     </>
   );
 }
