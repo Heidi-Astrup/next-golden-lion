@@ -4,8 +4,14 @@ import lion from "@/public/images/drunklion.png";
 
 export default function NotFound() {
   return (
-    // Custom 404 page 
+    // Custom 404 page
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-14 font-heading">
+      {/* Skjul global footer kun på 404-siden */}
+      <style jsx global>{`
+        footer[data-app-footer] {
+          display: none !important;
+        }
+      `}</style>
       <div className="w-full max-w-3xl text-center space-y-8">
         <div className="flex justify-center mt-12">
           <Image

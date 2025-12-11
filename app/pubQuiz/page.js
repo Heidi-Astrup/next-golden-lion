@@ -46,6 +46,17 @@ export default function PubQuiz() {
             Every <strong>Sunday</strong> at 19:45 - to end your weekend in an
             even better way
           </p>
+          <div className="mt-10 space-y-4">
+            <h2 className="text-2xl font-heading text-center font-semibold text-[#FFF5D6]">
+              Smiley Report
+            </h2>
+            <Link
+              href="/kontrolrapport"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#E5A702] text-black font-heading tracking-[0.12em] text-lg hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E5A702]"
+            >
+              Se kontrolrapport
+            </Link>
+          </div>
         </main>
       </div>
     </div>
