@@ -3,7 +3,9 @@
 import BeverageCard from "@/components/BeverageCard";
 import Image from "next/image";
 import beerKeg from "@/public/images/Beer.svg";
+import kurvv from "@/public/images/kurvv.png";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Menu() {
   const [basketItems, setBasketItems] = useState([]);
@@ -49,8 +51,18 @@ export default function Menu() {
             Menu
           </h1>
 
-          <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl">
+          <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl flex items-center pb-2 justify-between">
             Draught
+            <Link href={"/menu/basket"}>
+              <Image
+                href={"/menu/basket"}
+                src={kurvv}
+                alt="kurv"
+                width={50}
+                height={50}
+                className="h-auto p-1"
+              />
+            </Link>
           </h3>
           <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
             {draughtBeverages.map((beverages) => (
