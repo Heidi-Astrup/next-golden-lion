@@ -24,7 +24,7 @@ export default function About() {
           <p className="text-4xl font-heading text-center text-[#E5A702] mb-8 leading-tight">
             The cosiest little pub in town
           </p>
-          <p className="text-2xl font-body text-center text-[#FFF5D6] mb-8">
+          <p className="text-lg font-body text-center text-[#FFF5D6] mb-8">
             The Golden Lion is probably the cosiest and most authentic British
             pub in town.
           </p>
