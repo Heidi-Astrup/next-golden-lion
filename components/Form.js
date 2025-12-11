@@ -48,7 +48,7 @@ export default function Form({
           "aria-label": "phone",
           required: true,
           className:
-            "bg-[#FFF5D6] text-black text-lg mt-2 block rounded-md p-4 pl-[45px] pr-[12px] justify-between",
+            "bg-[#FFF5D6] text-black text-lg mt-2 block rounded-md p-4 pl-[45px] justify-between w-4/4",
         }}
         className="mb-6 bg-[#FFF5D6] rounded-md"
       />
