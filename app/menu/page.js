@@ -3,7 +3,9 @@
 import BeverageCard from "@/components/BeverageCard";
 import Image from "next/image";
 import beerKeg from "@/public/images/Beer.svg";
+import kurvv from "@/public/images/kurvv.png";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Menu() {
   const [basketItems, setBasketItems] = useState([]);
