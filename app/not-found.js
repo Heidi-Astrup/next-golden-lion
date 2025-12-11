@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import lion from "@/public/images/drunklion.png";
@@ -6,8 +8,11 @@ export default function NotFound() {
   return (
     // Custom 404 page
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-14 font-heading">
-      {/* Skjul global footer kun på 404-siden */}
+      {/* Skjul global nav/footer kun på 404-siden */}
       <style jsx global>{`
+        nav[data-app-nav] {
+          display: none !important;
+        }
         footer[data-app-footer] {
           display: none !important;
         }
