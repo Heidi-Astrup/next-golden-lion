@@ -34,6 +34,20 @@ export default async function KaraokePage() {
         // og værdien er tilmeldingen (name, phone, artist, title, length, createdAt)
         const data = await response.json();
 
+        // Formattere til dansk tid (CET/CEST) så vi ikke havner en time bagud på Vercel
+        const timeFormatter = new Intl.DateTimeFormat("da-DK", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "Europe/Copenhagen",
+        });
+        const labelFormatter = new Intl.DateTimeFormat("da-DK", {
+          day: "2-digit",
+          month: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "Europe/Copenhagen",
+        });
+
         // Konverter Firebase-objekt til array og formater dataen til kø-format
         if (data && typeof data === "object") {
           // Beregn cutoff inde i async-blokken for at undgå impure kald i render
@@ -68,15 +82,10 @@ export default async function KaraokePage() {
               let createdAtLabel = "";
               if (signup.createdAt) {
                 const date = new Date(signup.createdAt);
-                const hours = String(date.getHours()).padStart(2, "0");
-                const minutes = String(date.getMinutes()).padStart(2, "0");
-                time = `${hours}:${minutes}`;
-                createdAtLabel = date.toLocaleString("da-DK", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                });
+                if (!Number.isNaN(date.getTime())) {
+                  time = timeFormatter.format(date);
+                  createdAtLabel = labelFormatter.format(date);
+                }
               }
 
               // Returner formateret tilmelding klar til at blive vist i kø-listen
