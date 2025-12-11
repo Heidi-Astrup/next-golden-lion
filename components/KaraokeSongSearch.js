@@ -113,7 +113,7 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(
     // Metoder som forælderen må kalde udefra
     shuffle() {
       // Beskyt mod at kalde shuffle før der er sange
-      if (!songs || songs.length === 0) return;
+      if (!songs || songs.length === 0) return null;
       // Vælg en tilfældig sang i listen
       const randomIndex = Math.floor(Math.random() * songs.length);
       const song = songs[randomIndex];
@@ -121,6 +121,11 @@ const KaraokeSongSearch = forwardRef(function KaraokeSongSearch(
       setQuery(`${song.artist} - ${song.title}`);
       // Luk listen, så man kun ser den valgte
       setIsOpen(false);
+      // Opdater valgt sang (også hos forælder) så album vises og PICK-knap aktiveres
+      if (onSelectSong) {
+        onSelectSong(song);
+      }
+      return song;
     },
   }));
 

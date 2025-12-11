@@ -57,7 +57,12 @@ export default function KaraokeFindSongPage() {
 
             <button
               className="w-full bg-[#E5A702] text-black font-heading font-light py-3 rounded-lg text-2xl tracking-[0.1em]"
-              onClick={() => searchRef.current?.shuffle()}
+              onClick={() => {
+                const song = searchRef.current?.shuffle();
+                if (song) {
+                  setSelectedSong(song);
+                }
+              }}
             >
               SHUFFLE
             </button>
