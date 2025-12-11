@@ -57,6 +57,15 @@ export default function Menu() {
             >
               Draught
             </h3>
+            <Link href="/menu/basket">
+              <Image
+                src={kurvv}
+                alt="basket icon"
+                width={50}
+                height={50}
+                className="absolute right-5 w-12 h-12"
+              />
+            </Link>
             <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
               {draughtBeverages.map((beverages) => (
                 <BeverageCard
