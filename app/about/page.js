@@ -36,15 +36,15 @@ export default function About() {
             alt="Pub Quiz"
             className="mb-8 w-dvh h-auto"
           ></Image>
-          <p className="text-2xl font-body text-center text-[#FFF5D6] mb-8">
+          <p className="text-lg font-body text-center text-[#FFF5D6] mb-8">
             Come and enjoy the friendly relaxed atmosphere.
           </p>
-          <p className="text-2xl font-body text-center text-[#FFF5D6] mb-8">
+          <p className="text-lg font-body text-center text-[#FFF5D6] mb-8">
             The Golden Lion epitomises the spirit of a traditional British pub.
             A meeting place for people from all walks of life. Friends old and
             new.
           </p>
-          <p className="text-2xl font-body text-center text-[#FFF5D6] mb-8">
+          <p className="text-lg font-body text-center text-[#FFF5D6] mb-8">
             A place where your character and ethos are more important than the
             brand of shirt you are wearing or the car you drive.
           </p>
