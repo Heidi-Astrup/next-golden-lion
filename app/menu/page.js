@@ -45,61 +45,81 @@ export default function Menu() {
 
       <div className="min-h-screen pb-10 px-5 flex justify-between">
         <main className="max-w-[600px]">
-          <h1 className="font-heading mt-10 text-[#FFF5D6] text-5xl text-center font-semibold mb-4 tracking-tight ">
+          <h1 className="font-heading mt-10 -mb-10 relative z-30 text-[#FFF5D6] text-5xl text-center font-semibold tracking-tight m-auto">
             Menu
           </h1>
-
-          <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl">
-            Draught
-          </h3>
-          <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
-            {draughtBeverages.map((beverages) => (
-              <BeverageCard
-                key={beverages.id}
-                beverages={beverages}
-                basketItems={basketItems}
-                setBasketItems={setBasketItems}
-              />
-            ))}
-          </div>
-
-          <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl">
-            Bottled
-          </h3>
-          <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
-            {bottledBeverages.map((beverages) => (
-              <BeverageCard
-                key={beverages.id}
-                beverages={beverages}
-                basketItems={basketItems}
-                setBasketItems={setBasketItems}
-              />
-            ))}
-          </div>
-
-          <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl">Whisky</h3>
-          <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
-            {whiskeyBeverages.map((beverages) => (
-              <BeverageCard
-                key={beverages.id}
-                beverages={beverages}
-                basketItems={basketItems}
-                setBasketItems={setBasketItems}
-              />
-            ))}
-          </div>
-
-          <h3 className="font-heading mt-10 text-[#FFF5D6] text-5xl">Rum</h3>
-          <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
-            {rumBeverages.map((beverages) => (
-              <BeverageCard
-                key={beverages.id}
-                beverages={beverages}
-                basketItems={basketItems}
-                setBasketItems={setBasketItems}
-              />
-            ))}
-          </div>
+          <section className="mb-20">
+            <h3
+              className="sticky top-0 pt-25 bg-black/40 backdrop-blur-sm pb-2 z-20 
+                 font-heading text-[#FFF5D6] text-5xl"
+            >
+              Draught
+            </h3>
+            <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
+              {draughtBeverages.map((beverages) => (
+                <BeverageCard
+                  key={beverages.id}
+                  beverages={beverages}
+                  basketItems={basketItems}
+                  setBasketItems={setBasketItems}
+                />
+              ))}
+            </div>
+          </section>
+          <section className="mb-20">
+            <h3
+              className="sticky top-0 pt-25 bg-black/40 backdrop-blur-sm pb-2 z-20 
+                 font-heading text-[#FFF5D6] text-5xl"
+            >
+              Bottled
+            </h3>
+            <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
+              {bottledBeverages.map((beverages) => (
+                <BeverageCard
+                  key={beverages.id}
+                  beverages={beverages}
+                  basketItems={basketItems}
+                  setBasketItems={setBasketItems}
+                />
+              ))}
+            </div>
+          </section>
+          <section className="mb-20">
+            <h3
+              className="sticky top-0 pt-25 bg-black/40 backdrop-blur-sm pb-2 z-20 
+                 font-heading text-[#FFF5D6] text-5xl"
+            >
+              Whisky
+            </h3>
+            <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
+              {whiskeyBeverages.map((beverages) => (
+                <BeverageCard
+                  key={beverages.id}
+                  beverages={beverages}
+                  basketItems={basketItems}
+                  setBasketItems={setBasketItems}
+                />
+              ))}
+            </div>
+          </section>
+          <section className="mb-20">
+            <h3
+              className="sticky top-0 pt-25 bg-black/40 backdrop-blur-sm pb-2 z-20 
+                 font-heading text-[#FFF5D6] text-5xl"
+            >
+              Rum
+            </h3>
+            <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
+              {rumBeverages.map((beverages) => (
+                <BeverageCard
+                  key={beverages.id}
+                  beverages={beverages}
+                  basketItems={basketItems}
+                  setBasketItems={setBasketItems}
+                />
+              ))}
+            </div>
+          </section>
         </main>
       </div>
     </div>
