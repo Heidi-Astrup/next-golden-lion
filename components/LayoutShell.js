@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 export default function LayoutShell({ children }) {
   const pathname = usePathname();
-  // Hide nav/footer for staff area; hide footer on kontrolrapport/404 view
+  // gem nav/footer for staff area; gem footer på kontrolrapport/404 side
   const hideNav = pathname?.startsWith("/staff");
   const hideFooter =
     pathname?.startsWith("/staff") || pathname === "/kontrolrapport";
