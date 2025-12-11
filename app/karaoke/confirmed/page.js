@@ -85,12 +85,19 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
   }
 
   // Hvis vi har et estimat i sekunder, vis det som klokkeslæt (lokal tid) for hvornår det er din tur
+  // Vis tiden i dansk tidszone for at undgå UTC-forskydning på Vercel
+  const readyFormatter = new Intl.DateTimeFormat("da-DK", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Copenhagen",
+  });
+
   let estimateLabel = "--:--";
   if (estimatedSeconds !== null) {
     const readyAt = new Date(new Date().getTime() + estimatedSeconds * 1000);
-    const hh = String(readyAt.getHours()).padStart(2, "0");
-    const mm = String(readyAt.getMinutes()).padStart(2, "0");
-    estimateLabel = `${hh}:${mm}`;
+    if (!Number.isNaN(readyAt.getTime())) {
+      estimateLabel = readyFormatter.format(readyAt);
+    }
   }
 
   return (
