@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function OrderedPopUp({ togglePopUp, beverages }) {
-  // Denne funktion lukker popuppen, når du klikker på overlayet
+  // Denne funktion lukker popuppen, når man klikker uden for
   const handleOverlayClick = () => {
     togglePopup();
   };

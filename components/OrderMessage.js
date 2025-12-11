@@ -9,8 +9,9 @@ const OrderMessage = ({ status, orderNumber }) => {
           <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
             Pay and pick up your order in the bar
           </p>
-          <p className="text-[#FFF5D6] font-body text-2xl mb-4">
-            Your number: <strong>{orderNumber}</strong>
+          <p className="text-[#FFF5D6] font-body text-2xl">Your number:</p>
+          <p className="text-[#FFF5D6] font-body text-4xl mb-4">
+            <strong>{orderNumber}</strong>
           </p>
         </main>
       </div>
@@ -45,8 +46,9 @@ const OrderMessage = ({ status, orderNumber }) => {
           <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
             The bartender will make til for you ASAP
           </p>
-          <p className="text-[#FFF5D6] font-body text-2xl mb-4">
-            Your number: <strong>{orderNumber}</strong>
+          <p className="text-[#FFF5D6] font-body text-2xl">Your number:</p>
+          <p className="text-[#FFF5D6] font-body text-4xl mb-4">
+            <strong>{orderNumber}</strong>
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl mb-12">
             When its done tou can pay and pick it up in the bar
