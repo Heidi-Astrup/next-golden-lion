@@ -1,11 +1,28 @@
 import Form from "@/components/Form";
 import Image from "next/image";
 import playDart from "@/public/images/playDart.svg";
+import TimeSlot from "@/components/TimeSlot";
+import { useEffect, useState } from "react";
 
 export default function ReserveDart() {
-  function sendDartOrder() {
-    alert("valgt timesloth");
-  }
+  const [times, setTimes] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/timeSlot.json`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const timeArray = Object.keys(data).map((key) => ({
+        id: key,
+        ...data[key],
+      }));
+
+      setTimes(timeArray);
+    }
+
+    fetchData();
+  }, []);
 
   async function sendDartOrder(formData) {
     const url = `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/dartOrders.json`; // Get Firebase Realtime Database URL
@@ -52,6 +69,7 @@ export default function ReserveDart() {
           <h3 className="font-heading text-lg text-[#FFF5D6] mb-8">
             Pick a timesloth
           </h3>
+          <TimeSlot key={times.id} times={times} />
           <Form action={sendDartOrder} />
         </main>
       </div>

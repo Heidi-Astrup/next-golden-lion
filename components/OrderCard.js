@@ -2,15 +2,11 @@
 
 import { useState } from "react";
 
-export default function BeverageCard({ beverages, name }) {
+export default function OrderCard({ beverages, name }) {
   const [active, setActive] = useState(true);
 
   function done() {
     setActive(!active);
-  }
-
-  function cancel() {
-    alert("order canceled");
   }
 
   return (
