@@ -15,6 +15,7 @@ export default function Football() {
         <Image
           src="/images/football.png"
           alt="Football at The Golden Lion"
+          aria-label="Football at The Golden Lion"
           fill
           priority
           sizes="200vw"
@@ -26,21 +27,21 @@ export default function Football() {
 
       <main className="min-h-screen pt-4 pb-16">
         {/* Header sektion med titel og beskrivelse */}
-        <section className="w-full px-5 pb-8">
-          <div className="max-w-[260px] mx-auto text-center text-[#FFF5D6]">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-[#E5A702] mb-3 tracking-[0.18em] text-left -ml-4 md:-ml-5">
+        <section className="w-full px-5 pb-8 flex justify-center">
+          <div className="w-full max-w-2xl text-center text-[#FFF5D6] translate-x-2 sm:translate-x-3">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-[#E5A702] mb-3 tracking-[0.18em] text-center">
               FOOTBALL
             </h1>
-            <p className="text-3xl md:text-4xl font-heading font-normal text-[#E5A702] mb-4 leading-snug">
+            <p className="text-3xl md:text-4xl font-heading font-normal text-[#E5A702] mb-8 leading-snug">
               Watch Football at The Golden Lion!
             </p>
-            <p className="text-xl md:text-2xl font-body mb-2 leading-snug">
+            <p className="text-2xl md:text-3xl font-body mb-2 leading-snug">
               Catch all the big matches with us!
             </p>
-            <p className="text-xl md:text-2xl font-body mb-2 leading-snug">
+            <p className="text-2xl md:text-3xl font-body mb-2 leading-snug">
               Great atmosphere, cold drinks, and screens ready for every kick.
             </p>
-            <p className="text-xl md:text-2xl font-body leading-snug mb-2">
+            <p className="text-2xl md:text-3xl font-body leading-snug mb-2">
               Whether you&apos;re cheering for your favorite team or just
               enjoying a good game, The Golden Lion is the place to be.
             </p>

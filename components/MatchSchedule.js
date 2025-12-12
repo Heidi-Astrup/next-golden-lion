@@ -133,7 +133,7 @@ export default async function MatchSchedule() {
             matches.map((match) => (
               <div key={match.id} className="space-y-4">
                 {/* Dato og tid header */}
-                <div className="flex items-center justify-center text-[#FFF5D6] text-sm md:text-base font-semibold tracking-[0.18em] uppercase">
+                <div className="flex items-center justify-center text-[#FFF5D6] text-base md:text-lg font-semibold tracking-[0.18em] uppercase">
                   <span>{(match.day || "").toUpperCase()}</span>
                   <span className="mx-3 h-5 w-px bg-white" />
                   <span>{match.date}</span>
@@ -163,6 +163,7 @@ export default async function MatchSchedule() {
                             <Image
                               src={match.team1Logo}
                               alt={match.team1Name}
+                              aria-label={match.team1Name || "Home team logo"}
                               fill
                               sizes="48px"
                               className="object-contain p-1.5"
@@ -176,7 +177,7 @@ export default async function MatchSchedule() {
                           </span>
                         )}
                         {/* Holdnavn */}
-                        <span className="font-bold truncate text-white text-[10px] md:text-xs leading-tight">
+                        <span className="font-bold truncate text-white text-sm md:text-base leading-tight">
                           {match.team1Name}
                         </span>
                       </div>
@@ -184,7 +185,7 @@ export default async function MatchSchedule() {
                       {/* Højre hold: Navn først, derefter logo */}
                       <div className="flex items-center gap-1 md:gap-1.5 min-w-0 flex-1 justify-end max-w-[42%]">
                         {/* Holdnavn */}
-                        <span className="font-bold truncate text-white text-right text-[10px] md:text-xs leading-tight">
+                        <span className="font-bold truncate text-white text-right text-sm md:text-base leading-tight">
                           {match.team2Name}
                         </span>
                         {/* Vis logo hvis den findes */}
@@ -193,6 +194,7 @@ export default async function MatchSchedule() {
                             <Image
                               src={match.team2Logo}
                               alt={match.team2Name}
+                              aria-label={match.team2Name || "Away team logo"}
                               fill
                               sizes="48px"
                               className="object-contain p-1.5"

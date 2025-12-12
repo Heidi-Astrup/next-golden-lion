@@ -20,7 +20,7 @@ export default function NotFound() {
         </div>
         <div className="space-y-10">
           <p className="text-9xl font-semibold text-[#E5A702]">404</p>
-          <p className="text-6xl leading-tight md:text-7xl md:leading-tight">
+          <p className="text-4xl leading-tight md:text-5xl md:leading-tight">
             Looks like you&apos;ve had one pint too many. This page can&apos;t
             be found.
           </p>
