@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/components/navigation/Logo";
-import beers from "@/public/images/Beer.svg";
+import beers from "@/public/images/beeer.png";
 
 //import styles from "./page.module.css";
 
@@ -49,7 +49,7 @@ export default function Home() {
 
             {/* Weekly schedule carousel */}
             <section className="mt-4">
-              <h2 className="text-yellow-400 font-heading text-4xl mb-6 mx-10">
+              <h2 className="text-[#e5a702] font-heading text-4xl mb-6 mx-10">
                 WEEKLY SCHEDULE
               </h2>
 
@@ -104,10 +104,10 @@ export default function Home() {
                 ].map((slot) => (
                   <article key={slot.day} className="min-w-40 snap-start">
                     <div>
-                      <div className="text-2xl text-yellow-400 font-heading">
+                      <div className="text-2xl text-[#e5a702] font-heading">
                         {slot.day}
                       </div>
-                      <div className="p-3 text-left bg-black/80 rounded-lg overflow-hidden border-2 border-yellow-600">
+                      <div className="p-3 text-left bg-black/80 rounded-lg overflow-hidden border-2 border-[#e5a702]">
                         <div className="h-28 relative">
                           <Image
                             src={slot.img}
@@ -117,7 +117,7 @@ export default function Home() {
                             sizes="200px"
                           />
                         </div>
-                        <div className="font-medium mt-3 text-white">
+                        <div className="font-medium mt-3 text-[#FFF5D6]">
                           {slot.title}
                         </div>
                         <div className="text-xs text-gray-400 mt-2">
@@ -141,8 +141,9 @@ export default function Home() {
               <Image
                 src={beers}
                 alt="beers cheering"
-                className="mx-auto"
-                sizes="(max-width: 640px) 96px, 320px"
+                className="mx-auto mb-8"
+                width="150"
+                height="150"
               />
               <button className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
                 SEE OUR MENU
@@ -186,7 +187,7 @@ export default function Home() {
                     className={`py-6 text-center ${
                       isBlack
                         ? "bg-[#e5a702] text-black"
-                        : "bg-black text-white"
+                        : "bg-black text-[#FFF5D6]"
                     }`}
                   >
                     <div className="w-16 h-16 relative sm:h-[90vh] z-0 mx-auto">
