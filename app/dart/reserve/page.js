@@ -4,10 +4,10 @@
 import Form from "@/components/Form";
 import Image from "next/image";
 import playDart from "@/public/images/playDart.svg";
-import TimeSlot from "@/components/TimeSlot";
+import TidsSlot from "@/components/TidsSlot";
 import { useEffect, useState } from "react";
-import { sendDartOrder } from "./actions";
-import { initTimeSlots, resetAllTimeSlots } from "./init-timeslots";
+import { sendDartOrder } from "./reserver";
+import { initTimeSlots, resetAllTimeSlots } from "./opret-tidslots";
 
 export default function ReserveDart() {
   // State til at holde alle tidslots fra Firebase
@@ -203,41 +203,12 @@ export default function ReserveDart() {
             Times available
           </h3>
 
-          {/* Vis loading besked mens data hentes */}
-          {loading ? (
-            <p className="text-[#FFF5D6] text-center mb-8">
-              Loading time slots...
-            </p>
-          ) : error ? (
-            /* Vis fejlbesked hvis der er en fejl */
-            <div className="mb-8">
-              <p className="text-red-400 text-center mb-2">{error}</p>
-              <p className="text-[#FFF5D6]/60 text-sm text-center">
-                Check browser console for more details
-              </p>
-            </div>
-          ) : times.length === 0 ? (
-            /* Vis besked og knap til at initialisere tidslots hvis der ikke er nogen */
-            <div className="mb-8 text-center">
-              <p className="text-[#FFF5D6] mb-4">
-                No time slots available. Please check back later.
-              </p>
-              <button
-                onClick={handleInitTimeSlots}
-                disabled={initStatus === "Initializing..."}
-                className="bg-[#E5A702] text-black px-6 py-3 rounded-lg font-heading text-lg hover:brightness-110 disabled:opacity-50"
-              >
-                {initStatus || "Initialize Time Slots (Admin)"}
-              </button>
-            </div>
-          ) : (
-            /* Vis tidslots i grid - brugeren kan vælge et tidspunkt */
-            <TimeSlot
-              times={times}
-              onSelect={setSelectedTime}
-              selectedTime={selectedTime}
-            />
-          )}
+          {/* Vis tidslots i grid - brugeren kan vælge et tidspunkt */}
+          <TidsSlot
+            times={times}
+            onSelect={setSelectedTime}
+            selectedTime={selectedTime}
+          />
 
           {/* Formular til at indtaste navn og telefon - sender reservation til server */}
           <Form action={handleSubmit} submitLabel="RESERVE THIS SPOT" />

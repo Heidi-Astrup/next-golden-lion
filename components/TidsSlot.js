@@ -1,9 +1,11 @@
-// TimeSlot komponent - viser tidslots i et grid og lader brugeren vælge et tidspunkt
+// TidsSlot komponent - viser tidslots i et grid og lader brugeren vælge et tidspunkt
+// "use client" er nødvendigt fordi komponenten bruger useState og event handlers (onClick) til interaktivitet
+// Uden "use client" vil Next.js prøve at rendere komponenten på serveren, hvilket giver fejl fordi hooks og event handlers kun virker i client components
 "use client";
 
 import { useState } from "react";
 
-export default function TimeSlot({ times, onSelect, selectedTime }) {
+export default function TidsSlot({ times, onSelect, selectedTime }) {
   // Hvis der ikke er nogen tidslots, vis en besked
   if (!times || times.length === 0) {
     return (
@@ -48,3 +50,4 @@ export default function TimeSlot({ times, onSelect, selectedTime }) {
     </div>
   );
 }
+

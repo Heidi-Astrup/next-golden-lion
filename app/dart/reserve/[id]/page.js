@@ -1,4 +1,6 @@
 // Dart bekræftelsesside - viser reservationens detaljer efter booking
+// "use client" er nødvendigt fordi siden bruger useState, useEffect og useParams til at hente dynamisk data
+// Uden "use client" vil Next.js prøve at rendere komponenten på serveren, hvilket giver fejl fordi hooks kun virker i client components
 "use client";
 
 import { useParams } from "next/navigation";

@@ -1,4 +1,6 @@
 // Server Action til at oprette initial tidslots i Firebase
+// "use server" markerer at dette er Server Actions - funktionerne kører på serveren og kan kaldes direkte fra client components
+// Uden "use server" vil funktionerne ikke kunne bruges som Server Actions og kan ikke kaldes fra client components
 "use server";
 
 // Reset alle tidslots til tilgængelige
