@@ -31,16 +31,16 @@ export default function Football() {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-[#E5A702] mb-3 tracking-[0.18em] text-left -ml-4 md:-ml-5">
               FOOTBALL
             </h1>
-            <p className="text-xl md:text-2xl font-heading font-semibold text-[#E5A702] mb-4 leading-snug">
+            <p className="text-3xl md:text-4xl font-heading font-normal text-[#E5A702] mb-4 leading-snug">
               Watch Football at The Golden Lion!
             </p>
-            <p className="text-base md:text-lg font-body mb-2 leading-snug">
+            <p className="text-xl md:text-2xl font-body mb-2 leading-snug">
               Catch all the big matches with us!
             </p>
-            <p className="text-base md:text-lg font-body mb-2 leading-snug">
+            <p className="text-xl md:text-2xl font-body mb-2 leading-snug">
               Great atmosphere, cold drinks, and screens ready for every kick.
             </p>
-            <p className="text-base md:text-lg font-body leading-snug mb-2">
+            <p className="text-xl md:text-2xl font-body leading-snug mb-2">
               Whether you&apos;re cheering for your favorite team or just
               enjoying a good game, The Golden Lion is the place to be.
             </p>

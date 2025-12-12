@@ -8,7 +8,7 @@ export default function NotFound() {
   return (
     // Custom 404 page
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-14 font-heading">
-      <div className="w-full max-w-3xl text-center space-y-8">
+      <div className="w-full max-w-5xl text-center space-y-8">
         <div className="flex justify-center mt-12">
           <Image
             src={lion}
@@ -18,9 +18,9 @@ export default function NotFound() {
             priority
           />
         </div>
-        <div className="space-y-6">
+        <div className="space-y-10">
           <p className="text-9xl font-semibold text-[#E5A702]">404</p>
-          <p className="text-4xl leading-tight">
+          <p className="text-6xl leading-tight md:text-7xl md:leading-tight">
             Looks like you&apos;ve had one pint too many. This page can&apos;t
             be found.
           </p>
