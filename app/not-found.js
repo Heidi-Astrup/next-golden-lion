@@ -8,15 +8,6 @@ export default function NotFound() {
   return (
     // Custom 404 page
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-14 font-heading">
-      {/* Skjul global nav/footer kun på 404-siden */}
-      <style jsx global>{`
-        nav[data-app-nav] {
-          display: none !important;
-        }
-        footer[data-app-footer] {
-          display: none !important;
-        }
-      `}</style>
       <div className="w-full max-w-3xl text-center space-y-8">
         <div className="flex justify-center mt-12">
           <Image
@@ -37,6 +28,12 @@ export default function NotFound() {
         <div>
           <Link
             href="/"
+            scroll
+            prefetch={false}
+            onClick={() => {
+              // ensure we land at top of the home page rather than near the footer
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
             className="inline-flex items-center gap-3 rounded-full bg-[#E5A702] px-12 py-5 text-black text-3xl font-normal shadow-lg hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E5A702]"
           >
             Go back home
