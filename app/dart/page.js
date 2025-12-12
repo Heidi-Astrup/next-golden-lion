@@ -5,51 +5,53 @@ import Link from "next/link";
 
 export default function Dart() {
   return (
-    <div>
-      <section className="bg-linear-to-b from-transparent to-black/95">
+    <div className="bg-[#000000] text-[#FFF5D6]">
+      <section className="relative w-full h-[300px] mt-0">
         <Image
-          width={400}
-          height={400}
           src={playDart}
-          alt="beer keg"
-          className="w-dvh h-auto -z-10 relative"
+          alt="Dart at The Golden Lion"
+          fill
+          priority
+          sizes="200vw"
+          className="object-cover"
         />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </section>
 
-      <div className="min-h-screen pb-10 px-5 flex justify-between">
-        <main className="max-w-[600px]">
-          <h1 className="font-heading mt-10 text-[#e5a702] text-5xl text-center font-semibold tracking-tight m-auto mb-8">
+      <main className="pt-4 pb-0">
+        <div className="max-w-sm mx-auto px-6 text-center">
+
+          <h1 className="font-heading text-[#E5A702] text-5xl font-semibold tracking-tight mb-8">
             Dart
           </h1>
-          <h3 className="font-heading text-2xl text-[#e5a702] text-center mb-8">
+
+          <h2 className="font-heading text-2xl text-[#E5A702] mb-8">
             Play Dart for FREE at The Golden Lion!
-          </h3>
-          <p className="text-lg font-body text-[#FFF5D6] text-center mb-8">
+          </h2>
+
+          <p className="text-xl md:text-2xl font-body text-[#FFF5D6] mb-8 leading-relaxed">
             Aarhus is a great city with plenty of entertainment, from mini-golf
             to dice games. But after buying drinks, snacks, or paying an
             entrance fee, you often still have to pay extra to play. Fair
-            enough—but who wouldn’t want it for free?
+            enough—but who wouldn&apos;t want it for free?
           </p>
-          <p className="text-lg font-body text-[#FFF5D6] text-center mb-16">
+
+          <p className="text-xl md:text-2xl font-body text-[#FFF5D6] mb-12 leading-relaxed">
             At the Golden Lion, you get everything: drinks, snacks, good vibes,
             and FREE darts.
           </p>
-          {/* Divider og Sign Up-knap med spørgsmålstegn-popup */}
-          <section className="text-center mb-12">
-            <div className="h-px w-full bg-[#FFF5D6] mb-8" />
 
-            <Link
-              href="/dart/reserve"
-              className="w-full flex items-center justify-center gap-3 bg-[#E5A702] text-black font-light py-7 rounded-lg text-3xl tracking-[0.1em] uppercase"
-            >
-              RESERVE A SPOT
-              <DartInfoButton />
-            </Link>
+          <div className="h-px w-full bg-[#FFF5D6] mb-8" />
 
-            <div className="h-px w-full bg-[#FFF5D6] mt-10" />
-          </section>
-        </main>
-      </div>
+          <Link
+            href="/dart/reserve"
+            className="w-full flex items-center justify-center gap-3 bg-[#E5A702] text-black font-light py-7 rounded-lg text-3xl tracking-[0.1em] uppercase"
+          >
+            RESERVE A SPOT
+            <DartInfoButton />
+          </Link>
+        </div>
+      </main>
     </div>
   );
 }
