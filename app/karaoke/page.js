@@ -13,8 +13,8 @@ export default async function KaraokePage() {
   // Start med tom kø-liste – fyldes op hvis vi kan hente data fra Firebase
   let queue = [];
 
-  // Cutoff på 12 timer (i millisekunder) – gamle tilmeldinger fjernes
-  const twelveHoursMs = 12 * 60 * 60 * 1000;
+  // Cutoff på 3 timer (i millisekunder) – gamle tilmeldinger fjernes
+  const threeHoursMs = 3 * 60 * 60 * 1000;
   const staleIds = [];
 
   // Hvis vi har en Firebase URL, henter vi alle tilmeldinger
@@ -51,11 +51,11 @@ export default async function KaraokePage() {
         // Konverter Firebase-objekt til array og formater dataen til kø-format
         if (data && typeof data === "object") {
           // Beregn cutoff inde i async-blokken for at undgå impure kald i render
-          const cutoff = new Date().getTime() - twelveHoursMs;
+          const cutoff = new Date().getTime() - threeHoursMs;
 
           queue = Object.entries(data)
             .map(([id, signup]) => {
-              // Hvis createdAt mangler eller er ældre end 12 timer, marker til sletning
+              // Hvis createdAt mangler eller er ældre end 3 timer, marker til sletning
               const createdAtDate = signup.createdAt
                 ? new Date(signup.createdAt)
                 : null;
@@ -107,7 +107,7 @@ export default async function KaraokePage() {
               return new Date(a.createdAt) - new Date(b.createdAt);
             });
 
-          // Slet stale tilmeldinger fra Firebase (ældre end 12 timer)
+          // Slet stale tilmeldinger fra Firebase (ældre end 3 timer)
           if (staleIds.length > 0) {
             await Promise.all(
               staleIds.map((id) =>
@@ -142,7 +142,7 @@ export default async function KaraokePage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </section>
 
-      <main className="min-h-screen pt-4 pb-16">
+      <main className="min-h-screen pt-4 pb-2">
         {/* Indhold i smal kolonne ligesom på screenshot */}
         <div className="max-w-sm mx-auto px-6">
           {/* Overskrift og tekst */}
@@ -210,6 +210,32 @@ export default async function KaraokePage() {
                   </div>
                 ))
               )}
+            </div>
+          </section>
+
+          {/* Karaoke schedule */}
+          <section className="mb-2 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#E5A702] mb-8 tracking-[0.12em]">
+              Karaokedays
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">
+                  Every <span className="font-bold">Thursday</span> at
+                </p>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">23:00-03:00</p>
+              </div>
+              <div>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">
+                  Every <span className="font-bold">Friday</span> at 23:00-03:00
+                </p>
+              </div>
+              <div>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">
+                  Every <span className="font-bold">Saturday</span> at
+                </p>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">23:00-03:00</p>
+              </div>
             </div>
           </section>
         </div>

@@ -26,55 +26,107 @@ function formatSeconds(sec) {
 // Simpel bekræftelsesside efter karaoke signup – med estimeret ventetid
 export default async function KaraokeConfirmedPage({ searchParams }) {
   const params =
-    searchParams instanceof Promise ? await searchParams : searchParams;
+    searchParams instanceof Promise ? await searchParams : searchParams; // håndter både promise og direkte objekt
   const currentId = params?.id || "";
 
   let estimatedSeconds = null;
+  let queue = [];
 
   const baseUrl = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL;
 
   if (baseUrl) {
     try {
-      const cleanedBase = baseUrl.replace(/\/$/, "");
-      const url = `${cleanedBase}/karaokeSignups.json`;
-      const response = await fetch(url, { cache: "no-store" });
+      const cleanedBase = baseUrl.replace(/\/$/, ""); // fjern trailing slash
+      const url = `${cleanedBase}/karaokeSignups.json`; // Firebase-node for karaoke-tilmeldinger
+      const response = await fetch(url, { cache: "no-store" }); // hent altid friske data
       if (response.ok) {
         const data = await response.json();
         if (data && typeof data === "object") {
-          const twelveHoursMs = 12 * 60 * 60 * 1000;
+          const twelveHoursMs = 12 * 60 * 60 * 1000; // behold kun tilmeldinger fra sidste 12 timer
           const cutoff = new Date().getTime() - twelveHoursMs;
 
-          // Lav liste og sorter efter createdAt (ældste først)
-          const queue = Object.entries(data)
+          // Byg kø-array og sorter efter createdAt (ældste først)
+          const now = new Date().getTime();
+          queue = Object.entries(data)
             .map(([id, signup]) => ({
               id,
+              name: signup.name || "Singer",
+              title: signup.title || "",
+              artist: signup.artist || "",
               createdAt: signup.createdAt || "",
               lengthStr: signup.length || "",
               lengthSec: parseLengthToSeconds(signup.length || ""),
             }))
-            // Filtrer tilmeldinger der er nyere end 12 timer
+            // Filtrer tilmeldinger der er nyere end 12 timer og ikke er færdige
             .filter((item) => {
               if (!item.createdAt) return false;
               const d = new Date(item.createdAt);
               if (Number.isNaN(d.getTime())) return false;
-              return d.getTime() >= cutoff;
+              // Filtrer væk hvis ældre end 12 timer
+              if (d.getTime() < cutoff) return false;
+              // Filtrer væk hvis sangen er færdig (createdAt + længde < nu)
+              const finishedAt = d.getTime() + item.lengthSec * 1000;
+              return finishedAt >= now;
             })
             .sort((a, b) => {
               if (!a.createdAt || !b.createdAt) return 0;
               return new Date(a.createdAt) - new Date(b.createdAt);
             });
 
-          // Find nuværende bruger i køen
+          // Beregn tidspunkt for hver person i køen (når de skal op)
+          queue = queue.map((item, idx) => {
+            // Sum længderne for alle foran i køen
+            const before = queue.slice(0, idx);
+            const totalSec = before.reduce(
+              (sum, prevItem) => sum + (prevItem.lengthSec || 0),
+              0
+            );
+            // Beregn tidspunkt de skal op (createdAt + ventetid)
+            let readyAt = null;
+            if (item.createdAt) {
+              const createdAt = new Date(item.createdAt);
+              if (!Number.isNaN(createdAt.getTime())) {
+                readyAt = new Date(createdAt.getTime() + totalSec * 1000);
+              }
+            }
+            return { ...item, readyAt };
+          });
+
+          // Find nuværende bruger i køen og brug deres ventetid til estimat
           const index = queue.findIndex((item) => item.id === currentId);
 
           if (index >= 0) {
-            // Summér længderne for alle foran i køen
             const before = queue.slice(0, index);
             const totalSec = before.reduce(
               (sum, item) => sum + (item.lengthSec || 0),
               0
             );
             estimatedSeconds = totalSec;
+          }
+
+          // Slet entries hvor sangen er færdig (createdAt + længde < nu)
+          const finishedIds = [];
+          Object.entries(data).forEach(([id, signup]) => {
+            if (!signup.createdAt) return;
+            const createdAt = new Date(signup.createdAt).getTime();
+            if (Number.isNaN(createdAt)) return;
+            const lengthSec = parseLengthToSeconds(signup.length || "");
+            const finishedAt = createdAt + lengthSec * 1000;
+            // Hvis sangen skulle være færdig nu, marker til sletning
+            if (finishedAt < now) {
+              finishedIds.push(id);
+            }
+          });
+
+          // Slet færdige sange fra Firebase
+          if (finishedIds.length > 0) {
+            await Promise.all(
+              finishedIds.map((id) =>
+                fetch(`${cleanedBase}/karaokeSignups/${id}.json`, {
+                  method: "DELETE",
+                }).catch(() => null)
+              )
+            );
           }
         }
       }
@@ -84,8 +136,14 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
     }
   }
 
-  // Hvis vi har et estimat i sekunder, vis det som klokkeslæt (lokal tid) for hvornår det er din tur
-  // Vis tiden i dansk tidszone for at undgå UTC-forskydning på Vercel
+  // Formatterer tider til dansk tidszone (bruges både til køen og estimat)
+  const timeFormatter = new Intl.DateTimeFormat("da-DK", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Copenhagen",
+  });
+
+  // Viser estimeret tidspunkt i dansk tidszone for at undgå UTC-forskydning
   const readyFormatter = new Intl.DateTimeFormat("da-DK", {
     hour: "2-digit",
     minute: "2-digit",
@@ -146,6 +204,63 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
               <br />
               your turn on stage!
             </p>
+          </section>
+
+          {/* Karaoke queue preview */}
+          <section className="mt-10 space-y-3 text-left">
+            <p className="text-4xl md:text-5xl font-heading text-[#E5A702] text-center">
+              Current karaoke queue
+            </p>
+            {queue.length === 0 ? (
+              <p className="text-center text-sm opacity-80">
+                No one in the queue yet.
+              </p>
+            ) : (
+              <ul className="space-y-2">
+                {queue.slice(0, 15).map((item, idx) => {
+                  const isYou = item.id === currentId;
+                  return (
+                    <li
+                      key={item.id}
+                      className={`flex items-start gap-3 rounded-xl bg-white/5 px-4 py-3 ${
+                        isYou
+                          ? "border border-[#E5A702]"
+                          : "border border-white/10"
+                      }`}
+                    >
+                      <span className="font-heading text-[#E5A702]">
+                        {idx + 1}.
+                      </span>
+                      <div className="min-w-0 flex-1 flex justify-between gap-4">
+                        <div className="min-w-0">
+                          <p className="font-heading text-lg leading-tight">
+                            {item.name || "Singer"}
+                            {isYou ? " (you)" : ""}
+                          </p>
+                          <p className="text-sm text-[#FFF5D6]/80 truncate">
+                            {[item.artist, item.title]
+                              .filter(Boolean)
+                              .join(" — ")}
+                          </p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          {item.readyAt ? (
+                            <p className="text-lg md:text-xl text-[#E5A702]">
+                              {(() => {
+                                const d = new Date(item.readyAt);
+                                return Number.isNaN(d.getTime())
+                                  ? ""
+                                  : timeFormatter.format(d);
+                              })()}
+                            </p>
+                          ) : null}
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </section>
         </div>
       </main>
