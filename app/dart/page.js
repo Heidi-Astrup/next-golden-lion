@@ -20,23 +20,22 @@ export default function Dart() {
 
       <main className="pt-4 pb-0">
         <div className="max-w-sm mx-auto px-6 text-center">
-
-          <h1 className="font-heading text-[#E5A702] text-5xl font-semibold tracking-tight mb-8">
+          <h1 className="font-heading text-[#E5A702] text-6xl md:text-7xl font-semibold tracking-tight mb-8">
             Dart
           </h1>
 
-          <h2 className="font-heading text-2xl text-[#E5A702] mb-8">
+          <h2 className="font-heading text-3xl md:text-4xl text-[#E5A702] mb-8">
             Play Dart for FREE at The Golden Lion!
           </h2>
 
-          <p className="text-xl md:text-2xl font-body text-[#FFF5D6] mb-8 leading-relaxed">
+          <p className="text-2xl md:text-3xl font-body text-[#FFF5D6] mb-8 leading-relaxed">
             Aarhus is a great city with plenty of entertainment, from mini-golf
             to dice games. But after buying drinks, snacks, or paying an
             entrance fee, you often still have to pay extra to play. Fair
             enough—but who wouldn&apos;t want it for free?
           </p>
 
-          <p className="text-xl md:text-2xl font-body text-[#FFF5D6] mb-12 leading-relaxed">
+          <p className="text-2xl md:text-3xl font-body text-[#FFF5D6] mb-12 leading-relaxed">
             At the Golden Lion, you get everything: drinks, snacks, good vibes,
             and FREE darts.
           </p>
