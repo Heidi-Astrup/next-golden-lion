@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/components/navigation/Logo";
+import beers from "@/public/images/Beer.svg";
 
 //import styles from "./page.module.css";
 
@@ -128,7 +129,25 @@ export default function Home() {
                 ))}
               </div>
             </section>
-
+            {/* Menu / Link to menu */}
+            <section className="mb-16">
+              <div className="px-6">
+                {/* line to break page */}
+                <div className="h-px w-full bg-[#FFF5D6] my-8" />
+              </div>
+              <h2 className="text-[#e5a702] font-heading text-4xl mb-6 mx-10">
+                ORDER BEVERAGES
+              </h2>
+              <Image
+                src={beers}
+                alt="beers cheering"
+                className="mx-auto"
+                sizes="(max-width: 640px) 96px, 320px"
+              />
+              <button className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
+                SEE OUR MENU
+              </button>
+            </section>
             {/* Links / sections below schedule */}
             <section>
               {[
