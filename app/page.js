@@ -25,8 +25,8 @@ export default function Home() {
           <main className="text-center w-full max-w-md">
             <div className="-mt-10">
               <Logo
-                imgClassName="h-38 w-38 mx-auto"
-                size={40}
+                imgClassName="h-44 w-44 mx-auto"
+                size={48}
                 linkClassName="inline-block"
               />
             </div>
@@ -112,6 +112,7 @@ export default function Home() {
                           <Image
                             src={slot.img}
                             alt={slot.title}
+                            aria-label={`${slot.title} icon for ${slot.day}`}
                             fill
                             className="object-cover"
                             sizes="200px"
@@ -141,6 +142,7 @@ export default function Home() {
               <Image
                 src={beers}
                 alt="beers cheering"
+                aria-label="Beers cheering icon"
                 className="mx-auto mb-8"
                 width="150"
                 height="150"
@@ -193,6 +195,7 @@ export default function Home() {
                       <Image
                         src={card.img}
                         alt={card.title}
+                        aria-label={`${card.title} icon`}
                         fill
                         className="mx-auto"
                         priority
@@ -233,6 +236,7 @@ export default function Home() {
                 <Image
                   src="/images/pyntIBar.png"
                   alt="Golden Lion Pub Front"
+                  aria-label="Golden Lion Pub decoration image"
                   width={120}
                   height={80}
                   className="w-screen object-cover mx-auto my-6"
