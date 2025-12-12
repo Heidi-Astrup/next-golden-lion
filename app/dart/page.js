@@ -1,4 +1,4 @@
-import KaraokeInfoButton from "@/components/KaraokeInfoButton";
+import DartInfoButton from "@/components/DartInfoButton";
 import playDart from "@/public/images/playDart.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,7 +43,7 @@ export default function Dart() {
               className="w-full flex items-center justify-center gap-3 bg-[#E5A702] text-black font-light py-7 rounded-lg text-3xl tracking-[0.1em] uppercase"
             >
               RESERVE A SPOT
-              <KaraokeInfoButton />
+              <DartInfoButton />
             </Link>
 
             <div className="h-px w-full bg-[#FFF5D6] mt-10" />
