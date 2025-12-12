@@ -145,9 +145,11 @@ export default function Home() {
                 width="150"
                 height="150"
               />
-              <button className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
-                SEE OUR MENU
-              </button>
+              <Link href="/menu">
+                <button className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
+                  SEE OUR MENU
+                </button>
+              </Link>
             </section>
             {/* Links / sections below schedule */}
             <section>
