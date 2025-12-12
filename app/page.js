@@ -112,6 +112,7 @@ export default function Home() {
                           <Image
                             src={slot.img}
                             alt={slot.title}
+                            // Aria-label for bedre tilgængelighed beskriver ikonet og hvilken dag det tilhører
                             aria-label={`${slot.title} icon for ${slot.day}`}
                             fill
                             className="object-cover"
@@ -142,6 +143,7 @@ export default function Home() {
               <Image
                 src={beers}
                 alt="beers cheering"
+                // Aria-label for bedre tilgængelighed beskriver øl ikonet
                 aria-label="Beers cheering icon"
                 className="mx-auto mb-8"
                 width="150"
@@ -195,6 +197,7 @@ export default function Home() {
                       <Image
                         src={card.img}
                         alt={card.title}
+                        // Aria-label for bedre tilgængelighed beskriver ikonet for hver sektion (Karaoke, Football, Pub Quiz, Dart)
                         aria-label={`${card.title} icon`}
                         fill
                         className="mx-auto"
@@ -236,6 +239,7 @@ export default function Home() {
                 <Image
                   src="/images/pyntIBar.png"
                   alt="Golden Lion Pub Front"
+                  // Aria-label for bedre tilgængelighed beskriver pynt/dekorationsbilledet i baren
                   aria-label="Golden Lion Pub decoration image"
                   width={120}
                   height={80}
