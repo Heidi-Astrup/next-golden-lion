@@ -23,7 +23,7 @@ export default function Form({
       {Object.entries(hiddenFields).map(([key, value]) => (
         <input key={key} type="hidden" name={key} value={value || ""} />
       ))}
-      <label className="font-heading text-[#E5A702] text-2xl" htmlFor="name">
+      <label className="font-heading text-white text-2xl" htmlFor="name">
         Name
       </label>
       <input
@@ -31,10 +31,10 @@ export default function Form({
         name="name"
         type="text"
         aria-label="name"
-        placeholder="Write your name..."
+        placeholder="Write here..."
         className="bg-[#FFF5D6] text-black p-4 text-lg rounded-md mb-6"
       />
-      <label className="font-heading text-[#E5A702] text-2xl" htmlFor="phone">
+      <label className="font-heading text-white text-2xl" htmlFor="phone">
         Phone number
       </label>
       <PhoneInput
@@ -53,8 +53,10 @@ export default function Form({
         className="mb-6 bg-[#FFF5D6] rounded-md"
       />
 
-      <div className="bg-[#E5A702] p-4 rounded-lg w-1/2 m-auto text-center">
-        <button>{submitLabel}</button>
+      <div className="bg-[#E5A702] p-4 rounded-lg w-full text-center">
+        <button className="text-white font-heading text-2xl tracking-[0.1em] uppercase">
+          {submitLabel}
+        </button>
       </div>
     </form>
   );

@@ -145,9 +145,11 @@ export default function Home() {
                 width="150"
                 height="150"
               />
-              <button className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
-                SEE OUR MENU
-              </button>
+              <Link href="/menu">
+                <button className="inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl">
+                  SEE OUR MENU
+                </button>
+              </Link>
             </section>
             {/* Links / sections below schedule */}
             <section>
@@ -171,16 +173,13 @@ export default function Home() {
                   img: "/images/question-solid-full.svg",
                 },
                 {
-                  href: "/menu",
+                  href: "/dart",
                   title: "DART",
                   desc: "Darts in bar — bring your friends.",
                   img: "/images/dart1.webp",
                 },
               ].map((card, idx) => {
                 const isBlack = idx % 2 === 0;
-
-                // The DART section doesn't have a link; render as a non-linked block
-                const isDarts = card.title === "DART" || card.href === "/menu";
 
                 const content = (
                   <div
@@ -211,19 +210,12 @@ export default function Home() {
                           : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl"
                       }
                     >
-                      {isDarts ? "DARTS IN BAR" : "READ MORE"}
+                      {card.title === "DART" ? "DARTS IN BAR" : "READ MORE"}
                     </div>
                   </div>
                 );
 
-                return isDarts ? (
-                  <div
-                    key={card.title}
-                    className="block w-screen overflow-hidden "
-                  >
-                    {content}
-                  </div>
-                ) : (
+                return (
                   <Link
                     key={card.href}
                     href={card.href}
