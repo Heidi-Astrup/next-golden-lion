@@ -39,19 +39,6 @@ export default async function KaraokeSignUpPage({ searchParams }) {
     const album = formData.get("album");
 
     // Gem tilmeldingen i Firebase sammen med den valgte sang
-    // Firebase POST opretter automatisk et nyt unikt ID for hver tilmelding
-    // Strukturen i Firebase bliver:
-    // {
-    //   "abc123": {
-    //     "name": "Mia",
-    //     "phone": "+4512345678",
-    //     "artist": "Adele",
-    //     "title": "Hello",
-    //     "length": "3:45",
-    //     "createdAt": "2024-01-15T23:30:00.000Z"
-    //   },
-    //   "def456": { ... }
-    // }
     const response = await fetch(url, {
       method: "POST", // POST opretter en ny tilmelding i Firebase
       body: JSON.stringify({

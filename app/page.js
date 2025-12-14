@@ -216,7 +216,7 @@ export default function Home() {
                           : "inline-block px-8 py-2 bg-[#e5a702] text-black rounded font-body text-2xl"
                       }
                     >
-                      {card.title === "DART" ? "DARTS IN BAR" : "READ MORE"}
+                      {card.title === "DART" ? "RESERVE A SPOT" : "READ MORE"}
                     </div>
                   </div>
                 );

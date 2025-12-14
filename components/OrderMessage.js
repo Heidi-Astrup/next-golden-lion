@@ -10,7 +10,7 @@ const OrderMessage = ({ status, orderNumber }) => {
             Pay and pick up your order in the bar
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl">Your number:</p>
-          <p className="text-[#FFF5D6] font-body text-4xl mb-4">
+          <p className="text-[#FFF5D6] font-heading text-4xl mb-4">
             <strong>{orderNumber}</strong>
           </p>
         </main>
@@ -44,14 +44,14 @@ const OrderMessage = ({ status, orderNumber }) => {
             Yay! your order have been sent to the bar
           </h1>
           <p className="text-[#FFF5D6] font-heading text-4xl mb-8">
-            The bartender will make til for you ASAP
+            The bartender will make it for you ASAP
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl">Your number:</p>
-          <p className="text-[#FFF5D6] font-body text-4xl mb-4">
+          <p className="text-[#FFF5D6] font-heading text-4xl mb-4">
             <strong>{orderNumber}</strong>
           </p>
           <p className="text-[#FFF5D6] font-body text-2xl mb-12">
-            When its done tou can pay and pick it up in the bar
+            When its done you can pay and pick it up in the bar
           </p>
           <h1 className="text-[#FED85F] font-heading text-7xl">
             Not ready yet
