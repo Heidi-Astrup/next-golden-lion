@@ -34,7 +34,7 @@ export default async function KaraokePage() {
         // og værdien er tilmeldingen (name, phone, artist, title, length, createdAt)
         const data = await response.json();
 
-        // Formattere til dansk tid (CET/CEST) så vi ikke havner en time bagud på Vercel
+        // Formattere til dansk tid, så vi ikke havner en time bagud på Vercel
         const timeFormatter = new Intl.DateTimeFormat("da-DK", {
           hour: "2-digit",
           minute: "2-digit",
@@ -76,7 +76,7 @@ export default async function KaraokePage() {
                   ? `${signup.artist} — ${signup.title}`
                   : signup.title || signup.artist || "No song selected";
 
-              // Formater tidspunkt fra createdAt (ISO string) til "HH:MM" format
+              // Formater tidspunkt fra createdAt til "HH:MM" format
               // og en mere præcis timestamp (dato + klokkeslæt)
               let time = "";
               let createdAtLabel = "";
