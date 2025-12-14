@@ -200,7 +200,7 @@ export default function ReserveDart() {
 
           {/* Overskrift for tidslots */}
           <h3 className="font-heading text-2xl md:text-3xl text-[#FFF5D6] mb-6">
-            Times available
+            Times available today
           </h3>
 
           {/* Vis tidslots i grid - brugeren kan vælge et tidspunkt */}
