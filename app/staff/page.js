@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Logo from "@/components/navigation/Logo";
 import LogIn from "@/components/LogIn";
 
 export default function SignInPage() {
