@@ -124,7 +124,18 @@ export default function ReserveDart() {
         }
 
         console.log("Time slots array:", timeArray);
-        setTimes(timeArray);
+        // Sorter tidsslots efter starttidspunkt (hh:mm) så UI altid er i rækkefølge
+        const sorted = timeArray.sort((a, b) => {
+          const toMinutes = (slot) => {
+            // forventet format "HH:MM - HH:MM"
+            if (!slot?.timeslot) return Number.MAX_SAFE_INTEGER;
+            const [start] = slot.timeslot.split(" - ");
+            const [h, m] = start.split(":").map(Number);
+            return (h ?? 0) * 60 + (m ?? 0);
+          };
+          return toMinutes(a) - toMinutes(b);
+        });
+        setTimes(sorted);
         setError(null);
         setLoading(false);
       } catch (error) {
