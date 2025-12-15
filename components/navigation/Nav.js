@@ -26,10 +26,11 @@ export default function Nav() {
 
   const links = [
     { href: "/", label: "Home" },
+    { href: "/menu", label: "Menu" },
     { href: "/football", label: "Football" },
     { href: "/karaoke", label: "Karaoke" },
     { href: "/pubQuiz", label: "Pub Quiz" },
-    { href: "/menu", label: "Menu" },
+    { href: "/dart", label: "Dart" },
     { href: "/about", label: "About us" },
     { href: "/staff", label: "Staff" },
   ];
