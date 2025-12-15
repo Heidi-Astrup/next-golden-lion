@@ -35,13 +35,13 @@ export default function Football() {
             <p className="text-3xl md:text-4xl font-heading font-normal text-[#E5A702] mb-8 leading-snug">
               Watch Football at The Golden Lion!
             </p>
-            <p className="text-2xl md:text-3xl font-body mb-2 leading-snug">
+            <p className="text-lg md:text-3xl font-body mb-2 leading-snug">
               Catch all the big matches with us!
             </p>
-            <p className="text-2xl md:text-3xl font-body mb-2 leading-snug">
+            <p className="text-lg md:text-3xl font-body mb-2 leading-snug">
               Great atmosphere, cold drinks, and screens ready for every kick.
             </p>
-            <p className="text-2xl md:text-3xl font-body leading-snug mb-2">
+            <p className="text-lg md:text-3xl font-body leading-snug mb-2">
               Whether you&apos;re cheering for your favorite team or just
               enjoying a good game, The Golden Lion is the place to be.
             </p>
