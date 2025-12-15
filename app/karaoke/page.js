@@ -27,7 +27,6 @@ export default async function KaraokePage() {
   // Cutoff på 3 timer (i millisekunder) – gamle tilmeldinger fjernes
   const threeHoursMs = 3 * 60 * 60 * 1000;
   const staleIds = [];
-  const finishedIds = [];
 
   // Formattere tider til dansk tid (bruges både i data-fetch og i UI)
   const timeFormatter = new Intl.DateTimeFormat("da-DK", {
@@ -81,13 +80,8 @@ export default async function KaraokePage() {
                 return null;
               }
 
-              // Drop sange der allerede burde være færdige (createdAt + længde < nu)
+              // Beregn længde i sekunder til estimat/readyAt (men brug ikke til sletning)
               const lengthSec = parseLengthToSeconds(signup.length || "");
-              const finishedAt = createdAtDate.getTime() + lengthSec * 1000;
-              if (finishedAt < now) {
-                finishedIds.push(id);
-                return null;
-              }
 
               // Formater sang-navn til at vise "Artist — Title" hvis begge findes
               // Eller bare "Title" eller "Artist" hvis kun en findes
@@ -146,11 +140,10 @@ export default async function KaraokePage() {
             return { ...item, readyAt };
           });
 
-          // Slet stale tilmeldinger (ældre end 12 timer) og færdige sange
-          const idsToDelete = [...staleIds, ...finishedIds];
-          if (idsToDelete.length > 0) {
+          // Slet stale tilmeldinger (ældre end 3 timer)
+          if (staleIds.length > 0) {
             await Promise.all(
-              idsToDelete.map((id) =>
+              staleIds.map((id) =>
                 fetch(`${cleanedBase}/karaokeSignups/${id}.json`, {
                   method: "DELETE",
                 }).catch(() => null)

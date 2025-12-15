@@ -44,7 +44,7 @@ export default function Home() {
               </h1>
             </div>
             <div className="px-6">
-              <div className="h-px w-full bg-[#E5A702] my-8" />
+              <div className="h-[2px] w-full bg-[#FFF5D6] my-8" />
             </div>
 
             {/* Weekly schedule carousel */}
@@ -135,7 +135,7 @@ export default function Home() {
             <section className="mb-16">
               <div className="px-6">
                 {/* line to break page */}
-                <div className="h-px w-full bg-[#FFF5D6] my-8" />
+                <div className="h-[2px] w-full bg-[#FFF5D6] my-8" />
               </div>
               <h2 className="text-[#e5a702] font-heading text-4xl mb-6 mx-10">
                 ORDER BEVERAGES

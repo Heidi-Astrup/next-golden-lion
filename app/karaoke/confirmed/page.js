@@ -64,9 +64,8 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
               if (Number.isNaN(d.getTime())) return false;
               // Filtrer væk hvis ældre end 12 timer
               if (d.getTime() < cutoff) return false;
-              // Filtrer væk hvis sangen er færdig (createdAt + længde < nu)
-              const finishedAt = d.getTime() + item.lengthSec * 1000;
-              return finishedAt >= now;
+              // Behold entries inden for cutoff; fjerner ikke baseret på længde her
+              return true;
             })
             .sort((a, b) => {
               if (!a.createdAt || !b.createdAt) return 0;
@@ -106,14 +105,12 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
 
           // Slet entries hvor sangen er færdig (createdAt + længde < nu)
           const finishedIds = [];
+          // Slet kun entries ældre end cutoff (3 timer) – længde ignoreres til sletning
           Object.entries(data).forEach(([id, signup]) => {
             if (!signup.createdAt) return;
             const createdAt = new Date(signup.createdAt).getTime();
             if (Number.isNaN(createdAt)) return;
-            const lengthSec = parseLengthToSeconds(signup.length || "");
-            const finishedAt = createdAt + lengthSec * 1000;
-            // Hvis sangen skulle være færdig nu, marker til sletning
-            if (finishedAt < now) {
+            if (createdAt < cutoff) {
               finishedIds.push(id);
             }
           });
