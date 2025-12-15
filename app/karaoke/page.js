@@ -6,6 +6,17 @@ import KaraokeInfoButton from "@/components/KaraokeInfoButton";
 // Dette sikrer at kø-listen altid viser de nyeste tilmeldinger
 export const dynamic = "force-dynamic";
 
+// Hjælpefunktion: parse længde ("3:45") til sekunder
+function parseLengthToSeconds(lengthStr) {
+  if (!lengthStr || typeof lengthStr !== "string") return 0; // mangler længde er 0 sek
+  const parts = lengthStr.split(":").map((p) => parseInt(p, 10)); // Split i minutter/sekunder
+  if (parts.length === 2 && !parts.some(Number.isNaN)) {
+    const [m, s] = parts; // træk min/sek ud
+    return m * 60 + s; // konverter til sekunder
+  }
+  return 0;
+}
+
 // Tilmeldinger gemmes i Firebase under /karaokeSignups.json når brugeren trykker SIGN UP
 export default async function KaraokePage() {
   // Hent Firebase database URL fra environment variabler
@@ -16,6 +27,21 @@ export default async function KaraokePage() {
   // Cutoff på 3 timer (i millisekunder) – gamle tilmeldinger fjernes
   const threeHoursMs = 3 * 60 * 60 * 1000;
   const staleIds = [];
+  const finishedIds = [];
+
+  // Formattere tider til dansk tid (bruges både i data-fetch og i UI)
+  const timeFormatter = new Intl.DateTimeFormat("da-DK", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Copenhagen",
+  });
+  const labelFormatter = new Intl.DateTimeFormat("da-DK", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Copenhagen",
+  });
 
   // Hvis vi har en Firebase URL, henter vi alle tilmeldinger
   if (baseUrl) {
@@ -34,28 +60,15 @@ export default async function KaraokePage() {
         // og værdien er tilmeldingen (name, phone, artist, title, length, createdAt)
         const data = await response.json();
 
-        // Formattere til dansk tid, så vi ikke havner en time bagud på Vercel
-        const timeFormatter = new Intl.DateTimeFormat("da-DK", {
-          hour: "2-digit",
-          minute: "2-digit",
-          timeZone: "Europe/Copenhagen",
-        });
-        const labelFormatter = new Intl.DateTimeFormat("da-DK", {
-          day: "2-digit",
-          month: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-          timeZone: "Europe/Copenhagen",
-        });
-
         // Konverter Firebase-objekt til array og formater dataen til kø-format
         if (data && typeof data === "object") {
           // Beregn cutoff inde i async-blokken for at undgå impure kald i render
-          const cutoff = new Date().getTime() - threeHoursMs;
+          const now = new Date().getTime();
+          const cutoff = now - threeHoursMs;
 
           queue = Object.entries(data)
             .map(([id, signup]) => {
-              // Hvis createdAt mangler eller er ældre end 3 timer, marker til sletning
+              // Hvis createdAt mangler eller er ældre end cutoff, marker til sletning
               const createdAtDate = signup.createdAt
                 ? new Date(signup.createdAt)
                 : null;
@@ -65,6 +78,14 @@ export default async function KaraokePage() {
                 createdAtDate.getTime() < cutoff;
               if (isStale) {
                 staleIds.push(id);
+                return null;
+              }
+
+              // Drop sange der allerede burde være færdige (createdAt + længde < nu)
+              const lengthSec = parseLengthToSeconds(signup.length || "");
+              const finishedAt = createdAtDate.getTime() + lengthSec * 1000;
+              if (finishedAt < now) {
+                finishedIds.push(id);
                 return null;
               }
 
@@ -96,6 +117,7 @@ export default async function KaraokePage() {
                 time, // Formateret tidspunkt (fx "23:30")
                 createdAt: signup.createdAt || "", // Behold original createdAt til sortering
                 createdAtLabel, // Læsevenlig timestamp (dd/mm kl. hh:mm)
+                lengthSec, // Sangens længde i sekunder (bruges til estimat)
               };
             })
             .filter(Boolean) // fjern stale/null entries
@@ -107,10 +129,28 @@ export default async function KaraokePage() {
               return new Date(a.createdAt) - new Date(b.createdAt);
             });
 
-          // Slet stale tilmeldinger fra Firebase (ældre end 3 timer)
-          if (staleIds.length > 0) {
+          // Beregn estimeret starttidspunkt (readyAt) for hver i køen som på confirmed-siden
+          queue = queue.map((item, idx, arr) => {
+            const before = arr.slice(0, idx);
+            const totalSec = before.reduce(
+              (sum, prev) => sum + (prev.lengthSec || 0),
+              0
+            );
+            let readyAt = null;
+            if (item.createdAt) {
+              const createdAtDate = new Date(item.createdAt);
+              if (!Number.isNaN(createdAtDate.getTime())) {
+                readyAt = new Date(createdAtDate.getTime() + totalSec * 1000);
+              }
+            }
+            return { ...item, readyAt };
+          });
+
+          // Slet stale tilmeldinger (ældre end 12 timer) og færdige sange
+          const idsToDelete = [...staleIds, ...finishedIds];
+          if (idsToDelete.length > 0) {
             await Promise.all(
-              staleIds.map((id) =>
+              idsToDelete.map((id) =>
                 fetch(`${cleanedBase}/karaokeSignups/${id}.json`, {
                   method: "DELETE",
                 }).catch(() => null)
@@ -203,9 +243,16 @@ export default async function KaraokePage() {
                       </span>
                       <span className="text-sm truncate">{item.song}</span>
                     </div>
-                    {/* Tidspunkt for tilmelding (fx "23:30") – vises til højre */}
+                    {/* Estimeret starttid (samme logik som confirmed); fallback til tilmeldingstid */}
                     <span className="text-sm text-right text-[#FFF5D6]/80">
-                      {item.time}
+                      {item.readyAt
+                        ? (() => {
+                            const d = new Date(item.readyAt);
+                            return Number.isNaN(d.getTime())
+                              ? item.time
+                              : timeFormatter.format(d);
+                          })()
+                        : item.time}
                     </span>
                   </div>
                 ))
@@ -223,7 +270,9 @@ export default async function KaraokePage() {
                 <p className="text-2xl md:text-3xl text-[#FFF5D6]">
                   Every <span className="font-bold">Thursday</span> at
                 </p>
-                <p className="text-2xl md:text-3xl text-[#FFF5D6]">23:00-03:00</p>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">
+                  23:00-03:00
+                </p>
               </div>
               <div>
                 <p className="text-2xl md:text-3xl text-[#FFF5D6]">
@@ -234,7 +283,9 @@ export default async function KaraokePage() {
                 <p className="text-2xl md:text-3xl text-[#FFF5D6]">
                   Every <span className="font-bold">Saturday</span> at
                 </p>
-                <p className="text-2xl md:text-3xl text-[#FFF5D6]">23:00-03:00</p>
+                <p className="text-2xl md:text-3xl text-[#FFF5D6]">
+                  23:00-03:00
+                </p>
               </div>
             </div>
           </section>

@@ -42,8 +42,8 @@ export default async function KaraokeConfirmedPage({ searchParams }) {
       if (response.ok) {
         const data = await response.json();
         if (data && typeof data === "object") {
-          const twelveHoursMs = 12 * 60 * 60 * 1000; // behold kun tilmeldinger fra sidste 12 timer
-          const cutoff = new Date().getTime() - twelveHoursMs;
+          const threeHoursMs = 3 * 60 * 60 * 1000; // behold kun tilmeldinger fra sidste 3 timer
+          const cutoff = new Date().getTime() - threeHoursMs;
 
           // Byg kø-array og sorter efter createdAt (ældste først)
           const now = new Date().getTime();
