@@ -124,16 +124,16 @@ export default function ReserveDart() {
         }
 
         console.log("Time slots array:", timeArray);
-        // Sorter tidsslots efter starttidspunkt (hh:mm) så UI altid er i rækkefølge
+        // Sorter tidsslots efter starttidspunkt (hh:mm), fordi Firebase giver et objekt uden rækkefølge
         const sorted = timeArray.sort((a, b) => {
           const toMinutes = (slot) => {
             // forventet format "HH:MM - HH:MM"
-            if (!slot?.timeslot) return Number.MAX_SAFE_INTEGER;
-            const [start] = slot.timeslot.split(" - ");
-            const [h, m] = start.split(":").map(Number);
-            return (h ?? 0) * 60 + (m ?? 0);
+            if (!slot?.timeslot) return Number.MAX_SAFE_INTEGER; // ingen tid skal læg sidst i array
+            const [start] = slot.timeslot.split(" - "); // tag startdelen
+            const [h, m] = start.split(":").map(Number); // split i timer/minutter
+            return (h ?? 0) * 60 + (m ?? 0); // konverter til minutter
           };
-          return toMinutes(a) - toMinutes(b);
+          return toMinutes(a) - toMinutes(b); // sorter stigende på starttid
         });
         setTimes(sorted);
         setError(null);
