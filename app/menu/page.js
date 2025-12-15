@@ -66,7 +66,7 @@ export default function Menu() {
             >
               Draught
             </h3>
-            <div className="flex flex-wrap gap-4 max-w-[600px] justify-between">
+            <div className="flex flex-wrap gap-3 max-w-[600px] justify-start">
               {draughtBeverages.map((beverages) => (
                 <BeverageCard
                   key={beverages.id}
